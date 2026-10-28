@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="주시원 UX/UI · 서비스 기획자 프로젝트 상세 페이지">
+  <title>PROJECT DETAIL — SIWON JOO</title>
+  <link rel="stylesheet" href="detail.css">
+</head>
+<body>
+  <a class="skip-link" href="#detail-main">본문 바로가기</a>
+  <header class="site-header">
+    <a class="brand-mark" href="index.html" aria-label="메인으로 이동"><span>SIWON JOO</span></a>
+    <nav class="gnb" aria-label="주요 메뉴">
+      <a class="is-current" href="projects.html">PROJECTS</a>
+      <a href="about.html">ABOUT</a>
+      <a href="주시원_이력서_자기소개서.pdf" download>RESUME ↗</a>
+    </nav>
+  </header>
+
+  <main id="detail-main">
+    <section class="detail-intro" aria-labelledby="detail-title">
+      <a class="back-link" href="projects.html">← 프로젝트 목록으로</a>
+      <p class="detail-index">프로젝트 상세 / <span id="project-number">01</span></p>
+      <!-- 제목 → 본문 → 링크 → 메타 블록 → 커버 (genchsoy 상세 페이지 구조 참고) -->
+      <div class="detail-intro__content">
+        <h1 id="detail-title">프로젝트 제목</h1>
+        <p class="detail-sub">결정적인 수의 전개</p>
+        <p class="detail-summary" id="detail-summary">프로젝트 한 줄 설명</p>
+        <div class="project-docs" id="project-docs" aria-label="산출물"></div>
+        <dl class="project-facts" id="project-facts"></dl>
+      </div>
+      <div class="detail-cover placeholder"><span>프로젝트 커버 / 키비주얼 자리</span></div>
+    </section>
+
+    <div class="detail-layout">
+      <aside class="project-index" aria-label="프로젝트 섹션 탐색">
+        <p>목차</p>
+        <nav id="section-nav"></nav>
+      </aside>
+      <div class="detail-sections" id="detail-sections"></div>
+    </div>
+
+    <!-- 하단: 나머지 프로젝트를 목록과 같은 행 형식으로 (genchsoy "Other Projects") -->
+    <section class="other-projects" aria-labelledby="other-projects-title">
+      <div class="other-projects__head">
+        <h2 id="other-projects-title">다른 프로젝트</h2>
+        <span aria-hidden="true">↓</span>
+      </div>
+      <div class="project-index-list" id="other-projects-list"></div>
+    </section>
+  </main>
+
+  <button class="top-button" type="button" id="top-button">맨 위로 ↑</button>
+
+  <footer class="footer">
+    <span>[ FOOTER ]</span><span>주시원 · UX/UI · 서비스 기획자</span><a href="mailto:tldnjs248@gmail.com">이메일 ↗</a><span>© 2026</span>
+  </footer>
+  <script src="project-detail.js"></script>
+</body>
+</html>

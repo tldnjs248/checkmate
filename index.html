@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="주시원 UX/UI · 서비스 기획자 포트폴리오">
+  <title>CHECKMATE — SIWON JOO</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">본문 바로가기</a>
+
+  <header class="site-header">
+    <a class="brand-mark" href="#main" aria-label="주시원 포트폴리오 메인"><span>SIWON JOO</span></a>
+    <nav class="gnb" aria-label="주요 메뉴">
+      <a href="projects.html">PROJECTS</a>
+      <a href="about.html">ABOUT</a>
+      <a href="주시원_이력서_자기소개서.pdf" download>RESUME ↗</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <!-- HERO — 첫 화면은 대표 문장과 진입 버튼만 둔다 -->
+    <section class="hero">
+      <div class="hero__statement">
+        <h1>판단의 근거를 쌓고<br>결정적인 수를 두는 기획자, 주시원입니다.</h1>
+        <div class="hero__actions">
+          <a class="button" href="projects.html">프로젝트 보기 →</a>
+          <a class="button" href="about.html">소개 보기 →</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="intro" aria-labelledby="intro-title">
+      <div class="intro__copy">
+        <p class="section-name">HOW I PLAY<span>근거를 쌓고 · 함께 판단하고 · 결정한다</span></p>
+        <h2 id="intro-title">문제를 확인하고,<br>함께 더 나은 방향을 만들어갑니다.</h2>
+        <p>사용자, 비즈니스의 요구 등 다양한 관점을 바탕으로<br>문제를 구조화하고, 실행 가능한 해결 방향을 제안합니다.</p>
+      </div>
+      <div class="principles" aria-label="업무 방식">
+        <article><h3>CHECK</h3><p>근거를 쌓는다</p></article>
+        <article><h3>MATE</h3><p>함께 판단한다</p></article>
+        <article><h3>CHECKMATE!</h3><p>결정한다</p></article>
+      </div>
+    </section>
+
+    <section class="projects" id="projects" aria-labelledby="projects-title">
+      <div class="section-head">
+        <div class="section-head__title"><h2 id="projects-title">MAIN PROJECTS</h2><p>결정적인 수를 만든 프로젝트</p></div>
+        <a class="button" href="projects.html">프로젝트 전체 보기 &gt;</a>
+      </div>
+      <div id="project-list"></div>
+    </section>
+
+    <section class="about" id="about" aria-labelledby="about-title">
+      <div class="section-head">
+        <div class="section-head__title"><h2 id="about-title">ABOUT</h2><p>수를 두는 사람</p></div>
+        <a class="button" href="about.html">소개 전체 보기 &gt;</a>
+      </div>
+      <div class="about__body">
+        <div class="about__visual placeholder" aria-label="프로필 또는 소개 이미지 영역"></div>
+        <!-- 라벨 / 요약 / 상세 세 칸이 한 행을 이룬다 -->
+        <dl class="about__facts">
+          <div class="about__bio">
+            <dt>소개</dt>
+            <dd class="about__summary">판단의 근거를 쌓는 기획자</dd>
+            <dd class="about__detail">
+              <p>사용자가 실제로 겪는 문제를 직접 확인해 판단의 근거를 쌓고, 여러 관점과 함께 검토해 실행 가능한 방향으로 결정합니다.</p>
+              <p>생각을 먼저 확정하기보다 자료와 실제 반응으로 판단의 기준을 세우고, 팀과 함께 더 나은 결정을 만드는 기획자가 되고 싶습니다.</p>
+            </dd>
+          </div>
+          <div>
+            <dt>이름</dt>
+            <dd class="about__summary">주시원</dd>
+            <dd class="about__detail">UX/UI · 서비스 기획자</dd>
+          </div>
+          <div>
+            <dt>학력</dt>
+            <dd class="about__summary">계원예술대학교</dd>
+            <dd class="about__detail">디지털미디어디자인과 기획 세부전공<br>2027.02 졸업예정</dd>
+          </div>
+          <div>
+            <dt>수상</dt>
+            <dd class="about__summary">커뮤니케이션국제어워드</dd>
+            <dd class="about__detail">디지털미디어디자인 부문 특별상 · MOULD<br>2026.10</dd>
+          </div>
+          <div class="about__skills">
+            <dt>역량</dt>
+            <dd><div class="skill-list" id="skill-list"></div></dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" id="resume">
+    <span>[ FOOTER ]</span>
+    <span>주시원 · UX/UI · 서비스 기획자</span>
+    <a href="mailto:tldnjs248@gmail.com">이메일 ↗</a>
+    <span>© 2026</span>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
+
+</body></html>

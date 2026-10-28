@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="주시원 UX/UI · 서비스 기획자 전체 프로젝트 탐색 페이지">
+  <title>PROJECTS — SIWON JOO</title>
+  <link rel="stylesheet" href="projects.css">
+</head>
+<body>
+  <a class="skip-link" href="#projects-main">본문 바로가기</a>
+
+  <header class="site-header">
+    <a class="brand-mark" href="index.html" aria-label="메인으로 이동"><span>SIWON JOO</span></a>
+    <nav class="gnb" aria-label="주요 메뉴">
+      <a class="is-current" href="projects.html">PROJECTS</a>
+      <a href="about.html">ABOUT</a>
+      <a href="주시원_이력서_자기소개서.pdf" download>RESUME ↗</a>
+    </nav>
+  </header>
+
+  <main id="projects-main">
+    <section class="page-intro" aria-labelledby="page-title">
+      <p class="eyebrow">01 / 전체 프로젝트</p>
+      <h1 id="page-title">PROJECTS<span>지금까지 둔 수</span></h1>
+      <div class="page-intro__copy">
+        <p>근거를 쌓아 문제를 정의하고,<br>결정으로 옮긴 프로젝트입니다.</p>
+        <span>UX 개선 · 서비스 기획 · 브랜드 / 경험</span>
+      </div>
+    </section>
+
+    <!-- 레이블 열 + 값 열, 세 행이 같은 격자에 정렬된다 -->
+    <section class="project-tools" aria-label="프로젝트 필터와 정렬">
+      <div class="filter-group" data-filter-group="type">
+        <h3>프로젝트 유형</h3>
+        <!-- 버튼은 projects.js 가 프로젝트 데이터에서 만든다 -->
+        <div class="filter-options" role="group" aria-label="프로젝트 성격 필터"></div>
+      </div>
+
+      <div class="filter-group" data-filter-group="output">
+        <h3>산출물</h3>
+        <!-- 버튼은 projects.js 가 프로젝트 데이터에서 만든다 -->
+        <div class="filter-options" role="group" aria-label="결과물 필터"></div>
+      </div>
+
+      <div class="sort-row">
+        <p><span id="result-count">04</span>개 프로젝트</p>
+        <select id="project-sort" aria-label="프로젝트 정렬">
+          <option value="newest">최신순</option>
+          <option value="oldest">오래된순</option>
+          <option value="name">이름순</option>
+        </select>
+      </div>
+    </section>
+
+    <section class="project-grid-section" aria-label="프로젝트 목록">
+      <div class="project-grid" id="project-grid"></div>
+      <p class="empty-state" id="empty-state" hidden>선택한 조건에 해당하는 프로젝트가 없습니다.</p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>[ FOOTER ]</span>
+    <span>주시원 · UX/UI · 서비스 기획자</span>
+    <a href="mailto:tldnjs248@gmail.com">이메일 ↗</a>
+    <span>© 2026</span>
+  </footer>
+
+  <script src="projects.js"></script>
+</body>
+</html>
