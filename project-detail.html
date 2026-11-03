@@ -20,9 +20,12 @@
 
   <main id="detail-main">
     <section class="detail-intro" aria-labelledby="detail-title">
-      <a class="back-link" href="projects.html">← 프로젝트 목록으로</a>
-      <p class="detail-index">프로젝트 상세 / <span id="project-number">01</span></p>
-      <!-- 제목 → 본문 → 링크 → 메타 블록 → 커버 (genchsoy 상세 페이지 구조 참고) -->
+      <div class="detail-topbar">
+        <a class="back-link" href="projects.html">← 프로젝트 목록으로</a>
+        <p class="detail-index">프로젝트 상세 / <span id="project-number">01</span></p>
+      </div>
+      <div class="detail-cover placeholder"><span class="ph-label">프로젝트 커버</span><span class="ph-note">이미지 준비 중입니다</span></div>
+      <!-- 커버 → 제목 → 본문 → 링크 → 메타 블록 -->
       <div class="detail-intro__content">
         <h1 id="detail-title">프로젝트 제목</h1>
         <p class="detail-sub">결정적인 수의 전개</p>
@@ -30,7 +33,6 @@
         <div class="project-docs" id="project-docs" aria-label="산출물"></div>
         <dl class="project-facts" id="project-facts"></dl>
       </div>
-      <div class="detail-cover placeholder"><span class="ph-label">프로젝트 커버</span><span class="ph-note">이미지 준비 중입니다</span></div>
     </section>
 
     <div class="detail-layout">

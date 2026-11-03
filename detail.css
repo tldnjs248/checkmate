@@ -182,3 +182,10 @@ main,.footer{width:100%;max-width:1920px;margin:0 auto}.detail-intro{position:re
 .placeholder .ph-label{font-size:16px;font-weight:600;color:#555}
 .placeholder .ph-note{font-size:14px;color:#8a8a8a}
 @media(max-width:720px){.placeholder .ph-label{font-size:14px}.placeholder .ph-note{font-size:12px}}
+
+/* 커버를 제목 위로 — 상단 줄은 흐름 배치로 바꾼다 */
+.detail-intro{padding-top:112px}
+.detail-topbar{display:flex;align-items:baseline;justify-content:space-between;gap:20px;margin-bottom:24px}
+.back-link,.detail-index{position:static;top:auto;left:auto;right:auto}
+.detail-intro__content{padding-top:52px}
+@media(max-width:720px){.detail-intro{padding-top:96px}.detail-topbar{margin-bottom:18px}.detail-index{display:block}.detail-intro__content{padding-top:34px}}
