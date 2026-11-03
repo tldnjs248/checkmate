@@ -170,3 +170,9 @@ main,.footer{width:100%;max-width:1920px;margin:0 auto}.detail-intro{position:re
 /* 핵심 판단 — 근거로 방향을 바꾼 지점 (정보표에서 한 단 강조) */
 .project-facts .fact-call dt { color: #111; font-weight: 700; }
 .project-facts .fact-call dd { font-weight: 700; }
+
+/* 이미지 자리 — 오류 화면이 아니라 준비 중임이 읽히게 */
+.placeholder{gap:8px;padding:16px;align-content:center;grid-auto-rows:min-content}
+.placeholder .ph-label{font-size:16px;font-weight:600;color:#555}
+.placeholder .ph-note{font-size:14px;color:#8a8a8a}
+@media(max-width:720px){.placeholder .ph-label{font-size:14px}.placeholder .ph-note{font-size:12px}}
