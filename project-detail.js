@@ -8,8 +8,8 @@ const projects = [
     title:'코레일톡 | 사용자 검증을 통한 예약 승차권 조회 UX/UI 개선',
     summary:'사용성 평가와 아이트래킹을 통해 예약 승차권의 반복 탐색 문제를 검증하고, 조회 구조와 사용자 경로를 개선한 프로젝트입니다.',
     type:'UX 개선',period:'2026.03 — 07',
-    call:'팀이 다른 문제를 찾던 시점에 예약 승차권 조회 불편을 제시하고, 평가 범위를 예매 전반으로 넓히자고 제안',
-    role:'철도 이용 환경 및 관련 문헌 조사 · 아이트래킹과 사용성 평가 결과 분석 · 평가 범위 확장 제안',
+    call:['좌석 자동배정','예매 전반'],
+    role:'문헌 조사 · 아이트래킹 · 사용성 평가 분석 · 범위 확장 제안',
     deliverable:'보고서 · 스토리보드',outputs:['report','storyboard'],
     sections:[
       ['opening','OPENING','프로젝트 개요','wide',[
@@ -41,8 +41,8 @@ const projects = [
     title:'MOULD | 공간을 개인화하는 몰입형 미디어 기반 주거 경험 서비스',
     summary:'사용자 요구와 기술의 적용·운영 조건을 검토하고, 서비스 콘셉트를 공간별 경험과 태블릿 UX, 영상 시나리오로 구체화한 프로젝트입니다.',
     type:'서비스 기획 · 브랜드 / 경험',period:'2026.03 — 07',
-    call:'기술의 화려함 대신 적용 가능성과 운영 지속성을 우선 기준으로 제안해 기술 범위를 좁힘',
-    role:'팀장 · 사용자 및 트렌드 조사 · 서비스 구조 설계 · 공간별 경험 및 영상 시나리오 기획',
+    call:['화려한 기술','적용 가능성 · 운영 지속성'],
+    role:'팀장 · 사용자 조사 · 서비스 구조 설계 · 공간 경험 · 영상 시나리오',
     deliverable:'제안서 · 기획서',outputs:['proposal','plan'],
     sections:[
       ['opening','OPENING','프로젝트 개요','wide',[
@@ -73,8 +73,8 @@ const projects = [
     title:'롯데시네마 | 특별관 탐색 경험 개선',
     summary:'결제 개선으로 시작한 과제에서 결제를 범위 밖으로 덜어내고, 사용자가 한 번에 수행하는 탐색과 예매를 하나의 흐름으로 합쳐 특별관 선택까지 이어지도록 개선하는 프로젝트입니다.',
     type:'UX 개선',period:'2026.09 — 12',
-    call:'결제 항목은 UX로 풀 수 없다고 보고 범위에서 제외하고, 탐색과 예매를 하나의 흐름으로 통합',
-    role:'일정 · 주간 진행 관리 · 1차 사용성 평가 및 결과 분석 · 개선 원칙 및 요구사항 정의 · 프로토타입 · 화면설계서',
+    call:['결제 개선','탐색 + 예매 통합'],
+    role:'일정 관리 · 사용성 평가 · 요구사항 정의 · 프로토타입 · 화면설계서',
     deliverable:'제안서 · 스토리보드',outputs:['proposal','storyboard'],
     sections:[
       ['opening','OPENING','프로젝트 개요','wide',[
@@ -107,7 +107,7 @@ const projects = [
     title:'DMD Graduation Exhibition | 디지털미디어디자인과 졸업전시 브랜딩',
     summary:'학과의 다양한 작업을 하나의 브랜드 경험으로 연결하고, 관람 목적에 맞게 웹과 전시 현장을 탐색할 수 있도록 설계한 프로젝트입니다.',
     type:'브랜드 / 경험',period:'2026.09 — 12',
-    role:'공동 기획 · 전시 사례 및 관람객 요구 분석 · 웹사이트 콘텐츠 구조 및 화면설계 · 웹 카피라이팅',
+    role:'공동 기획 · 관람객 조사 · 콘텐츠 구조 · 화면설계 · 카피라이팅',
     deliverable:'기획서 · 스토리보드',outputs:['plan','storyboard'],
     sections:[
       ['opening','OPENING','프로젝트 개요','wide',[
@@ -145,7 +145,7 @@ const projects = [
     title:'CHECKMATE | AI를 활용한 포트폴리오 웹사이트 기획·제작',
     summary:'문제를 확인하고 근거를 쌓아 방향을 결정하는 기획 과정을 보여주기 위해 포트폴리오 웹사이트를 직접 기획하고 구현한 프로젝트입니다.',
     type:'AI · 브랜드 / 경험',period:'2026.09 — 12',
-    role:'포트폴리오 전략 및 콘셉트 기획 · 정보구조 설계 · 화면설계 · 콘텐츠 작성 · AI 협업 방식 설계 · 웹사이트 구현',
+    role:'콘셉트 기획 · 정보구조 · 화면설계 · 콘텐츠 작성 · AI 협업 설계 · 구현',
     deliverable:'스토리보드 · 제안서',outputs:['storyboard','proposal'],
     sections:[
       ['opening','OPENING','프로젝트 개요','wide',[
@@ -191,7 +191,7 @@ document.querySelector('#project-docs').innerHTML=(project.outputs||[])
   .map(key=>`<a class="report-button" href="${DOC_HREF[key]}" target="_blank" rel="noopener">${DOC_LABEL[key]} <i aria-hidden="true">↗</i></a>`)
   .join('');
 /* 핵심 판단 — 근거로 방향을 바꾼 프로젝트에만 노출한다 */
-document.querySelector('#project-facts').innerHTML=`<div><dt>프로젝트 유형</dt><dd>${project.type}</dd></div><div><dt>기간</dt><dd>${project.period}</dd></div>${project.call?`<div class="fact-call"><dt>핵심 판단</dt><dd>${project.call}</dd></div>`:''}<div><dt>담당 범위</dt><dd>${project.role}</dd></div><div><dt>산출물</dt><dd>${project.deliverable}</dd></div>`;
+document.querySelector('#project-facts').innerHTML=`<div><dt>프로젝트 유형</dt><dd>${project.type}</dd></div><div><dt>기간</dt><dd>${project.period}</dd></div>${project.call?`<div class="fact-call"><dt>핵심 판단</dt><dd><span class="call-from">${project.call[0]}</span><span class="call-arrow" aria-hidden="true">→</span><span class="call-to">${project.call[1]}</span></dd></div>`:''}<div><dt>담당 범위</dt><dd>${project.role}</dd></div><div><dt>산출물</dt><dd>${project.deliverable}</dd></div>`;
 /* 이미지 자리 — 더미 글자가 보이지 않는 세 가지만 쓴다 */
 /* 이미지 자리 — 오류 화면이 아니라 준비 중인 자리임이 읽히도록 안내를 함께 둔다 */
 const ph=(cls,label)=>`<div class="${cls} placeholder"><span class="ph-label">${label}</span><span class="ph-note">이미지 준비 중입니다</span></div>`;
