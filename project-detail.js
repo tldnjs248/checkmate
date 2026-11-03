@@ -8,6 +8,7 @@ const projects = [
     title:'코레일톡 | 사용자 검증을 통한 예약 승차권 조회 UX/UI 개선',
     summary:'사용성 평가와 아이트래킹을 통해 예약 승차권의 반복 탐색 문제를 검증하고, 조회 구조와 사용자 경로를 개선한 프로젝트입니다.',
     type:'UX 개선',period:'2026.03 — 07',
+    call:'좌석 자동배정에서 예약 승차권 조회로 개선 우선순위를 전환',
     role:'철도 이용 환경 및 관련 문헌 조사 · 아이트래킹과 사용성 평가 결과 분석 · 평가 범위 확장 제안과 개선 우선순위 재설정',
     deliverable:'보고서 · 스토리보드',outputs:['report','storyboard'],
     sections:[
@@ -71,14 +72,17 @@ const projects = [
     title:'롯데시네마 | 특별관 탐색 경험 개선',
     summary:'영화 산업과 롯데시네마의 사업 방향을 조사하고, 오프라인에서 강조되는 특별관 경험이 앱의 탐색과 선택, 예매까지 이어지도록 개선하는 프로젝트입니다.',
     type:'UX 개선',period:'2026.09 — 12',
+    call:'결제 단계 개선으로 시작한 과제를 특별관 탐색 문제로 전환',
     role:'영화 산업 및 기업 분석 · 서비스 문제 정의 · 정보구조 설계 · 산업 · 현장 조사와 개선 방향을 잇는 논거 구성',
     deliverable:'제안서 · 스토리보드',outputs:['proposal','storyboard'],
     sections:[
       ['opening','OPENING','프로젝트 개요','wide',[
-        'OTT와 차별화되는 극장 경험으로서 특별관의 중요성에 주목했습니다. 사용자가 관람 목적에 맞는 특별관을 쉽게 발견하고 비교·선택할 수 있도록 앱의 탐색 구조와 메뉴 체계를 개선하고 있습니다.',
+        '처음에는 결제 단계의 불편을 개선하는 과제로 시작했습니다. 영화 산업과 롯데시네마의 사업 방향을 조사하면서 특별관 관람이 늘고 있다는 흐름을 확인했고, 결제보다 앞단인 특별관 탐색에서 더 큰 불편이 생기고 있다고 판단해 과제의 대상을 옮겼습니다.',
+        '사용자가 관람 목적에 맞는 특별관을 쉽게 발견하고 비교 · 선택할 수 있도록 앱의 탐색 구조와 메뉴 체계를 개선하고 있습니다.',
       ]],
-      ['check','CHECK','산업·사업·현장 조사','pair',[
+      ['check','CHECK','대상을 바꾼 근거','pair',[
         '영화 산업과 롯데시네마의 사업 방향을 조사하고, 실제 영화관을 방문해 특별관 홍보와 이용 환경을 관찰했습니다. 오프라인에서는 특별관을 적극적으로 홍보하고 있었지만, 앱에서는 관련 정보가 여러 경로에 분산돼 있어 특별관을 발견하고 탐색하기 어려웠습니다.',
+        '결제 단계의 불편은 화면 몇 곳을 고쳐 해결할 수 있는 범위였던 반면, 특별관 탐색은 사업 방향과 맞닿아 있으면서도 앱에서 가장 끊겨 있는 지점이었습니다. 이 차이를 근거로 과제의 대상을 바꿨습니다.',
       ]],
       ['finding','FINDING','오프라인과 앱 경험의 간극','asymmetric',[
         '특별관 정보가 앱 안에서 개별적으로 소개되고 있어 각 관의 차이를 한눈에 이해하기 어려웠습니다. 메뉴명과 분류 방식도 사용자가 예상하는 관람 기준과 달라, 특별관을 발견한 뒤 비교하고 선택하는 과정이 자연스럽게 이어지지 않았습니다.',
@@ -179,7 +183,8 @@ const DOC_HREF={report:'#',proposal:'#',plan:'#',storyboard:'#'};
 document.querySelector('#project-docs').innerHTML=(project.outputs||[])
   .map(key=>`<a class="report-button" href="${DOC_HREF[key]}" target="_blank" rel="noopener">${DOC_LABEL[key]} <i aria-hidden="true">↗</i></a>`)
   .join('');
-document.querySelector('#project-facts').innerHTML=`<div><dt>프로젝트 유형</dt><dd>${project.type}</dd></div><div><dt>기간</dt><dd>${project.period}</dd></div><div><dt>담당 범위</dt><dd>${project.role}</dd></div><div><dt>산출물</dt><dd>${project.deliverable}</dd></div>`;
+/* 핵심 판단 — 근거로 방향을 바꾼 프로젝트에만 노출한다 */
+document.querySelector('#project-facts').innerHTML=`<div><dt>프로젝트 유형</dt><dd>${project.type}</dd></div><div><dt>기간</dt><dd>${project.period}</dd></div>${project.call?`<div class="fact-call"><dt>핵심 판단</dt><dd>${project.call}</dd></div>`:''}<div><dt>담당 범위</dt><dd>${project.role}</dd></div><div><dt>산출물</dt><dd>${project.deliverable}</dd></div>`;
 /* 이미지 자리 — 더미 글자가 보이지 않는 세 가지만 쓴다 */
 const visual=kind=>kind==='pair'?`<div class="visual-pair"><div class="placeholder">이미지 자리</div><div class="placeholder">이미지 자리</div></div>`:kind==='asymmetric'?`<div class="visual-asymmetric"><div class="placeholder">메인 이미지 자리</div><div class="placeholder">서브 이미지</div></div>`:`<div class="visual-wide placeholder">와이드 이미지 자리</div>`;
 /* 본문 제목은 작은 영문 + 큰 한글, 본문 문단은 이미지 자리 위에 */

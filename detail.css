@@ -166,3 +166,7 @@ main,.footer{width:100%;max-width:1920px;margin:0 auto}.detail-intro{position:re
 
 /* 제목 아래 부제 (정보구조도 7쪽) */
 .detail-sub { margin-top: 14px; font-size: 18px; color: #555; }
+
+/* 핵심 판단 — 근거로 방향을 바꾼 지점 (정보표에서 한 단 강조) */
+.project-facts .fact-call dt { color: #111; font-weight: 700; }
+.project-facts .fact-call dd { font-weight: 700; }
