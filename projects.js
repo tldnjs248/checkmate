@@ -36,7 +36,7 @@ const projects = [
     types: ['ai', 'brand'],
     outputs: ['storyboard', 'proposal'],
     period: '2026.09 — 12',
-    order: 2, // 노출 순서 — 큰 값이 먼저(최신순) · 오래된순은 그 역순 (2026-10-21 사용자 지정)
+    order: 3,
   },
   {
     id: 'dmd-graduation',
@@ -54,7 +54,7 @@ const projects = [
     types: ['service', 'brand'],
     outputs: ['proposal', 'plan'],
     period: '2026.03 — 07',
-    order: 3,
+    order: 2,
   },
   {
     id: 'korail-talk',
