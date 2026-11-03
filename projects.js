@@ -141,6 +141,7 @@ function render() {
         <a class="project-card__link" href="project-detail.html?project=${project.id}" aria-label="${project.name} 상세 페이지로 이동">
           <div class="project-card__thumb">
             <span class="project-card__index">${String(index + 1).padStart(2, '0')}</span>
+            <span class="project-card__ph">이미지 준비 중입니다</span>
             <span class="project-card__view">VIEW PROJECT ↗</span>
           </div>
           <div class="project-card__body">

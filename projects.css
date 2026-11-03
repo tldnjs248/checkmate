@@ -334,3 +334,97 @@ main, .footer { width: 100%; max-width:1920px; margin: 0 auto; }
 
 /* 페이지 제목 아래 부제 (정보구조도 7쪽) */
 .page-intro h1 span { display: block; margin-top: 22px; font-size: 20px; font-weight: 400; line-height: 1.4; letter-spacing: -.025em; color: #555; }
+
+/* ═══ 프로젝트 목록 · 필터 / 정렬 규칙 (2026-11-03 확정) ═══
+   칩: 테두리형 · 높이 44px · 모서리 0 · 가로 여백 20px · 간격 8px
+   근거: WCAG 2.5.5 Target Size (Enhanced) 44x44 · Apple HIG 44pt
+   첫 화면: 썸네일이 절반 보이도록 히어로와 도구 영역을 줄임
+   범위: 이 장의 필터 · 정렬에만 적용 (GNB · 상세 · 소개는 손대지 않음) */
+
+/* 첫 화면 높이 */
+.page-intro { height: 420px; padding-top: 56px; }
+.eyebrow { top: 118px; }
+.page-intro h1 { bottom: 52px; font-size: clamp(76px, 5.4vw, 108px); }
+.page-intro__copy { bottom: 56px; }
+.page-intro__copy p { font-size: 25px; }
+.page-intro__copy span { margin-top: 22px; font-size: 17px; }
+.project-tools { min-height: 0; padding: 40px 60px 30px; }
+
+/* 필터 줄 — 라벨은 왼쪽 고정 폭, 칩은 그 오른쪽 */
+.filter-group { margin-left: 0; grid-template-columns: 150px minmax(0, 1fr); align-items: center; padding: 0 0 20px; }
+.filter-group + .filter-group { margin-left: 0; padding-top: 20px; }
+.filter-group h3 { font-size: 13px; font-weight: 500; letter-spacing: .02em; color: #666; }
+
+/* 칩 — 테두리형 */
+.filter-options { gap: 8px; }
+.filter-options button {
+  min-height: 44px;
+  padding: 0 20px;
+  border: 1px solid #aaa;
+  border-radius: 0;
+  background: #fff;
+  color: #111;
+  font-size: 16px;
+  letter-spacing: -.01em;
+  transition: background-color .15s ease, border-color .15s ease, color .15s ease;
+}
+.filter-options button:hover { background: #f4f4f4; border-color: #111; }
+.filter-options button:focus-visible { outline: 2px solid #111; outline-offset: 2px; }
+.filter-options button.is-active { background: #111; border-color: #111; color: #fff; }
+.filter-options button.is-active:hover { background: #111; }
+.filter-options button:disabled { background: #fafafa; border-color: #e5e5e5; color: #bbb; cursor: not-allowed; }
+.filter-options button:disabled:hover { background: #fafafa; border-color: #e5e5e5; }
+
+/* 정렬 줄 — 칩과 같은 높이 · 같은 테두리 */
+.sort-row { margin-top: 0; padding-top: 20px; align-items: center; }
+.sort-row p { font-size: 13px; font-weight: 500; letter-spacing: .02em; color: #666; }
+.sort-row select {
+  justify-self: start;
+  width: auto;
+  min-width: 164px;
+  height: 44px;
+  padding: 0 44px 0 16px;
+  border: 1px solid #aaa;
+  border-radius: 0;
+  background-color: #fff;
+  font-size: 16px;
+  letter-spacing: -.01em;
+  background-position: calc(100% - 22px) 19px, calc(100% - 16px) 19px;
+  background-size: 6px 6px, 6px 6px;
+  transition: background-color .15s ease, border-color .15s ease;
+}
+.sort-row select:hover { background-color: #f4f4f4; border-color: #111; }
+.sort-row select:focus-visible { outline: 2px solid #111; outline-offset: 2px; }
+
+@media (max-width: 1200px) {
+  .page-intro { height: 390px; }
+  .filter-group, .filter-group + .filter-group { margin-left: 0; }
+}
+
+/* 제목과 오른쪽 카피가 겹치는 구간 — 세로로 쌓는다 */
+@media (max-width: 1100px) {
+  .page-intro { height: auto; padding: 104px 60px 44px; }
+  .eyebrow { position: static; top: auto; left: auto; }
+  .page-intro h1 { position: static; left: auto; bottom: auto; margin-top: 46px; font-size: clamp(64px, 8.6vw, 96px); }
+  .page-intro__copy { position: static; right: auto; bottom: auto; width: auto; margin-top: 34px; }
+  .page-intro__copy p { font-size: 22px; }
+}
+
+@media (max-width: 760px) {
+  .page-intro { height: auto; padding: 96px 20px 36px; }
+  .eyebrow { position: static; top: auto; left: auto; font-size: 14px; }
+  .page-intro h1 { position: static; bottom: auto; left: auto; font-size: 60px; }
+  .page-intro__copy { position: static; width: auto; margin-top: 28px; }
+  .page-intro__copy p { font-size: 20px; }
+  .project-tools { padding: 32px 20px 24px; }
+  .filter-group, .filter-group + .filter-group { grid-template-columns: 1fr; align-items: start; gap: 10px; padding: 0 0 16px; }
+  .filter-group + .filter-group { padding-top: 16px; }
+  .filter-options { gap: 6px; }
+  .filter-options button { min-height: 40px; padding: 0 14px; font-size: 14px; }
+  .sort-row { grid-template-columns: 1fr; gap: 10px; padding-top: 16px; }
+  .sort-row select { width: 100%; min-width: 0; height: 44px; }
+}
+/* 썸네일 — 오류가 아니라 준비 중인 자리임을 알림 */
+.project-card__ph{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);text-align:center;font-size:14px;color:#8a8a8a;transition:opacity .18s ease}
+.project-card__link:hover .project-card__ph{opacity:.35}
+@media (max-width:760px){.project-card__ph{font-size:12px}}
