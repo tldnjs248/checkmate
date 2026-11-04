@@ -196,7 +196,8 @@ main { width: 100%; max-width: 1920px; margin: 0 auto; }
 }
 .project__details > div:last-child { border-bottom: 0; }
 .project__details dt { font-size: var(--fs-xs); font-weight: var(--fw-label); letter-spacing: var(--ls-wide); color: var(--line); }
-.project__details dd { font-size: var(--fs-sm); max-width: 720px; }
+/* 본문은 따로 폭을 두지 않고 페이지 마진까지 채운다 */
+.project__details dd { font-size: var(--fs-sm); }
 /* 블록 하나를 글상자 하나로 — 줄 간격 150%, 자간은 전역값(-0.025em)을 그대로 쓴다 */
 .project__details dd p { margin: 0; line-height: 1.5; text-align: left; }
 .project__details dt b { display: block; font-size: var(--fs-sm); font-weight: 700; letter-spacing: .06em; color: #111; }
