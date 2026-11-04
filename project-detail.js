@@ -42,7 +42,7 @@ const projects = [
     type:'서비스 기획 · 브랜드 / 경험',period:'2026.03 — 07',
     call:['화려한 기술','적용 가능성 · 운영 지속성'],
     role:'팀장 · 사용자 조사 · 서비스 구조 설계 · 공간 경험 · 영상 시나리오',
-    deliverable:'제안서 · 기획서',outputs:['proposal','plan'],
+    deliverable:'제안서',outputs:['proposal'],
     sections:[
       ['opening','OPENING','프로젝트 개요','wide',[
         '인테리어를 바꾸지 않고도 상황에 따라 공간 분위기를 전환하는 주거 경험을 제안했습니다. 팀장으로서 조사부터 서비스 구조와 경험 시나리오까지 기획했습니다.',

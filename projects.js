@@ -57,7 +57,7 @@ const projects = [
     name: 'MOULD | 공간을 개인화하는 몰입형 미디어 기반 주거 경험 서비스',
     description: '사용자 요구와 기술의 적용·운영 조건을 검토하고, 서비스 콘셉트를 공간별 경험과 태블릿 UX, 영상 시나리오로 구체화한 프로젝트입니다.',
     types: ['service', 'brand'],
-    outputs: ['proposal', 'plan'],
+    outputs: ['proposal'],
     period: '2026.03 — 07',
     order: 2,
   },
