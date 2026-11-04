@@ -133,7 +133,7 @@ const projects = [
     summary:'근거를 쌓아 방향을 결정하는 과정이 읽히도록 포트폴리오를 직접 기획하고 구현했습니다.',
     type:'AI · 브랜드 / 경험',period:'2026.09 — 12',
     role:'콘셉트 기획 · 정보구조 · 화면설계 · 콘텐츠 작성 · AI 협업 설계 · 구현',
-    deliverable:'스토리보드 · 제안서',outputs:['storyboard','proposal'],
+    deliverable:'스토리보드',outputs:['storyboard'],
     sections:[
       ['opening','OPENING','프로젝트 개요','wide',[
         '완성된 결과물이 아니라, 문제를 어떻게 발견하고 무엇을 근거로 방향을 바꿨는지가 읽히는 포트폴리오를 기획부터 구현까지 직접 만들었습니다.',

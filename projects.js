@@ -37,7 +37,7 @@ const projects = [
     name: 'CHECKMATE | 포트폴리오 웹사이트 기획·제작',
     description: '문제를 확인하고 근거를 쌓아 방향을 결정하는 기획 과정을 보여주기 위해 포트폴리오 웹사이트를 직접 기획하고 구현한 프로젝트입니다.',
     types: ['ai', 'brand'],
-    outputs: ['storyboard', 'proposal'],
+    outputs: ['storyboard'],
     period: '2026.09 — 12',
     order: 3,
   },
