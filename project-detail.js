@@ -170,11 +170,14 @@ document.querySelector('#project-facts').innerHTML=`<div><dt>프로젝트 유형
 /* 이미지 자리 — 더미 글자가 보이지 않는 세 가지만 쓴다 */
 /* 이미지 자리 — 오류 화면이 아니라 준비 중인 자리임이 읽히도록 안내를 함께 둔다 */
 const ph=(cls,label)=>`<div class="${cls} placeholder"><span class="ph-label">${label}</span><span class="ph-note">이미지 준비 중입니다</span></div>`;
-const visual=kind=>kind==='pair'
-  ?`<div class="visual-pair">${ph('','설계 화면')}${ph('','설계 화면')}</div>`
+/* .section-visual 은 제목 · 본문과 같은 열에서 시작하기 위한 껍데기다 */
+const visual=kind=>`<div class="section-visual">${
+  kind==='pair'
+  ?`<div class="visual-pair">${ph('','설계 화면 1')}${ph('','설계 화면 2')}</div>`
   :kind==='asymmetric'
   ?`<div class="visual-asymmetric">${ph('','조사 · 분석 자료')}${ph('','상세 이미지')}</div>`
-  :ph('visual-wide','프로젝트 이미지');
+  :`<div class="visual-wide">${ph('','프로젝트 이미지 1')}${ph('','프로젝트 이미지 2')}${ph('','프로젝트 이미지 3')}</div>`
+}</div>`;
 /* 본문 제목은 작은 영문 + 큰 한글, 본문 문단은 이미지 자리 위에 */
 document.querySelector('#detail-sections').innerHTML=project.sections.map((section,i)=>`<section class="case-section" id="${section[0]}"><div class="section-heading"><span>${String(i+1).padStart(2,'0')}</span><h2><em>${section[1]}</em>${section[2]}</h2><div class="section-body">${section[4].map(para=>`<p>${para}</p>`).join('')}</div></div>${visual(section[3])}</section>`).join('');
 /* 목차는 한글 이름만 (칸 폭이 210px) */

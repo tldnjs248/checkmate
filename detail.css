@@ -189,3 +189,29 @@ main,.footer{width:100%;max-width:1920px;margin:0 auto}.detail-intro{position:re
 .back-link,.detail-index{position:static;top:auto;left:auto;right:auto}
 .detail-intro__content{padding-top:52px}
 @media(max-width:720px){.detail-intro{padding-top:96px}.detail-topbar{margin-bottom:18px}.detail-index{display:block}.detail-intro__content{padding-top:34px}}
+
+
+/* ── 이미지 자리 규칙 (2026-11-04 확정) ──
+   · 왼쪽 끝을 제목 · 본문과 맞춘다 — 섹션 제목 열(90px)과 간격(18px)만큼 비운다
+   · 한 영역에 2~3장
+   · 높이는 세 종류 모두 min(300px, 20vw) — 이전(min(600px,40vw))의 절반 */
+.section-visual { display: grid; grid-template-columns: 90px minmax(0, 1fr); gap: 18px; }
+.section-visual > * { grid-column: 2; }
+.visual-wide { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; height: auto; }
+.visual-pair { grid-template-columns: 1fr 1fr; gap: 16px; }
+.visual-asymmetric { grid-template-columns: 1.35fr .65fr; gap: 16px; }
+.section-visual .placeholder { height: min(300px, 20vw); }
+
+/* 칸이 좁아지면 안내 글자부터 줄인다 */
+@media (max-width: 1100px) {
+  .section-visual .placeholder { padding: 10px; }
+  .section-visual .ph-label { font-size: 13px; }
+  .section-visual .ph-note { font-size: 11px; }
+}
+
+/* 스마트폰 — 한 줄에 한 장씩 쌓고 제목과 같은 왼쪽 끝에 붙인다 */
+@media (max-width: 760px) {
+  .section-visual { display: block; }
+  .visual-wide, .visual-pair, .visual-asymmetric { grid-template-columns: 1fr; gap: 10px; }
+  .section-visual .placeholder { height: 42vw; }
+}
