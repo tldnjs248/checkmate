@@ -98,7 +98,7 @@ const projects = [
   },
   {
     id:'dmd-graduation',number:'04',
-    title:'DMD Graduation Exhibition | 디지털미디어디자인과 졸업전시 브랜딩',
+    title:"Delight Insight 2026 | LET'S SYNC 브랜딩",
     summary:'학과의 여러 작업을 하나의 브랜드 경험으로 잇고, 관람 목적에 맞는 탐색 경로를 설계했습니다.',
     type:'브랜드 / 경험',period:'2026.09 — 12',
     role:'공동 기획 · 관람객 조사 · 콘텐츠 구조 · 화면설계 · 카피라이팅',
@@ -129,7 +129,7 @@ const projects = [
   },
   {
     id:'portfolio-site',number:'05',
-    title:'CHECKMATE | AI를 활용한 포트폴리오 웹사이트 기획·제작',
+    title:'CHECKMATE | 포트폴리오 웹사이트 기획·제작',
     summary:'근거를 쌓아 방향을 결정하는 과정이 읽히도록 포트폴리오를 직접 기획하고 구현했습니다.',
     type:'AI · 브랜드 / 경험',period:'2026.09 — 12',
     role:'콘셉트 기획 · 정보구조 · 화면설계 · 콘텐츠 작성 · AI 협업 설계 · 구현',

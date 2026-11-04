@@ -3,6 +3,8 @@
 
    성격(types)    : ux / service / brand / ai   — 한 프로젝트가 여러 개 가질 수 있다
    결과물(outputs): report / proposal / storyboard / plan
+   추천순(featured): 1이 맨 앞 — 목록 첫 진입 기본 정렬
+   최신순(order)   : 종료 연월 기준, 큰 값이 먼저 · 오래된순은 역순
 
    필터 버튼은 아래 TYPES · OUTPUTS · projects 에서 만들어진다. 그래서
      · 해당 프로젝트가 하나도 없는 옵션  → 버튼이 아예 안 보인다
@@ -31,7 +33,8 @@ const OUTPUT_LABEL = Object.fromEntries(OUTPUTS);
 const projects = [
   {
     id: 'portfolio-site',
-    name: 'CHECKMATE | AI를 활용한 포트폴리오 웹사이트 기획·제작',
+    featured: 5,
+    name: 'CHECKMATE | 포트폴리오 웹사이트 기획·제작',
     description: '문제를 확인하고 근거를 쌓아 방향을 결정하는 기획 과정을 보여주기 위해 포트폴리오 웹사이트를 직접 기획하고 구현한 프로젝트입니다.',
     types: ['ai', 'brand'],
     outputs: ['storyboard', 'proposal'],
@@ -40,7 +43,8 @@ const projects = [
   },
   {
     id: 'dmd-graduation',
-    name: 'DMD Graduation Exhibition | 디지털미디어디자인과 졸업전시 브랜딩',
+    featured: 4,
+    name: "Delight Insight 2026 | LET'S SYNC 브랜딩",
     description: '학과의 다양한 작업을 하나의 브랜드 경험으로 연결하고, 관람 목적에 맞게 웹과 전시 현장을 탐색할 수 있도록 설계한 프로젝트입니다.',
     types: ['brand'],
     outputs: ['plan', 'storyboard'],
@@ -49,6 +53,7 @@ const projects = [
   },
   {
     id: 'mould',
+    featured: 3,
     name: 'MOULD | 공간을 개인화하는 몰입형 미디어 기반 주거 경험 서비스',
     description: '사용자 요구와 기술의 적용·운영 조건을 검토하고, 서비스 콘셉트를 공간별 경험과 태블릿 UX, 영상 시나리오로 구체화한 프로젝트입니다.',
     types: ['service', 'brand'],
@@ -58,6 +63,7 @@ const projects = [
   },
   {
     id: 'korail-talk',
+    featured: 2,
     name: '코레일톡 | 사용자 검증을 통한 예약 승차권 조회 UX/UI 개선',
     description: '사용성 평가와 아이트래킹을 통해 예약 승차권의 반복 탐색 문제를 검증하고, 조회 구조와 사용자 경로를 개선한 프로젝트입니다.',
     types: ['ux'],
@@ -67,6 +73,7 @@ const projects = [
   },
   {
     id: 'lotte-cinema',
+    featured: 1,
     name: '롯데시네마 | 특별관 탐색 경험 개선',
     description: '결제 단계에서 UX로 풀 수 있는 부분이 없다고 판단해 결제를 범위에서 덜어내고, 사용자가 한 번에 수행하는 탐색과 예매를 하나의 흐름으로 합쳐 다루자고 제안했습니다. 특별관을 같은 기준으로 비교하고 그 자리에서 예매로 이어지도록 탐색 구조를 개선했습니다.',
     types: ['ux'],
@@ -76,7 +83,7 @@ const projects = [
   },
 ];
 
-const state = { type: 'all', output: 'all', sort: 'newest' };
+const state = { type: 'all', output: 'all', sort: 'featured' };
 const grid = document.querySelector('#project-grid');
 const resultCount = document.querySelector('#result-count');
 const emptyState = document.querySelector('#empty-state');
@@ -122,6 +129,7 @@ function getVisibleProjects() {
   const filtered = projects.filter((project) => matches(project, state.type, state.output));
 
   return filtered.sort((a, b) => {
+    if (state.sort === 'featured') return a.featured - b.featured;
     if (state.sort === 'oldest') return a.order - b.order;
     if (state.sort === 'name') return a.name.localeCompare(b.name, 'ko');
     return b.order - a.order;
