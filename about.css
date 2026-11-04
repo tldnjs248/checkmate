@@ -176,3 +176,17 @@
 
 /* 페이지 제목 아래 부제 (정보구조도 7쪽) */
 .about-hero h1 span { display: block; margin-top: 22px; font-size: 20px; font-weight: 400; line-height: 1.4; letter-spacing: -.025em; color: #555; }
+
+
+/* ── ABOUT 섹션 정렬 (2026-11-04 확정) ──
+   오른쪽 블록을 번호(02) 줄이 아니라 라벨(INTRODUCTION) 줄에 맞춘다.
+   내리는 양 43px = 번호 줄 위 여백 5 + 번호 줄 높이 22 + h2 margin-top 16.
+   두 단이 나란히 설 때만 적용한다 — 1100px 아래에서는 라벨이 위로 빠져 필요 없다. */
+@media (min-width: 1101px) {
+  .numbered-section { --label-offset: 43px; }
+  .introduction__copy,
+  .style-list,
+  .credential-list,
+  .skill-list,
+  .contact-copy { margin-top: var(--label-offset); }
+}
