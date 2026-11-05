@@ -83,6 +83,9 @@ const projects = [
   },
 ];
 
+/* 커버 이미지가 있는 프로젝트 — 파일은 images/<id>-wide|tall|band.jpg */
+const COVER = new Set(['lotte-cinema', 'korail-talk', 'mould', 'dmd-graduation']);
+
 const state = { type: 'all', output: 'all', sort: 'featured' };
 const grid = document.querySelector('#project-grid');
 const resultCount = document.querySelector('#result-count');
@@ -148,8 +151,8 @@ function render() {
       <article class="project-card">
         <a class="project-card__link" href="project-detail.html?project=${project.id}" aria-label="${project.name} 상세 페이지로 이동">
           <div class="project-card__thumb">
+            ${COVER.has(project.id) ? `<img class="project-card__img" src="images/${project.id}-wide.jpg" alt="" loading="lazy" decoding="async">` : '<span class="project-card__ph">이미지 준비 중입니다</span>'}
             <span class="project-card__index">${String(index + 1).padStart(2, '0')}</span>
-            <span class="project-card__ph">이미지 준비 중입니다</span>
             <span class="project-card__view">VIEW PROJECT ↗</span>
           </div>
           <div class="project-card__body">

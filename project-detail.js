@@ -158,6 +158,9 @@ const projects = [
 ];
 
 const params=new URLSearchParams(location.search);const id=params.get('project')||'korail-talk';const index=Math.max(0,projects.findIndex(project=>project.id===id));const project=projects[index];const previous=projects[(index-1+projects.length)%projects.length];const next=projects[(index+1)%projects.length];
+/* 커버 이미지가 있는 프로젝트 — 파일은 images/<id>-band.jpg */
+const COVER=new Set(['lotte-cinema','korail-talk','mould','dmd-graduation']);
+if(COVER.has(project.id)){const c=document.querySelector('#detail-cover');c.className='detail-cover has-image';c.innerHTML=`<img src="images/${project.id}-band.jpg" alt="" decoding="async">`;}
 document.querySelector('#project-number').textContent=project.number;document.querySelector('#detail-title').textContent=project.title;document.querySelector('#detail-summary').textContent=project.summary;document.title=`${project.title} — SIWON JOO`;
 /* 산출물 — 종류마다 따로 연다. 실제 파일이 생기면 DOC_HREF 의 주소만 채운다 */
 const DOC_LABEL={report:'보고서 전문 보기',proposal:'제안서 보기',plan:'기획서 보기',storyboard:'스토리보드 보기'};

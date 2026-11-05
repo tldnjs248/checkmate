@@ -359,3 +359,9 @@ main { width: 100%; max-width: 1920px; margin: 0 auto; }
 .intro__copy .section-name { font-size: var(--fs-h3); font-weight: 700; margin-bottom: 30px; }
 .intro__copy .section-name span { display: block; margin-top: 10px; font-size: var(--fs-sm); font-weight: 400; color: #555; }
 .section-head__title p { margin-top: 10px; font-size: var(--fs-sm); color: #555; }
+
+/* ── 프로젝트 커버 이미지 (2026-11-05) ── 메인 두 블록. 창 너비에 따라 비율이 달라져 cover 로 채운다 */
+.project__media.has-image,.project__side.has-image{position:relative;overflow:hidden;background:var(--placeholder)}
+.project__media.has-image img,.project__side.has-image img{width:100%;height:100%;object-fit:cover;display:block}
+.project__media.has-image img{transition:transform .4s ease}
+.project__media.has-image:hover img{transform:scale(1.015)}
