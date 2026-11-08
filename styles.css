@@ -365,3 +365,155 @@ main { width: 100%; max-width: 1920px; margin: 0 auto; }
 .project__media.has-image img,.project__side.has-image img{width:100%;height:100%;object-fit:cover;display:block}
 .project__media.has-image img{transition:transform .4s ease}
 .project__media.has-image:hover img{transform:scale(1.015)}
+
+/* ══ 2026-11-09 개편 — 피그마 시안 214:140 ═══════════════════════════
+   1. 흐름   HERO → MAIN PROJECTS → HOW I PLAY → ABOUT
+   2. HOW I PLAY  왼쪽 체스 그래픽 / 오른쪽 세 단계 (시안 470:1660)
+   3. 역량        ABOUT 표에서 빼낸 2×2 카드 (시안 470:1813)
+   앞의 규칙은 고치지 않고 이 층에서 덮어쓴다.
+   `.principles` · `.skill-row` 규칙은 쓰는 마크업이 없어져 죽은 규칙으로 남는다. */
+
+/* ── 글자 크기 · 굵기 (사용자 지정 2026-11-09) ──
+   본문 제목 24 · 본문 18 · 가장 작은 글자 16.
+   본문은 Pretendard Medium(500), 강조 본문은 SemiBold(600). */
+:root {
+  --fs-body-title: 24px;
+  --fs-sm: 16px;
+  --fs-nav: 16px;
+  --fs-xs: 16px;
+  --fw-text: 500;
+  --fw-strong: 600;
+}
+body { font-weight: var(--fw-text); }
+strong, b { font-weight: var(--fw-strong); }
+.intro__copy .section-name span { font-weight: var(--fw-text); }
+
+/* ── HOW I PLAY ── 1920 기준 왼쪽 850 · 간격 60 · 오른쪽 890 */
+.intro {
+  display: grid;
+  grid-template-columns: minmax(0, 850fr) minmax(0, 890fr);
+  column-gap: 60px;
+  padding: 76px 60px 110px;
+}
+.intro__art { display: grid; place-items: center; }
+.intro__art img { width: 100%; max-width: 530px; height: auto; display: block; }
+.intro__copy .section-name { margin-bottom: 38px; }
+
+/* 한 단계 = 위 구분선 + 왼쪽 번호 칩 + 오른쪽 본문. 본문은 칩 폭만큼 들여쓴다 */
+.play__step {
+  display: grid;
+  grid-template-columns: 154px minmax(0, 1fr);
+  padding-bottom: 60px;
+  border-top: 1px solid var(--ink);
+}
+.play__step:last-child { padding-bottom: 0; }
+.play__chip {
+  margin: 0;
+  width: 152px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  padding-left: 7px;
+  font-size: var(--fs-body);
+  font-weight: var(--fw-strong);
+  letter-spacing: 0;
+  color: #fff;
+  background: #111;
+}
+.play__text { padding-top: 41px; }
+.play__text p { font-size: var(--fs-body); line-height: 1.6; word-break: keep-all; }
+.play__text p + p { margin-top: 12px; }
+
+/* ── ABOUT 표 ── 라벨 / 값 두 칸, 세 행 */
+:root { --label-col: 451px; }
+.about__facts { border-top: 0; }
+.about__facts > div {
+  grid-template-columns: var(--label-col) minmax(0, 1fr);
+  padding: 20px 0 22px;
+}
+.about__facts dt { font-size: var(--fs-sm); color: var(--ink); }
+.about__facts dd { font-size: var(--fs-body); }
+.about__facts dd p + p { margin-top: 6px; }
+
+/* ── 역량 카드 ── 2×2. 번호 · 제목 · 항목 목록 · 오른쪽 아래 선 그래픽 */
+.skill-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-top: 56px;
+}
+.skill-card {
+  position: relative;
+  min-height: 281px;
+  padding: 30px 34px 34px;
+  border: 1px solid var(--hairline);
+  background: var(--panel);
+  overflow: hidden;
+}
+.skill-card__no {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-text);
+  letter-spacing: 0;
+  color: var(--mute);
+}
+.skill-card h3 { margin-top: 8px; font-size: var(--fs-body-title); letter-spacing: -.02em; }
+.skill-card ul { position: relative; z-index: 1; margin: 26px 190px 0 0; padding: 0; list-style: none; }
+.skill-card li {
+  position: relative;
+  padding-left: 18px;
+  font-size: var(--fs-body);
+  line-height: 1.8;
+  word-break: keep-all;
+}
+.skill-card li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: .78em;
+  width: 5px;
+  height: 5px;
+  background: var(--ink);
+}
+.skill-card__art {
+  position: absolute;
+  right: 26px;
+  bottom: 24px;
+  width: 168px;
+  height: 168px;
+  color: #c9c9c9;
+  pointer-events: none;
+}
+
+@media (max-width: 1400px) {
+  :root { --label-col: 300px; }
+}
+
+@media (max-width: 1100px) {
+  :root { --label-col: 240px; }
+  .intro { grid-template-columns: minmax(0, 620fr) minmax(0, 890fr); column-gap: 40px; padding: 60px 40px 86px; }
+  .play__step { padding-bottom: 44px; }
+  .play__text { padding-top: 32px; }
+  .skill-cards { margin-top: 44px; gap: 14px; }
+  .skill-card { min-height: 240px; padding: 24px 26px 28px; }
+  .skill-card ul { margin-right: 150px; }
+  .skill-card__art { right: 20px; bottom: 18px; width: 130px; height: 130px; }
+}
+
+/* 두 단이 좁아지면 그래픽을 본문 아래로 내린다 */
+@media (max-width: 880px) {
+  .intro { grid-template-columns: 1fr; row-gap: 44px; }
+  .intro__art { order: 2; }
+  .intro__art img { max-width: 300px; }
+  .skill-cards { grid-template-columns: 1fr; }
+  .skill-card { min-height: 0; }
+  .skill-card ul { margin-right: 0; }
+  .skill-card__art { display: none; }
+}
+
+@media (max-width: 760px) {
+  .intro { padding: 48px 20px 56px; }
+  .play__step { grid-template-columns: 1fr; padding-bottom: 34px; }
+  .play__text { padding-top: 16px; }
+  .about__facts > div { grid-template-columns: 1fr; gap: 6px; padding: 18px 0 20px; }
+}

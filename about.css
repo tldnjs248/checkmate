@@ -190,3 +190,12 @@
   .skill-list,
   .contact-copy { margin-top: var(--label-offset); }
 }
+
+/* ── 본문 글꼴 굵기 (2026-11-09 사용자 지정) ──
+   본문은 Pretendard Medium(500), 강조 본문은 SemiBold(600).
+   앞의 규칙은 고치지 않고 이 층에서 덮어쓴다. */
+body { font-weight: 500; }
+strong, b { font-weight: 600; }
+/* 접기 기호(＋ −)와 보조 문장은 강조가 아니라 본문 굵기다 */
+.experience-toggle b, .skill-toggle b { font-weight: 500; }
+.about-hero h1 span { font-weight: 500; }

@@ -439,3 +439,9 @@ main, .footer { width: 100%; max-width:1920px; margin: 0 auto; }
 .project-card__index{z-index:2}
 .project-card__img + .project-card__index{top:0;left:0;padding:10px 12px;color:#fff;background:rgba(17,17,17,.5)}
 .project-card__view{z-index:2}
+
+/* ── 본문 글꼴 굵기 (2026-11-09 사용자 지정) ──
+   본문은 Pretendard Medium(500), 강조 본문은 SemiBold(600). */
+body { font-weight: 500; }
+strong, b { font-weight: 600; }
+.page-intro h1 span { font-weight: 500; }

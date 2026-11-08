@@ -219,3 +219,10 @@ main,.footer{width:100%;max-width:1920px;margin:0 auto}.detail-intro{position:re
 /* ── 프로젝트 커버 이미지 (2026-11-05) ── 상세 상단 커버 (약 3.1:1 띠) */
 .detail-cover.has-image{position:relative;overflow:hidden;background:var(--placeholder);display:block}
 .detail-cover.has-image img{width:100%;height:100%;object-fit:cover;display:block}
+
+/* ── 본문 글꼴 굵기 (2026-11-09 사용자 지정) ──
+   본문은 Pretendard Medium(500), 강조 본문은 SemiBold(600). */
+body { font-weight: 500; }
+strong, b { font-weight: 600; }
+.detail-summary { font-weight: 500; }
+.call-arrow { font-weight: 500; }
