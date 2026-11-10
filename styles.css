@@ -731,3 +731,61 @@ strong, b { font-weight: var(--fw-strong); }
 @media (max-width: 760px) {
   .about__facts > div { grid-template-columns: 1fr; gap: 6px; padding: 14px 0 16px; }
 }
+
+/* ══ 2026-11-11 4차 (사용자 지정) ═══════════════════════════════════
+   1. 로고 — 회색 네모 대신 'CHECKMATE 주시원' 글자 (본문과 같은 프리텐다드)
+   2. 버튼 — 크기를 절반 가까이 줄이고, 검은 바탕 흰 글씨로 통일.
+             올리면 색이 뒤집힌다. */
+
+/* 1. 로고 */
+.brand-mark {
+  top: 29px;
+  width: auto;
+  height: auto;
+  background: none;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  white-space: nowrap;
+}
+.brand-mark b { font-size: 18px; font-weight: 700; letter-spacing: .02em; color: #111; }
+.brand-mark span {
+  position: static; width: auto; height: auto; overflow: visible; clip: auto;
+  font-size: 16px; font-weight: 500; letter-spacing: -.01em; color: #707070;
+}
+
+/* 2. 버튼 — 한 모습으로 */
+.button,
+.profile-docs a,
+.contact-copy a,
+.contact-copy button,
+.report-button,
+.top-button {
+  border: 1px solid #111;
+  background: #111;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: -.01em;
+  transition: background .18s ease, color .18s ease;
+}
+.button:hover, .button:focus-visible,
+.profile-docs a:hover, .profile-docs a:focus-visible,
+.contact-copy a:hover, .contact-copy a:focus-visible,
+.contact-copy button:hover, .contact-copy button:focus-visible,
+.report-button:hover, .report-button:focus-visible,
+.top-button:hover, .top-button:focus-visible {
+  background: #fff;
+  color: #111;
+  outline: 0;
+}
+
+/* 버튼 크기 — 히어로 319×99 는 너무 커서 절반으로 */
+.button { width: 160px; height: 52px; }
+.hero__actions .button { height: 52px; }
+@media (max-width: 760px) {
+  .brand-mark { width: auto !important; height: auto !important; top: 22px; }
+  .brand-mark b { font-size: 16px; }
+  .brand-mark span { font-size: 14px; }
+  .button { width: 100%; height: 48px; }
+}

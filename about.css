@@ -454,3 +454,94 @@ body, .about-hero, .numbered-section, .contact, .site-header { background: #fff;
   .playstyle__cards { grid-template-columns: 1fr; gap: 10px; }
   .playstyle .skill-card { min-height: 0; }
 }
+
+/* ══ 2026-11-11 4차 (사용자 지정) ═══════════════════════════════════
+   1. 로고 — 회색 네모 대신 'CHECKMATE 주시원' 글자 (본문과 같은 프리텐다드)
+   2. 버튼 — 크기를 절반 가까이 줄이고, 검은 바탕 흰 글씨로 통일.
+             올리면 색이 뒤집힌다. */
+
+/* 1. 로고 */
+.brand-mark {
+  top: 29px;
+  width: auto;
+  height: auto;
+  background: none;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  white-space: nowrap;
+}
+.brand-mark b { font-size: 18px; font-weight: 700; letter-spacing: .02em; color: #111; }
+.brand-mark span {
+  position: static; width: auto; height: auto; overflow: visible; clip: auto;
+  font-size: 16px; font-weight: 500; letter-spacing: -.01em; color: #707070;
+}
+
+/* 2. 버튼 — 한 모습으로 */
+.button,
+.profile-docs a,
+.contact-copy a,
+.contact-copy button,
+.report-button,
+.top-button {
+  border: 1px solid #111;
+  background: #111;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: -.01em;
+  transition: background .18s ease, color .18s ease;
+}
+.button:hover, .button:focus-visible,
+.profile-docs a:hover, .profile-docs a:focus-visible,
+.contact-copy a:hover, .contact-copy a:focus-visible,
+.contact-copy button:hover, .contact-copy button:focus-visible,
+.report-button:hover, .report-button:focus-visible,
+.top-button:hover, .top-button:focus-visible {
+  background: #fff;
+  color: #111;
+  outline: 0;
+}
+
+/* ── 프로필 글 — 이름 줄과 두 단 정보 (2026-11-11 4차) ──
+   라벨은 왼쪽, 값은 오른쪽. 두 단이 나란히 서고 줄마다 윗선을 긋는다. */
+.profile__name { margin-top: 18px; font-size: 20px; font-weight: 600; letter-spacing: -.02em; }
+.profile__name span { margin-left: 10px; font-size: 16px; font-weight: 500; letter-spacing: .04em; color: #8a8a8a; }
+.profile__intro { margin-top: 20px; }
+
+.profile__facts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 56px;
+  margin-top: 36px;
+  border-top: 0;
+}
+.profile__facts > div {
+  grid-template-columns: 92px minmax(0, 1fr);
+  column-gap: 20px;
+  padding: 14px 0 16px;
+  border-top: 1px solid #e3e3e3;
+  border-bottom: 0;
+}
+/* 학력 · 수상의 둘째 줄은 작게 */
+.profile__facts dd span { display: block; margin-top: 5px; font-size: 16px; line-height: 1.55; color: #777; }
+
+/* 버튼 크기 */
+.profile-docs { gap: 10px; margin-top: 26px; }
+.profile-docs a { height: 44px; padding: 0 20px; width: auto; }
+.contact-copy > div { gap: 10px; margin-top: 44px; }
+.contact-copy a, .contact-copy button { width: 150px; height: 46px; }
+
+@media (max-width: 1100px) {
+  .profile__facts { column-gap: 32px; }
+}
+@media (max-width: 760px) {
+  .brand-mark { width: auto !important; height: auto !important; top: 22px; }
+  .brand-mark b { font-size: 16px; }
+  .brand-mark span { font-size: 14px; }
+  .profile__facts { grid-template-columns: 1fr; column-gap: 0; }
+  .profile__facts > div { grid-template-columns: 84px minmax(0, 1fr); column-gap: 14px; padding: 12px 0 14px; }
+  .profile-docs { flex-direction: row; flex-wrap: wrap; }
+  .profile-docs a { width: auto; height: 44px; font-size: 16px; }
+  .contact-copy a, .contact-copy button { width: 100%; height: 46px; }
+}

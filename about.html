@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="주시원 UX/UI · 서비스 기획자 소개와 역량">
   <title>ABOUT — SIWON JOO</title>
-  <link rel="stylesheet" href="about.css">
+  <link rel="stylesheet" href="about.css?v=4">
 </head>
 <body>
   <a class="skip-link" href="#about-main">본문 바로가기</a>
   <header class="site-header">
-    <a class="brand-mark" href="index.html" aria-label="메인으로 이동"><span>SIWON JOO</span></a>
+    <a class="brand-mark" href="index.html" aria-label="메인으로 이동"><b>CHECKMATE</b><span>주시원</span></a>
     <nav class="gnb" aria-label="주요 메뉴">
       <a href="projects.html">PROJECTS</a><a class="is-current" href="about.html">ABOUT</a><a href="주시원_이력서_자기소개서.pdf" download>RESUME ↗</a>
     </nav>
@@ -32,16 +32,19 @@
 
         <div class="profile__copy">
           <p class="profile__slogan">판단의 근거를 쌓고<br>결정적인 수를 두는 기획자</p>
+          <p class="profile__name">주시원<span>SIWON JOO</span></p>
           <div class="profile__intro">
             <p>사용자가 겪는 문제를 직접 확인해 판단의 근거를 쌓고, 여러 관점과 함께 검토해 실행 가능한 방향으로 나아갑니다.</p>
             <p>자료와 실제 반응으로 판단의 기준을 세우고, 팀과 함께 더 나은 결정을 만드는 기획자가 되고 싶습니다.</p>
           </div>
+          <!-- 기본 정보 · 학력 · 수상을 두 단으로 — 라벨은 왼쪽, 값은 오른쪽 -->
           <dl class="profile__facts">
-            <div><dt>이름</dt><dd>주시원</dd></div>
             <div><dt>직군</dt><dd>UX/UI · 서비스 기획자</dd></div>
             <div><dt>생년월일</dt><dd>2004.06.20</dd></div>
             <div><dt>지역</dt><dd>서울 · 경기</dd></div>
             <div><dt>이메일</dt><dd>tldnjs248@gmail.com</dd></div>
+            <div><dt>학력</dt><dd>계원예술대학교<span>디지털미디어디자인과 기획 세부전공<br>2027.02 졸업예정</span></dd></div>
+            <div><dt>수상</dt><dd>커뮤니케이션국제어워드 특별상<span>디지털미디어디자인 부문 · MOULD<br>2026.10</span></dd></div>
           </dl>
           <div class="profile-docs" id="resume"><a href="#" target="_blank" rel="noopener">이력서 PDF 보기 ↗</a><a href="#" target="_blank" rel="noopener">자기소개서 PDF 보기 ↗</a></div>
         </div>
@@ -73,28 +76,14 @@
       </div>
     </section>
 
-    <section class="credentials numbered-section education-section">
-      <div class="section-label"><span>02</span><h2>EDUCATION</h2></div>
-      <div class="credential-list">
-        <article><h3>계원예술대학교</h3><p>디지털미디어디자인과 기획 세부전공<br>2027.02 졸업예정</p></article>
-      </div>
-    </section>
-
-    <section class="credentials numbered-section awards-section">
-      <div class="section-label"><span>03</span><h2>AWARDS</h2></div>
-      <div class="credential-list">
-        <article><h3>커뮤니케이션국제어워드 특별상</h3><p>디지털미디어디자인 부문 · MOULD<br>2026.10</p></article>
-      </div>
-    </section>
-
     <section class="skills numbered-section">
-      <div class="section-label"><span>04</span><h2>SKILLS</h2></div>
+      <div class="section-label"><span>02</span><h2>SKILLS</h2></div>
       <!-- 메인 ABOUT 미리보기와 같은 카드 네 장 — 내용은 skills.js 가 채운다 -->
       <div class="skill-cards" id="skill-list"></div>
     </section>
 
     <section class="contact numbered-section" id="contact">
-      <div class="section-label"><span>05</span><h2>CONTACT</h2></div>
+      <div class="section-label"><span>03</span><h2>CONTACT</h2></div>
       <div class="contact-copy"><p>LET'S WORK<br>TOGETHER.</p><div><a href="mailto:tldnjs248@gmail.com">메일 보내기 ↗</a><button type="button" id="copy-email" data-email="tldnjs248@gmail.com">이메일 복사</button></div><p class="copy-status" id="copy-status" aria-live="polite" hidden></p></div>
     </section>
   </main>
@@ -126,7 +115,7 @@
       <p>UX/UI &middot; 서비스 기획자</p>
     </div>
   </footer>
-  <script src="about.js"></script>
-  <script src="skills.js"></script>
+  <script src="about.js?v=4"></script>
+  <script src="skills.js?v=4"></script>
 </body>
 </html>
