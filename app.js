@@ -58,7 +58,7 @@ const projects = [
   },
 ];
 
-/* 커버 이미지가 있는 프로젝트 — 파일은 images/<id>-wide|tall|band.jpg */
+/* 커버 이미지가 있는 프로젝트 — 파일은 images/<id>-wide|side|band.jpg */
 const COVER = new Set(['lotte-cinema', 'korail-talk', 'mould', 'dmd-graduation']);
 
 const chevron = '<svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><polyline points="5 9 12 16 19 9"/></svg>';
@@ -67,7 +67,7 @@ const chevron = '<svg viewBox="0 0 24 24" width="30" height="30" fill="none" str
 document.querySelector('#project-list').innerHTML = projects.map((project, index) => `
   <article class="project is-open" id="project-${index + 1}">
     <a class="project__media${COVER.has(project.id) ? ' has-image' : ' placeholder'}" href="project-detail.html?project=${project.id}" aria-label="${project.title} 상세 페이지로 이동">${COVER.has(project.id) ? `<img src="images/${project.id}-wide.jpg" alt="" loading="lazy" decoding="async">` : ''}</a>
-    <div class="project__side${COVER.has(project.id) ? ' has-image' : ' placeholder'}" aria-hidden="true">${COVER.has(project.id) ? `<img src="images/${project.id}-tall.jpg" alt="" loading="lazy" decoding="async">` : ''}</div>
+    <div class="project__side${COVER.has(project.id) ? ' has-image' : ' placeholder'}" aria-hidden="true">${COVER.has(project.id) ? `<img src="images/${project.id}-side.jpg" alt="" loading="lazy" decoding="async">` : ''}</div>
     <div class="project__copy">
       <h3><a href="project-detail.html?project=${project.id}">${project.title}</a></h3>
       <p class="project__meta">${project.meta}</p>

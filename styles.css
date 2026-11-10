@@ -517,3 +517,52 @@ strong, b { font-weight: var(--fw-strong); }
   .play__text { padding-top: 16px; }
   .about__facts > div { grid-template-columns: 1fr; gap: 6px; padding: 18px 0 20px; }
 }
+
+/* ══ 2026-11-11 수정 — 시안 214:140 대조 ════════════════════════════
+   1. 프로젝트 두 블록 크기   1195:581 · 675  →  1039:736 · 569 (시안 234:1991)
+   2. 전체 보기 버튼          오른쪽 끝 버튼  →  제목 옆 '>' (시안 450:1601)
+   3. 머리말 아래 간격        73 · 120px      →  30px
+   4. 상세 펼친 본문          16px · 행간 1.5 →  18px · 행간 1.6 (HOW I PLAY 와 동일) */
+
+/* 1. 두 블록 — 사이 24, 양 끝은 페이지 마진 60 */
+.project { grid-template-columns: 1039fr 736fr; column-gap: 24px; }
+.project__media, .project__side { height: 569px; }
+
+/* 2·3. 머리말 — 제목과 '>' 가 한 줄, 부제는 그 아래. 아래 간격 30 */
+.section-head { height: auto; padding: 40px 60px 30px; justify-content: flex-start; }
+.section-head__title {
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-content: start;
+  align-items: baseline;
+  column-gap: 15px;
+}
+.section-head__title p { grid-column: 1 / -1; }
+.section-head__more {
+  font-size: 22px;
+  line-height: 1;
+  font-weight: var(--fw-text);
+  letter-spacing: 0;
+  color: var(--ink);
+  transition: transform .2s ease;
+}
+.section-head__more:hover,
+.section-head__more:focus-visible { transform: translateX(3px); }
+/* 표가 따로 띄우지 않게 — 간격은 머리말 쪽에서만 준다 */
+.about__facts { margin-top: 0; }
+
+/* 4. 상세 펼친 본문을 HOW I PLAY 본문과 같은 값으로 */
+.project__details dd { font-size: var(--fs-body); }
+.project__details dd p { line-height: 1.6; }
+
+@media (max-width: 1100px) {
+  .section-head { padding: 32px 40px 26px; }
+  .project__media, .project__side { height: 388px; }
+}
+
+@media (max-width: 760px) {
+  .section-head { padding: 28px 20px 22px; flex-direction: column; align-items: stretch; }
+  .project { grid-template-columns: 1fr; }
+  .project__media { height: 62vw; }
+  .project__side { display: none; }
+}

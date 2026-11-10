@@ -83,7 +83,7 @@ const projects = [
   },
 ];
 
-/* 커버 이미지가 있는 프로젝트 — 파일은 images/<id>-wide|tall|band.jpg */
+/* 커버 이미지가 있는 프로젝트 — 파일은 images/<id>-wide|side|band.jpg */
 const COVER = new Set(['lotte-cinema', 'korail-talk', 'mould', 'dmd-graduation']);
 
 const state = { type: 'all', output: 'all', sort: 'featured' };
