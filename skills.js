@@ -49,20 +49,34 @@ const skills = [
 ];
 
 /* 카드 오른쪽 아래 그래픽 — 시안(470:1813) 그대로, 체스 말이 지나가는 칸을 그린다.
-   칸은 56×56, 한 칸씩 55 간격으로 놓아 테두리가 맞물린다. */
-const sq = (x, y) => `<rect x="${x}" y="${y}" width="56" height="56" vector-effect="non-scaling-stroke"/>`;
-const skillArt = (w, h, body) => `<svg class="skill-card__art" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true" focusable="false">${body}</svg>`;
-const grid3 = () => [0, 55, 110].map((y) => [0, 55, 110].map((x) => sq(x, y)).join('')).join('');
+   칸마다 네모를 따로 그리면 맞닿은 변에 선이 두 번 겹쳐 그 자리만 진해진다.
+   그래서 칸을 '변'으로 풀어 놓고 같은 변은 한 번만 그린다. 선 굵기는 카드 테두리와 같은 1px. */
+const U = 55;                      /* 칸 한 변 */
+const cellLines = (cells) => {
+  const seen = new Set();
+  const out = [];
+  /* vector-effect 는 물려받지 않는 성질이라 선마다 따로 적는다 — 크기가 줄어도 1px 을 지킨다 */
+  const add = (key, d) => { if (seen.has(key)) return; seen.add(key); out.push(`<path d="${d}" vector-effect="non-scaling-stroke"/>`); };
+  cells.forEach(([cx, cy]) => {
+    const x = cx * U, y = cy * U;
+    add('h' + x + ',' + y, `M${x} ${y}h${U}`);                 /* 윗변 */
+    add('h' + x + ',' + (y + U), `M${x} ${y + U}h${U}`);       /* 아랫변 */
+    add('v' + x + ',' + y, `M${x} ${y}v${U}`);                 /* 왼변 */
+    add('v' + (x + U) + ',' + y, `M${x + U} ${y}v${U}`);       /* 오른변 */
+  });
+  return out.join('');
+};
+const skillArt = (w, h, cells) => `<svg class="skill-card__art" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true" focusable="false">${cellLines(cells)}</svg>`;
 
 const SKILL_ART = [
   /* 리서치 — 비숍처럼 대각선으로 올라가는 세 칸 */
-  skillArt(166, 166, sq(0, 110) + sq(55, 55) + sq(110, 0)),
+  skillArt(165, 165, [[0, 2], [1, 1], [2, 0]]),
   /* AI — 나이트의 L자 이동 */
-  skillArt(111, 166, sq(0, 110) + sq(0, 55) + sq(55, 0)),
+  skillArt(110, 165, [[0, 2], [0, 1], [1, 0]]),
   /* 도구 — 룩처럼 상하좌우로 뻗는 십자 */
-  skillArt(166, 166, sq(55, 0) + sq(0, 55) + sq(55, 55) + sq(110, 55) + sq(55, 110)),
+  skillArt(165, 165, [[1, 0], [0, 1], [1, 1], [2, 1], [1, 2]]),
   /* 협업 — 킹이 닿는 아홉 칸 */
-  skillArt(166, 166, grid3()),
+  skillArt(165, 165, [[0, 0], [1, 0], [2, 0], [0, 1], [1, 1], [2, 1], [0, 2], [1, 2], [2, 2]]),
 ];
 
 /* 이름만 있는 항목과 `이름 — 사용 방법` 항목을 한 틀에서 그린다 */

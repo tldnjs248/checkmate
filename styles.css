@@ -789,3 +789,9 @@ strong, b { font-weight: var(--fw-strong); }
   .brand-mark span { font-size: 14px; }
   .button { width: 100%; height: 48px; }
 }
+
+/* ── 역량 카드 선 (2026-11-11 5차) ──
+   테두리를 HOW I PLAY 구분선과 같은 색으로. 그래픽 선 굵기도 테두리와 같은 1px 이다. */
+.skill-card { border-color: var(--ink); }
+.skill-card__art { height: 165px; }
+@media (max-width: 1100px) { .skill-card__art { height: 120px; } }
