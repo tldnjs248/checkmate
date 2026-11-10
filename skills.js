@@ -5,8 +5,8 @@
    그릴 자리는 두 페이지 모두 #skill-list 다.
 
    항목 형식 (2026-11-11 사용자 지정)
-     · AI 는 도구마다 어떻게 쓰는지 한 줄씩 — `이름 — 사용 방법`
-     · TOOL · UX · UI RESEARCH · 협업 역량 은 항목 이름만
+     · AI · TOOL 은 도구마다 어떻게 쓰는지 한 줄씩 — `이름 — 사용 방법`
+     · UX · UI RESEARCH · 협업 역량 은 항목 이름만
        (사용 방법은 소개 페이지가 아니라 이력서에서 보여 준다)
    ══════════════════════════════════════════════════════════════ */
 const skills = [
@@ -31,7 +31,11 @@ const skills = [
   },
   {
     title: 'TOOL',
-    items: [{ name: 'Figma' }, { name: 'PowerPoint' }, { name: 'Excel' }],
+    items: [
+      { name: 'Figma', use: '와이어프레임 · 프로토타입 제작, 문서 제작' },
+      { name: 'PowerPoint', use: '정보구조도 · 화면설계서 작성, 발표 장표 제작' },
+      { name: 'Excel', use: '사용성 평가 데이터 정리, 설문 결과 기초 분석' },
+    ],
   },
   {
     title: '협업 역량',

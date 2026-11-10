@@ -61,12 +61,17 @@ const projects = [
 /* 커버 이미지가 있는 프로젝트 — 파일은 images/<id>-wide|side|band.jpg */
 const COVER = new Set(['lotte-cinema', 'korail-talk', 'mould', 'dmd-graduation']);
 
+/* 큰 블록에서 저절로 재생되는 영상 — 화면에 들어오면 틀고 나가면 멈춘다.
+   커버 이미지를 깔고 그 위에 겹쳐서, 재생이 시작되면 서서히 나타난다.
+   값은 images/ 안의 파일 이름. */
+const VIDEO = { mould: 'mould.mp4' };
+
 const chevron = '<svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><polyline points="5 9 12 16 19 9"/></svg>';
 
 /* 상세 네 줄은 처음부터 펼쳐 둔다 — 근거를 먼저 보여 주고, 접는 것은 선택으로 남긴다 */
 document.querySelector('#project-list').innerHTML = projects.map((project, index) => `
   <article class="project is-open" id="project-${index + 1}">
-    <a class="project__media${COVER.has(project.id) ? ' has-image' : ' placeholder'}" href="project-detail.html?project=${project.id}" aria-label="${project.title} 상세 페이지로 이동">${COVER.has(project.id) ? `<img src="images/${project.id}-wide.jpg" alt="" loading="lazy" decoding="async">` : ''}</a>
+    <a class="project__media${COVER.has(project.id) ? ' has-image' : ' placeholder'}${VIDEO[project.id] ? ' has-video' : ''}" href="project-detail.html?project=${project.id}" aria-label="${project.title} 상세 페이지로 이동">${COVER.has(project.id) ? `<img src="images/${project.id}-wide.jpg" alt="" loading="lazy" decoding="async">` : ''}${VIDEO[project.id] ? `<video class="project__video" src="images/${VIDEO[project.id]}" muted loop playsinline preload="none" aria-hidden="true" tabindex="-1"></video>` : ''}</a>
     <div class="project__side${COVER.has(project.id) ? ' has-image' : ' placeholder'}" aria-hidden="true">${COVER.has(project.id) ? `<img src="images/${project.id}-side.jpg" alt="" loading="lazy" decoding="async">` : ''}</div>
     <div class="project__copy">
       <h3><a href="project-detail.html?project=${project.id}">${project.title}</a></h3>
@@ -94,3 +99,31 @@ document.querySelectorAll('.detail-toggle').forEach((button) => {
     details.classList.toggle('is-open', open);
   });
 });
+
+/* ── 스크롤 자동 재생 ───────────────────────────────────────────────
+   화면 가운데쯤 들어오면 틀고(처음 들어올 때 비로소 내려받는다),
+   벗어나면 멈춘다. 끝나면 처음으로 돌아가 계속 반복된다.
+   · 소리는 없다 — 소리가 있으면 브라우저가 자동 재생을 막는다
+   · 움직임을 줄이도록 설정한 사람에게는 틀지 않고 커버 이미지만 보여 준다 */
+const motionOff = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const videos = document.querySelectorAll('.project__video');
+
+if (videos.length && !motionOff && 'IntersectionObserver' in window) {
+  const watcher = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      const video = entry.target;
+      if (entry.isIntersecting) {
+        if (video.preload !== 'auto') video.preload = 'auto';
+        video.play().catch(() => { /* 자동 재생이 막히면 커버 이미지를 그대로 둔다 */ });
+      } else {
+        video.pause();
+      }
+    });
+  }, { threshold: 0.45 });
+
+  videos.forEach((video) => {
+    /* 첫 프레임이 실제로 그려진 뒤에 커버 이미지 위로 떠오르게 한다 */
+    video.addEventListener('playing', () => video.classList.add('is-playing'));
+    watcher.observe(video);
+  });
+}
