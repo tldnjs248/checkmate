@@ -18,8 +18,8 @@
 
   <main id="about-main">
     <section class="about-hero" aria-labelledby="about-title">
-      <p class="eyebrow">01 / PROFILE</p>
-      <h1 id="about-title">ABOUT<span>수를 두는 사람</span></h1>
+      <p class="eyebrow">01</p>
+      <h1 id="about-title">ABOUT</h1>
       <div class="profile-photo placeholder">프로필 사진<br>이미지 자리</div>
       <div class="profile-summary">
         <h2>주시원</h2>
@@ -47,47 +47,21 @@
     <section class="credentials numbered-section education-section">
       <div class="section-label"><span>04</span><h2>EDUCATION</h2></div>
       <div class="credential-list">
-        <article><span>학력</span><h3>계원예술대학교</h3><p>디지털미디어디자인과 기획 세부전공<br>2027.02 졸업예정</p></article>
+        <article><h3>계원예술대학교</h3><p>디지털미디어디자인과 기획 세부전공<br>2027.02 졸업예정</p></article>
       </div>
     </section>
 
     <section class="credentials numbered-section awards-section">
       <div class="section-label"><span>05</span><h2>AWARDS</h2></div>
       <div class="credential-list">
-        <article><span>수상</span><h3>커뮤니케이션국제어워드 특별상</h3><p>디지털미디어디자인 부문 · MOULD<br>2026.10</p></article>
+        <article><h3>커뮤니케이션국제어워드 특별상</h3><p>디지털미디어디자인 부문 · MOULD<br>2026.10</p></article>
       </div>
     </section>
 
     <section class="skills numbered-section">
-      <div class="section-label"><span>06</span><h2>SKILLS</h2><p>항목을 선택하면 사용 업무와 적용 프로젝트를 확인할 수 있습니다.</p></div>
-      <!-- 이력서 역량표와 같은 3구분 · 방법론 / 사용 업무 / 적용 프로젝트 -->
-      <div class="skill-list">
-        <article class="is-open">
-          <button class="skill-toggle" type="button" aria-expanded="true"><span>01</span><strong>도구</strong><b>−</b></button>
-          <div class="skill-detail"><div class="skill-rows">
-            <div class="skill-row"><strong>Figma</strong><p>와이어프레임 · 프로토타입 제작, 문서 제작</p><span>프로젝트 전반</span></div>
-            <div class="skill-row"><strong>PowerPoint</strong><p>정보구조도 · 화면설계서 작성, 발표 장표 제작</p><span>코레일톡</span></div>
-            <div class="skill-row"><strong>Excel</strong><p>사용성 평가 데이터 정리, 설문 결과 취합 및 기초 분석</p><span>졸업전시</span></div>
-          </div></div>
-        </article>
-        <article class="is-open">
-          <button class="skill-toggle" type="button" aria-expanded="true"><span>02</span><strong>AI 활용</strong><b>−</b></button>
-          <div class="skill-detail"><div class="skill-rows">
-            <div class="skill-row"><strong>ChatGPT · Claude</strong><p>리서치 보조, 생성형 이미지 제작, AI 기반 웹 프로토타입 구현</p><span>프로젝트 전반</span></div>
-            <div class="skill-row"><strong>Gemini · NotebookLM</strong><p>사례조사 자료 탐색, 문서 요약 및 정보 비교</p><span>MOULD · 코레일톡</span></div>
-          </div></div>
-        </article>
-        <article class="is-open">
-          <button class="skill-toggle" type="button" aria-expanded="true"><span>03</span><strong>UX · UI 리서치 · 설계</strong><b>−</b></button>
-          <div class="skill-detail"><div class="skill-rows">
-            <div class="skill-row"><strong>심층인터뷰(FGI) · 에스노그라피</strong><p>타운왓칭 · 인터뷰 기반 사용자 니즈 도출, 조사 보고서 작성</p><span>롯데시네마</span></div>
-            <div class="skill-row"><strong>사용성 테스트(UT) · 아이트래킹</strong><p>평가 시나리오 설계 · 진행, 결과 분석 및 개선 우선순위 도출</p><span>코레일톡 · 롯데시네마</span></div>
-            <div class="skill-row"><strong>트렌드 분석 · 벤치마킹</strong><p>사례조사 기반 구현 방식 검토 및 개선안 도출</p><span>MOULD · 코레일톡</span></div>
-            <div class="skill-row"><strong>페르소나 · 시나리오 · 스토리보드</strong><p>사용자 정의, 서비스 · 영상 흐름 구체화</p><span>MOULD</span></div>
-            <div class="skill-row"><strong>정보구조도(IA) · 화면설계</strong><p>분산된 기능 재구조화 및 개선 화면 설계</p><span>코레일톡</span></div>
-          </div></div>
-        </article>
-      </div>
+      <div class="section-label"><span>06</span><h2>SKILLS</h2></div>
+      <!-- 메인 ABOUT 미리보기와 같은 카드 네 장 — 내용은 skills.js 가 채운다 -->
+      <div class="skill-cards" id="skill-list"></div>
     </section>
 
     <section class="contact numbered-section" id="contact">
@@ -96,7 +70,34 @@
     </section>
   </main>
 
-  <footer class="footer"><span>[ FOOTER ]</span><span>주시원 · UX/UI · 서비스 기획자</span><a href="mailto:tldnjs248@gmail.com">이메일 ↗</a><span>© 2026</span></footer>
+  <footer class="footer">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <p class="footer__mark">CHECKMATE</p>
+        <p class="footer__line">판단의 근거를 쌓고 결정적인 수를 두는 기획자</p>
+      </div>
+      <nav class="footer__col" aria-label="푸터 메뉴">
+        <p class="footer__label">MENU</p>
+        <a href="index.html">HOME</a>
+        <a href="projects.html">PROJECTS</a>
+        <a href="about.html">ABOUT</a>
+      </nav>
+      <div class="footer__col">
+        <p class="footer__label">CONTACT</p>
+        <a href="mailto:tldnjs248@naver.com">tldnjs248@naver.com</a>
+        <p>서울 · 경기</p>
+      </div>
+      <div class="footer__col">
+        <p class="footer__label">DOCUMENT</p>
+        <a href="주시원_이력서_자기소개서.pdf" download>이력서 · 자기소개서 PDF ↗</a>
+      </div>
+    </div>
+    <div class="footer__base">
+      <p>&copy; 2026 SIWON JOO</p>
+      <p>UX/UI &middot; 서비스 기획자</p>
+    </div>
+  </footer>
   <script src="about.js"></script>
+  <script src="skills.js"></script>
 </body>
 </html>

@@ -199,3 +199,167 @@ strong, b { font-weight: 600; }
 /* 접기 기호(＋ −)와 보조 문장은 강조가 아니라 본문 굵기다 */
 .experience-toggle b, .skill-toggle b { font-weight: 500; }
 .about-hero h1 span { font-weight: 500; }
+
+/* ══ 2026-11-11 2차 수정 (사용자 지정) ═════════════════════════════
+   1. 본문 글자   18 · 15px → 16px 로 통일
+   2. 배경        #fafafa · 반투명 흰색 · 회색 카드 → 전부 흰색
+   3. 정렬        글만 있는 영역(이미지 자리 · 빈 목록)은 왼쪽 정렬
+   4. 푸터        [ FOOTER ] 자리표시 → 실제 푸터 (이메일 주소 노출)
+   앞의 규칙은 고치지 않고 이 층에서 덮어쓴다. */
+
+/* 1. 본문 16 — 문단 글만 맞춘다. 제목 · 번호 · 작은 라벨은 그대로 둔다 */
+body { font-size: 16px; }
+.profile-summary .role,
+.profile-line,
+.introduction__copy p:last-child,
+.credential-list p,
+.style-list p,
+.copy-status { font-size: 16px; }
+
+/* 2. 배경 흰색 — 페이지 · 섹션 · 회색 카드까지. 카드는 테두리로 구분한다 */
+:root { --canvas: #fff; }
+body, .about-hero, .numbered-section, .contact, .site-header { background: #fff; }
+.style-list article { background: #fff; border: 1px solid var(--soft); }
+
+/* 3. 글만 있는 영역은 왼쪽 정렬 */
+.placeholder { place-items: start; text-align: left; padding: 18px 20px; }
+
+/* ── 학력 · 수상 — 라벨(학력 · 수상)을 지웠으므로 두 칸으로.
+      한 줄짜리 행의 위아래 선도 지우고 섹션 아래 선만 남긴다 ── */
+.credential-list { border-top: 0; }
+.credential-list article {
+  grid-template-columns: 380px minmax(0, 1fr);
+  border-bottom: 0;
+  padding: 0;
+}
+@media (max-width: 1100px) { .credential-list article { grid-template-columns: 340px minmax(0, 1fr); } }
+@media (max-width: 760px) { .credential-list article { grid-template-columns: 1fr; gap: 6px; } }
+
+/* ── SKILLS — 메인 ABOUT 미리보기와 같은 카드 네 장 ──
+   아코디언을 없애고 카드로 바꿨으므로 .skill-list · .skill-toggle ·
+   .skill-row 규칙은 쓰는 마크업이 없어져 죽은 규칙으로 남는다. */
+.skills .skill-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-left: 25%;
+}
+.skill-card {
+  position: relative;
+  min-height: 281px;
+  padding: 30px 34px 34px;
+  border: 1px solid var(--soft);
+  background: #fff;
+  overflow: hidden;
+}
+.skill-card__no {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: #707070;
+}
+.skill-card h3 { margin-top: 8px; font-size: 24px; font-weight: 700; letter-spacing: -.02em; }
+.skill-card ul { position: relative; z-index: 1; margin: 26px 190px 0 0; padding: 0; list-style: none; }
+.skill-card li {
+  position: relative;
+  padding-left: 18px;
+  font-size: 16px;
+  line-height: 1.8;
+  word-break: keep-all;
+}
+.skill-card li b { font-weight: 600; }
+.skill-card li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: .78em;
+  width: 5px;
+  height: 5px;
+  background: var(--ink);
+}
+.skill-card__art {
+  position: absolute;
+  right: 26px;
+  bottom: 24px;
+  width: 168px;
+  height: 168px;
+  color: #c9c9c9;
+  pointer-events: none;
+}
+/* 두 단이 나란히 설 때만 라벨 줄에 맞춰 내린다 (앞의 --label-offset 규칙과 같은 값) */
+@media (min-width: 1101px) { .skills .skill-cards { margin-top: 43px; } }
+@media (max-width: 1100px) {
+  .skills .skill-cards { margin-left: 0; gap: 14px; }
+  .skill-card { min-height: 240px; padding: 24px 26px 28px; }
+  .skill-card ul { margin-right: 150px; }
+  .skill-card__art { right: 20px; bottom: 18px; width: 130px; height: 130px; }
+}
+@media (max-width: 880px) {
+  .skills .skill-cards { grid-template-columns: 1fr; }
+  .skill-card { min-height: 0; }
+  .skill-card ul { margin-right: 0; }
+  .skill-card__art { display: none; }
+}
+
+/* ── 푸터 — 실제 사이트 푸터 ──
+   위 네 칸(이름 · 메뉴 · 연락처 · 문서) + 아래 저작권 한 줄.
+   배경은 본문과 같은 흰색이고, 위쪽 검은 선 하나로만 본문과 갈라 놓는다.
+   글만 있는 영역이므로 모든 칸이 왼쪽 정렬이다. */
+.footer {
+  height: auto;
+  min-height: 0;
+  padding: 0;
+  background: #fff;
+  display: block;
+  border-top: 1px solid #111;
+  font-size: 16px;
+  text-align: left;
+}
+.footer__top {
+  display: grid;
+  grid-template-columns: minmax(0, 1.7fr) repeat(3, minmax(0, 1fr));
+  gap: 30px;
+  padding: 48px var(--gutter) 54px;
+}
+.footer__mark { font-size: 24px; font-weight: 600; letter-spacing: -.02em; }
+.footer__line { margin-top: 12px; color: #555; word-break: keep-all; }
+.footer__col { display: flex; flex-direction: column; align-items: flex-start; gap: 11px; }
+.footer__label {
+  margin-bottom: 3px;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: .06em;
+  color: #8a8a8a;
+}
+.footer__col p { color: #555; }
+.footer__col a { text-decoration: none; }
+.footer__col a:hover,
+.footer__col a:focus-visible { text-decoration: underline; text-underline-offset: 4px; }
+.footer__base {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 19px var(--gutter) 28px;
+  border-top: 1px solid #d7d7d7;
+  color: #8a8a8a;
+}
+.footer__base p { margin: 0; }
+
+@media (max-width: 1100px) {
+  .footer__top { grid-template-columns: 1fr 1fr; gap: 26px 20px; padding: 40px var(--gutter) 44px; }
+  .footer__base { padding: 17px var(--gutter) 26px; }
+}
+@media (max-width: 760px) {
+  .footer { font-size: 16px; }
+  .footer__top { grid-template-columns: 1fr; gap: 24px; padding: 32px 20px 30px; }
+  .footer__base { flex-direction: column; gap: 6px; padding: 16px 20px 30px; }
+}
+
+/* 16px 에 안 맞고 남아 있던 문단 · 라벨 (좁은 화면 규칙까지 포함) */
+.eyebrow,
+.section-label p,
+.section-label span,
+.profile-summary dl > div,
+.profile-summary dt,
+.profile-photo { font-size: 16px; }
