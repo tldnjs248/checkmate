@@ -48,24 +48,21 @@ const skills = [
   },
 ];
 
-/* 카드 오른쪽 아래 선 그래픽 — 네 장이 서로 다른 도형 하나씩을 쓴다 */
-const skillArt = (body) => `<svg class="skill-card__art" viewBox="0 0 160 160" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true" focusable="false">${body}</svg>`;
-const skillRay = (i, total) => {
-  const a = (Math.PI * 2 * i) / total;
-  const r1 = 24 + (i % 3) * 7;
-  const r2 = 58 + (i % 4) * 8;
-  const p = (r) => [(80 + Math.cos(a) * r).toFixed(1), (80 + Math.sin(a) * r).toFixed(1)];
-  return `<line x1="${p(r1)[0]}" y1="${p(r1)[1]}" x2="${p(r2)[0]}" y2="${p(r2)[1]}"/>`;
-};
+/* 카드 오른쪽 아래 그래픽 — 시안(470:1813) 그대로, 체스 말이 지나가는 칸을 그린다.
+   칸은 56×56, 한 칸씩 55 간격으로 놓아 테두리가 맞물린다. */
+const sq = (x, y) => `<rect x="${x}" y="${y}" width="56" height="56" vector-effect="non-scaling-stroke"/>`;
+const skillArt = (w, h, body) => `<svg class="skill-card__art" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true" focusable="false">${body}</svg>`;
+const grid3 = () => [0, 55, 110].map((y) => [0, 55, 110].map((x) => sq(x, y)).join('')).join('');
+
 const SKILL_ART = [
-  /* 리서치 — 안으로 좁혀 들어가는 사각형 */
-  skillArt('<rect x="22" y="6" width="104" height="148"/><rect x="2" y="38" width="156" height="84"/><rect x="50" y="46" width="48" height="68"/><rect x="67" y="73" width="14" height="14"/>'),
-  /* AI — 사방으로 뻗는 선 */
-  skillArt(Array.from({ length: 28 }, (_, i) => skillRay(i, 28)).join('')),
-  /* 도구 — 겹쳐 돌아간 사각형 */
-  skillArt('<rect x="32" y="32" width="96" height="96"/><rect x="32" y="32" width="96" height="96" transform="rotate(9 80 80)"/><rect x="32" y="32" width="96" height="96" transform="rotate(-12 80 80)"/>'),
-  /* 협업 — 서로 이어진 원 */
-  skillArt('<circle cx="50" cy="50" r="30"/><circle cx="110" cy="50" r="30"/><circle cx="50" cy="110" r="30"/><circle cx="110" cy="110" r="30"/><line x1="50" y1="50" x2="110" y2="110"/><line x1="110" y1="50" x2="50" y2="110"/>'),
+  /* 리서치 — 비숍처럼 대각선으로 올라가는 세 칸 */
+  skillArt(166, 166, sq(0, 110) + sq(55, 55) + sq(110, 0)),
+  /* AI — 나이트의 L자 이동 */
+  skillArt(111, 166, sq(0, 110) + sq(0, 55) + sq(55, 0)),
+  /* 도구 — 룩처럼 상하좌우로 뻗는 십자 */
+  skillArt(166, 166, sq(55, 0) + sq(0, 55) + sq(55, 55) + sq(110, 55) + sq(55, 110)),
+  /* 협업 — 킹이 닿는 아홉 칸 */
+  skillArt(166, 166, grid3()),
 ];
 
 /* 이름만 있는 항목과 `이름 — 사용 방법` 항목을 한 틀에서 그린다 */

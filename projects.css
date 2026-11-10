@@ -528,3 +528,21 @@ body, .page-intro, .project-grid-section, .site-header { background: #fff; }
 .eyebrow,
 .filter-group h3,
 .sort-row label { font-size: 16px; }
+
+/* ══ 2026-11-11 3차 — 페이지 제목 축소 (사용자 지정) ════════════════
+   PROJECTS 제목이 너무 커서 첫 화면을 다 차지했다. 소개 페이지 ABOUT 과 같은 56px 로
+   줄이고, 제목 영역 높이도 같이 좁힌다. */
+.page-intro { height: 300px; padding-top: 42px; }
+.page-intro h1 { bottom: 48px; font-size: 56px; letter-spacing: -.045em; }
+.page-intro h1 span { margin-top: 14px; font-size: 16px; }
+.page-intro__copy { bottom: 52px; width: min(560px, 42%); }
+.page-intro__copy p { font-size: 20px; }
+.page-intro__copy span { margin-top: 16px; font-size: 16px; }
+
+@media (max-width: 1100px) { .page-intro { height: 268px; } }
+@media (max-width: 760px) {
+  .page-intro { height: auto; padding: 92px 20px 40px; }
+  .page-intro h1 { margin-top: 22px; font-size: 38px; }
+  .page-intro__copy { width: auto; margin-top: 22px; }
+  .page-intro__copy p { font-size: 18px; }
+}

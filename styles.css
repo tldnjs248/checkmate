@@ -695,3 +695,39 @@ strong, b { font-weight: var(--fw-strong); }
 
 @media (max-width: 1100px) { .project__side--phone { --phone-k: .372; } }   /* 블록 388 */
 @media (max-width: 760px)  { .project__side--phone { display: none; } }     /* 옆 블록은 숨긴다 */
+
+/* ══ 2026-11-11 3차 수정 (사용자 지정) ═════════════════════════════
+   1. ABOUT 표 간격을 프로젝트 상세 본문과 똑같이
+   2. 폰 목업 높이를 옆 블록 높이에 딱 맞춤
+   3. 역량 카드 — 네 장 높이 통일 + 시안(470:1813)의 체스 칸 그래픽
+   앞의 규칙은 고치지 않고 이 층에서 덮어쓴다. */
+
+/* 1. ABOUT 표 — .project__details > div 와 같은 값(라벨 190 · 사이 24 · 위아래 18 · 선 #e3e3e3) */
+.about__facts > div {
+  grid-template-columns: 190px minmax(0, 1fr);
+  column-gap: 24px;
+  padding: 18px 0;
+  border-bottom: 1px solid #e3e3e3;
+}
+.about__facts > div:last-child { border-bottom: 0; }
+
+/* 2. 폰 목업 — 몸체 970 을 블록 높이로 나눈 값 */
+.project__side--phone { --phone-k: .58659; }                 /* 970 × .58659 = 569 */
+
+/* 3. 역량 카드 — 줄 수가 달라도 네 장이 같은 높이가 되게 (가장 높은 장에 맞춘다) */
+.skill-cards { grid-auto-rows: 1fr; }
+/* 그래픽은 시안대로 오른쪽에서 84 · 아래에서 56. 가로폭은 모양마다 다르다(나이트만 좁다) */
+.skill-card__art { right: 84px; bottom: 56px; width: auto; height: 166px; }
+.skill-card ul { margin-right: 230px; }
+
+@media (max-width: 1100px) {
+  .project__side--phone { --phone-k: .4; }                   /* 970 × .4 = 388 */
+  .skill-card__art { right: 56px; bottom: 40px; height: 120px; }
+  .skill-card ul { margin-right: 170px; }
+}
+@media (max-width: 880px) {
+  .skill-card ul { margin-right: 0; }
+}
+@media (max-width: 760px) {
+  .about__facts > div { grid-template-columns: 1fr; gap: 6px; padding: 14px 0 16px; }
+}

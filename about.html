@@ -18,54 +18,83 @@
 
   <main id="about-main">
     <section class="about-hero" aria-labelledby="about-title">
-      <p class="eyebrow">01</p>
-      <h1 id="about-title">ABOUT</h1>
-      <div class="profile-photo placeholder">프로필 사진<br>이미지 자리</div>
-      <div class="profile-summary">
-        <h2>주시원</h2>
-        <p class="role">UX/UI · 서비스 기획자</p>
-        <p class="profile-line">판단의 근거를 쌓아 결정적인 수를 두는 기획자입니다.</p>
-        <dl><div><dt>생년월일</dt><dd>2004.06.20</dd></div><div><dt>지역</dt><dd>서울 · 경기</dd></div><div><dt>이메일</dt><dd>tldnjs248@gmail.com</dd></div></dl>
-        <div class="profile-docs" id="resume"><a href="#" target="_blank" rel="noopener">이력서 PDF 보기 ↗</a><a href="#" target="_blank" rel="noopener">자기소개서 PDF 보기 ↗</a></div>
+      <div class="about-hero__head">
+        <p class="eyebrow">01</p>
+        <h1 id="about-title">ABOUT</h1>
       </div>
-    </section>
 
-    <section class="introduction numbered-section">
-      <div class="section-label"><span>02</span><h2>INTRODUCTION</h2></div>
-      <div class="introduction__copy"><p>사용자가 실제로 겪는 문제를 직접 확인해 판단의 근거를 쌓고, 여러 관점과 함께 검토해 실행 가능한 방향으로 나아갑니다.</p><p>생각을 먼저 확정하기보다 자료와 실제 반응으로 판단의 기준을 세우고, 팀과 함께 더 나은 결정을 만드는 기획자가 되고 싶습니다.</p></div>
-    </section>
+      <div class="profile">
+        <!-- 사진 — 기본은 증명사진, 올려 두면 체스판 사진으로 바뀐다 -->
+        <div class="profile__photo">
+          <img class="profile__photo-a" src="images/profile-1.jpg" alt="주시원 프로필 사진" width="840" height="1120" decoding="async">
+          <img class="profile__photo-b" src="images/profile-2.jpg" alt="" aria-hidden="true" width="840" height="1120" loading="lazy" decoding="async">
+        </div>
 
-    <section class="work-style numbered-section">
-      <div class="section-label"><span>03</span><h2>WORK STYLE</h2><p>CHECKMATE</p></div>
-      <div class="style-list">
-        <article><span>01</span><h3>CHECK</h3><strong>근거를 쌓는다</strong><p>가정에서 시작하지 않고 사용자와 조건을 직접 확인해 판단의 근거를 만듭니다.</p></article>
-        <article><span>02</span><h3>MATE</h3><strong>함께 판단한다</strong><p>의견의 목적을 이해하고 필요한 조건을 맞춰 더 설득력 있는 판단으로 만듭니다.</p></article>
-        <article><span>03</span><h3>CHECKMATE!</h3><strong>결정한다</strong><p>쌓은 근거와 함께 내린 판단을 결과물과 실행 계획으로 끝까지 옮깁니다.</p></article>
+        <div class="profile__copy">
+          <p class="profile__slogan">판단의 근거를 쌓고<br>결정적인 수를 두는 기획자</p>
+          <div class="profile__intro">
+            <p>사용자가 겪는 문제를 직접 확인해 판단의 근거를 쌓고, 여러 관점과 함께 검토해 실행 가능한 방향으로 나아갑니다.</p>
+            <p>자료와 실제 반응으로 판단의 기준을 세우고, 팀과 함께 더 나은 결정을 만드는 기획자가 되고 싶습니다.</p>
+          </div>
+          <dl class="profile__facts">
+            <div><dt>이름</dt><dd>주시원</dd></div>
+            <div><dt>직군</dt><dd>UX/UI · 서비스 기획자</dd></div>
+            <div><dt>생년월일</dt><dd>2004.06.20</dd></div>
+            <div><dt>지역</dt><dd>서울 · 경기</dd></div>
+            <div><dt>이메일</dt><dd>tldnjs248@gmail.com</dd></div>
+          </dl>
+          <div class="profile-docs" id="resume"><a href="#" target="_blank" rel="noopener">이력서 PDF 보기 ↗</a><a href="#" target="_blank" rel="noopener">자기소개서 PDF 보기 ↗</a></div>
+        </div>
+      </div>
+
+      <!-- 프로젝트 수행 스타일 — 역량 카드와 같은 상자 형태로 세 장 -->
+      <div class="playstyle">
+        <h2 class="playstyle__title">프로젝트 수행 스타일<span>CHECKMATE</span></h2>
+        <div class="playstyle__cards">
+          <article class="skill-card">
+            <p class="skill-card__no">/ 001</p>
+            <h3>CHECK</h3>
+            <p class="skill-card__lead">근거를 쌓는다</p>
+            <p class="skill-card__body">가정에서 시작하지 않고 사용자와 조건을 직접 확인해 판단의 근거를 만듭니다.</p>
+          </article>
+          <article class="skill-card">
+            <p class="skill-card__no">/ 002</p>
+            <h3>MATE</h3>
+            <p class="skill-card__lead">함께 판단한다</p>
+            <p class="skill-card__body">의견의 목적을 이해하고 필요한 조건을 맞춰 더 설득력 있는 판단으로 만듭니다.</p>
+          </article>
+          <article class="skill-card">
+            <p class="skill-card__no">/ 003</p>
+            <h3>CHECKMATE!</h3>
+            <p class="skill-card__lead">결정한다</p>
+            <p class="skill-card__body">쌓은 근거와 함께 내린 판단을 결과물과 실행 계획으로 끝까지 옮깁니다.</p>
+          </article>
+        </div>
       </div>
     </section>
 
     <section class="credentials numbered-section education-section">
-      <div class="section-label"><span>04</span><h2>EDUCATION</h2></div>
+      <div class="section-label"><span>02</span><h2>EDUCATION</h2></div>
       <div class="credential-list">
         <article><h3>계원예술대학교</h3><p>디지털미디어디자인과 기획 세부전공<br>2027.02 졸업예정</p></article>
       </div>
     </section>
 
     <section class="credentials numbered-section awards-section">
-      <div class="section-label"><span>05</span><h2>AWARDS</h2></div>
+      <div class="section-label"><span>03</span><h2>AWARDS</h2></div>
       <div class="credential-list">
         <article><h3>커뮤니케이션국제어워드 특별상</h3><p>디지털미디어디자인 부문 · MOULD<br>2026.10</p></article>
       </div>
     </section>
 
     <section class="skills numbered-section">
-      <div class="section-label"><span>06</span><h2>SKILLS</h2></div>
+      <div class="section-label"><span>04</span><h2>SKILLS</h2></div>
       <!-- 메인 ABOUT 미리보기와 같은 카드 네 장 — 내용은 skills.js 가 채운다 -->
       <div class="skill-cards" id="skill-list"></div>
     </section>
 
     <section class="contact numbered-section" id="contact">
-      <div class="section-label"><span>07</span><h2>CONTACT</h2></div>
+      <div class="section-label"><span>05</span><h2>CONTACT</h2></div>
       <div class="contact-copy"><p>LET'S WORK<br>TOGETHER.</p><div><a href="mailto:tldnjs248@gmail.com">메일 보내기 ↗</a><button type="button" id="copy-email" data-email="tldnjs248@gmail.com">이메일 복사</button></div><p class="copy-status" id="copy-status" aria-live="polite" hidden></p></div>
     </section>
   </main>
