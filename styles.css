@@ -659,3 +659,39 @@ strong, b { font-weight: var(--fw-strong); }
 .project__video.is-playing { opacity: 1; }
 /* 영상이 깔린 블록은 확대 효과를 쓰지 않는다 — 두 겹이 따로 움직여 어긋난다 */
 .project__media.has-video:hover img { transform: none; }
+
+/* ── 롯데시네마 옆 블록 — 아이폰 목업 안에서 To-Be 프로토타입 영상 (2026-11-11, 배치 '가') ──
+   기기 iPhone 18 Pro Max · 화면 440×956pt · 테두리 7pt · 몸체 454×970pt.
+   프로토타입이 상태바와 다이나믹 아일랜드를 스스로 그리므로 목업은 몸체만 그린다.
+   목업은 1배 크기로 짜 두고 --phone-k 로 통째로 줄인다 — 블록 높이가 바뀌면 이 값만 갈아끼운다. */
+.project__side--phone {
+  --phone-k: .546;                 /* 970 × .546 = 530 · 블록 569 안에 위아래 20씩 남는다 */
+  position: relative;
+  overflow: hidden;
+  background: #fff;
+}
+/* 배치 상자(454×970)가 블록보다 크므로 가운데 정렬은 그리드에 맡기지 않는다 —
+   그리드는 넘치는 항목을 위에 붙여 버린다. 절대 위치로 직접 가운데에 놓는다. */
+.phone {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 454px;
+  height: 970px;
+  padding: 7px;
+  border-radius: 64px;
+  background: linear-gradient(145deg, #5a5a5e, #2c2c2f 38%, #3f3f43 62%, #232326);
+  box-shadow: 0 18px 44px rgba(0,0,0,.26), 0 2px 6px rgba(0,0,0,.2);
+  transform: translate(-50%, -50%) scale(var(--phone-k));
+}
+.phone__key { position: absolute; background: linear-gradient(180deg, #6a6a6e, #3a3a3e); border-radius: 2px; }
+.phone__key--action  { left: -2px;  top: 168px; width: 3px; height: 30px; }
+.phone__key--volup   { left: -2px;  top: 232px; width: 3px; height: 62px; }
+.phone__key--voldown { left: -2px;  top: 312px; width: 3px; height: 62px; }
+.phone__key--power   { right: -2px; top: 252px; width: 3px; height: 98px; }
+.phone__key--camera  { right: -2px; top: 386px; width: 3px; height: 42px; }
+.phone__screen { width: 440px; height: 956px; border-radius: 57px; overflow: hidden; background: #fff; }
+.phone__video { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
+
+@media (max-width: 1100px) { .project__side--phone { --phone-k: .372; } }   /* 블록 388 */
+@media (max-width: 760px)  { .project__side--phone { display: none; } }     /* 옆 블록은 숨긴다 */

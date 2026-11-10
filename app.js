@@ -66,13 +66,25 @@ const COVER = new Set(['lotte-cinema', 'korail-talk', 'mould', 'dmd-graduation']
    값은 images/ 안의 파일 이름. */
 const VIDEO = { mould: 'mould.mp4' };
 
+/* 옆 블록을 아이폰 목업으로 바꾸는 프로젝트 — 그 안에서 To-Be 프로토타입 영상이 돈다.
+   영상은 프로토타입(hangnar.github.io/lotte-asis-tobe/tobe.html)을 실제로 눌러가며 찍은 것이다.
+   홈 → 영화 찾기 · 스페셜관 → 특별관 바꿔 비교 → 영화 상세 → 상영관별 회차. 17초 · 반복. */
+const PHONE = { 'lotte-cinema': { video: 'lotte-tobe.mp4', poster: 'lotte-tobe-poster.jpg' } };
+
 const chevron = '<svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><polyline points="5 9 12 16 19 9"/></svg>';
 
 /* 상세 네 줄은 처음부터 펼쳐 둔다 — 근거를 먼저 보여 주고, 접는 것은 선택으로 남긴다 */
 document.querySelector('#project-list').innerHTML = projects.map((project, index) => `
   <article class="project is-open" id="project-${index + 1}">
-    <a class="project__media${COVER.has(project.id) ? ' has-image' : ' placeholder'}${VIDEO[project.id] ? ' has-video' : ''}" href="project-detail.html?project=${project.id}" aria-label="${project.title} 상세 페이지로 이동">${COVER.has(project.id) ? `<img src="images/${project.id}-wide.jpg" alt="" loading="lazy" decoding="async">` : ''}${VIDEO[project.id] ? `<video class="project__video" src="images/${VIDEO[project.id]}" muted loop playsinline preload="none" aria-hidden="true" tabindex="-1"></video>` : ''}</a>
-    <div class="project__side${COVER.has(project.id) ? ' has-image' : ' placeholder'}" aria-hidden="true">${COVER.has(project.id) ? `<img src="images/${project.id}-side.jpg" alt="" loading="lazy" decoding="async">` : ''}</div>
+    <a class="project__media${COVER.has(project.id) ? ' has-image' : ' placeholder'}${VIDEO[project.id] ? ' has-video' : ''}" href="project-detail.html?project=${project.id}" aria-label="${project.title} 상세 페이지로 이동">${COVER.has(project.id) ? `<img src="images/${project.id}-wide.jpg" alt="" loading="lazy" decoding="async">` : ''}${VIDEO[project.id] ? `<video class="project__video" data-autoplay src="images/${VIDEO[project.id]}" muted loop playsinline preload="none" aria-hidden="true" tabindex="-1"></video>` : ''}</a>
+    ${PHONE[project.id] ? `
+    <div class="project__side project__side--phone" aria-hidden="true">
+      <div class="phone">
+        <i class="phone__key phone__key--action"></i><i class="phone__key phone__key--volup"></i><i class="phone__key phone__key--voldown"></i><i class="phone__key phone__key--power"></i><i class="phone__key phone__key--camera"></i>
+        <div class="phone__screen"><video class="phone__video" data-autoplay src="images/${PHONE[project.id].video}" poster="images/${PHONE[project.id].poster}" muted loop playsinline preload="none" tabindex="-1"></video></div>
+      </div>
+    </div>` : `
+    <div class="project__side${COVER.has(project.id) ? ' has-image' : ' placeholder'}" aria-hidden="true">${COVER.has(project.id) ? `<img src="images/${project.id}-side.jpg" alt="" loading="lazy" decoding="async">` : ''}</div>`}
     <div class="project__copy">
       <h3><a href="project-detail.html?project=${project.id}">${project.title}</a></h3>
       <p class="project__meta">${project.meta}</p>
@@ -106,7 +118,7 @@ document.querySelectorAll('.detail-toggle').forEach((button) => {
    · 소리는 없다 — 소리가 있으면 브라우저가 자동 재생을 막는다
    · 움직임을 줄이도록 설정한 사람에게는 틀지 않고 커버 이미지만 보여 준다 */
 const motionOff = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-const videos = document.querySelectorAll('.project__video');
+const videos = document.querySelectorAll('video[data-autoplay]');
 
 if (videos.length && !motionOff && 'IntersectionObserver' in window) {
   const watcher = new IntersectionObserver((entries) => {
