@@ -840,3 +840,17 @@ strong, b { font-weight: var(--fw-strong); }
   .brand-mark { left: max(60px, calc((100vw / .9 - 1920px) / 2 + 60px)); }
   .gnb { right: max(59px, calc((100vw / .9 - 1920px) / 2 + 59px)); }
 }
+
+/* ── 상세 펼침 영역 다듬기 (2026-11-12 사용자 지정) ──
+   · 행 사이가 37px(위아래 18+18+선)이라 내용(1~3줄)에 비해 넓어 보였다 → 27px 로
+   · 아래 라벨(담당 범위 · 확인한 문제 …)이 위 라벨과 같은 16px 이었다 → 14px, 위 여백도 4→2
+   메인 ABOUT 표는 앞서 이 행과 같은 간격으로 맞춰 둔 곳이라 함께 줄인다. */
+.project__details > div { padding: 13px 0; }
+.project__details dt span { font-size: 14px; margin-top: 2px; }
+.about__facts > div { padding: 13px 0; }
+
+@media (max-width: 760px) {
+  /* 좁은 화면은 라벨과 값이 한 줄로 쌓여서 원래 값을 그대로 둔다 */
+  .project__details > div { padding: 12px 0; }
+  .about__facts > div { grid-template-columns: 1fr; gap: 6px; padding: 14px 0 16px; }
+}
