@@ -824,3 +824,18 @@ strong, b { font-weight: var(--fw-strong); }
 
 /* 그래픽 높이를 viewBox(166) 와 1:1 로 맞춘다 — 그래야 0.5 민 좌표가 화소 한가운데에 떨어진다 */
 .skill-card__art { height: 166px; }
+
+/* ── 본문 줄 길이 (2026-11-12) ──
+   메인 상세 펼친 본문이 1920 에서 한 줄에 152자까지 갔다. 눈이 줄 끝에서 다음 줄 앞으로
+   돌아오기 힘든 길이다. 이 사이트의 다른 본문과 같은 폭으로 맞춘다.
+     HOW I PLAY 736 · 상세 페이지 760 · 소개 780  →  70자 안팎
+   max-width 라서 좁은 화면에서는 아무 영향이 없다(이미 760 보다 좁다). */
+.project__details dd p { max-width: 760px; }
+.project__desc { max-width: 760px; }
+/* 메인 ABOUT 표의 값 칸도 같은 폭으로 — 여기도 1586px 에 147자까지 갔다 */
+.about__facts dd { max-width: 760px; }
+/* 한글은 글자 단위로 끊기는 게 기본이라 "되고 싶습니 / 다." 처럼 잘린다.
+   HOW I PLAY 본문처럼 낱말을 통째로 넘기게 한다. */
+.project__details dd p,
+.project__desc,
+.about__facts dd { word-break: keep-all; }
