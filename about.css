@@ -578,3 +578,6 @@ body, .about-hero, .numbered-section, .contact, .site-header { background: #fff;
 
 /* 역량 카드 그래픽 색 (2026-11-12 사용자 지정) */
 .skill-card__art { color: #767676; }
+
+/* 그래픽 높이를 viewBox(166) 와 1:1 로 */
+.skill-card__art { height: 166px; }

@@ -821,3 +821,6 @@ strong, b { font-weight: var(--fw-strong); }
 /* 역량 카드 그래픽 색 (2026-11-12 사용자 지정) — 연한 회색에서 #767676 으로.
    선 굵기는 non-scaling-stroke 로 1px 고정, crispEdges 로 화소 격자에 맞춰 고르게 그린다. */
 .skill-card__art { color: #767676; }
+
+/* 그래픽 높이를 viewBox(166) 와 1:1 로 맞춘다 — 그래야 0.5 민 좌표가 화소 한가운데에 떨어진다 */
+.skill-card__art { height: 166px; }
