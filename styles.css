@@ -693,6 +693,28 @@ strong, b { font-weight: var(--fw-strong); }
 .phone__screen { width: 440px; height: 956px; border-radius: 57px; overflow: hidden; background: #fff; }
 .phone__video { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
 
+/* 코레일톡 — 화면 여러 장이 차례로 겹쳐 바뀐다. 한 장 3초 중 앞 0.5초 동안 새 화면이 살짝 밀려 들어온다.
+   모든 장이 같은 애니메이션을 쓰고 --i 만큼 늦게 시작한다. 첫 장은 처음부터 보인다. */
+.phone__slides { position: relative; width: 100%; height: 100%; --dur: calc(var(--n) * 3s); }
+.phone__slides img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; object-position: top center; display: block;
+  opacity: 0;
+  animation: phone-slide var(--dur) linear infinite;
+  animation-delay: calc(var(--i) * 3s - .5s);
+}
+.phone__slides img:first-child { opacity: 1; }
+@keyframes phone-slide {
+  0%      { opacity: 0; transform: translateX(6%); z-index: 2; }
+  2.8%    { opacity: 1; transform: none; z-index: 1; }   /* 퍼센트는 6장 기준(한 장 = 16.67%) */
+  19.4%   { opacity: 1; transform: none; z-index: 1; }
+  22.3%   { opacity: 1; z-index: 1; }
+  22.4%, 100% { opacity: 0; z-index: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .phone__slides img { animation: none; }
+}
+
 @media (max-width: 1100px) { .project__side--phone { --phone-k: .372; } }   /* 블록 388 */
 @media (max-width: 760px)  { .project__side--phone { display: none; } }     /* 옆 블록은 숨긴다 */
 
@@ -795,3 +817,7 @@ strong, b { font-weight: var(--fw-strong); }
 .skill-card { border-color: var(--ink); }
 .skill-card__art { height: 165px; }
 @media (max-width: 1100px) { .skill-card__art { height: 120px; } }
+
+/* 역량 카드 그래픽 색 (2026-11-12 사용자 지정) — 연한 회색에서 #767676 으로.
+   선 굵기는 non-scaling-stroke 로 1px 고정, crispEdges 로 화소 격자에 맞춰 고르게 그린다. */
+.skill-card__art { color: #767676; }

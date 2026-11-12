@@ -66,7 +66,9 @@ const cellLines = (cells) => {
   });
   return out.join('');
 };
-const skillArt = (w, h, cells) => `<svg class="skill-card__art" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true" focusable="false">${cellLines(cells)}</svg>`;
+/* shape-rendering="crispEdges" — 가로세로 선만 쓰므로 화소 격자에 딱 맞춰 그린다.
+   이게 없으면 선이 화소 경계에 반쯤 걸쳐 어떤 줄은 흐리고 두껍게 보인다. */
+const skillArt = (w, h, cells) => `<svg class="skill-card__art" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" fill="none" stroke="currentColor" stroke-width="1" shape-rendering="crispEdges" aria-hidden="true" focusable="false">${cellLines(cells)}</svg>`;
 
 const SKILL_ART = [
   /* 리서치 — 비숍처럼 대각선으로 올라가는 세 칸 */

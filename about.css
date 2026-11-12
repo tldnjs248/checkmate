@@ -575,3 +575,6 @@ body, .about-hero, .numbered-section, .contact, .site-header { background: #fff;
   .contact .contact-copy { margin-top: 0; }
 }
 @media (max-width: 1100px) { .skill-card__art { height: 120px; } }
+
+/* 역량 카드 그래픽 색 (2026-11-12 사용자 지정) */
+.skill-card__art { color: #767676; }

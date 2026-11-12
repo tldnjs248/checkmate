@@ -69,7 +69,17 @@ const VIDEO = { mould: 'mould.mp4' };
 /* 옆 블록을 아이폰 목업으로 바꾸는 프로젝트 — 그 안에서 To-Be 프로토타입 영상이 돈다.
    영상은 프로토타입(hangnar.github.io/lotte-asis-tobe/tobe.html)을 실제로 눌러가며 찍은 것이다.
    홈 → 영화 찾기 · 스페셜관 → 특별관 바꿔 비교 → 영화 상세 → 상영관별 회차. 17초 · 반복. */
-const PHONE = { 'lotte-cinema': { video: 'lotte-tobe.mp4', poster: 'lotte-tobe-poster.jpg' } };
+const PHONE = {
+  'lotte-cinema': { video: 'lotte-tobe.mp4', poster: 'lotte-tobe-poster.jpg' },
+  /* 코레일톡은 영상 대신 개선 화면 6장이 차례로 겹쳐 바뀐다(장당 3초 · 18초 반복).
+     피그마 '만들기' 페이지의 아이폰 목업 6개에서 화면만 뽑았다.
+     홈 → GNB(접힘) → GNB(마이 페이지 펼침) → 나의 티켓 → 장바구니 → 결제 */
+  'korail-talk': { slides: [1, 2, 3, 4, 5, 6].map((n) => `korail-tobe-${n}.jpg`) },
+};
+
+const phoneScreen = ({ video, poster, slides }) => slides
+  ? `<div class="phone__slides" style="--n:${slides.length}">${slides.map((src, i) => `<img src="images/${src}" alt="" style="--i:${i}" loading="lazy" decoding="async">`).join('')}</div>`
+  : `<video class="phone__video" data-autoplay src="images/${video}" poster="images/${poster}" muted loop playsinline preload="none" tabindex="-1"></video>`;
 
 const chevron = '<svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><polyline points="5 9 12 16 19 9"/></svg>';
 
@@ -81,7 +91,7 @@ document.querySelector('#project-list').innerHTML = projects.map((project, index
     <div class="project__side project__side--phone" aria-hidden="true">
       <div class="phone">
         <i class="phone__key phone__key--action"></i><i class="phone__key phone__key--volup"></i><i class="phone__key phone__key--voldown"></i><i class="phone__key phone__key--power"></i><i class="phone__key phone__key--camera"></i>
-        <div class="phone__screen"><video class="phone__video" data-autoplay src="images/${PHONE[project.id].video}" poster="images/${PHONE[project.id].poster}" muted loop playsinline preload="none" tabindex="-1"></video></div>
+        <div class="phone__screen">${phoneScreen(PHONE[project.id])}</div>
       </div>
     </div>` : `
     <div class="project__side${COVER.has(project.id) ? ' has-image' : ' placeholder'}" aria-hidden="true">${COVER.has(project.id) ? `<img src="images/${project.id}-side.jpg" alt="" loading="lazy" decoding="async">` : ''}</div>`}
