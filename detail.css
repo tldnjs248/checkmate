@@ -369,3 +369,20 @@ body, .other-projects, .site-header, .project-index { background: #fff; }
   .brand-mark b { font-size: 16px; }
   .brand-mark span { font-size: 14px; }
 }
+
+/* ══ 2026-11-12 — 화면을 90% 로 (사용자 지정) ═══════════════════════
+   브라우저를 90% 로 축소해서 볼 때가 가장 보기 좋다고 하셔서 그 상태를 기본으로 굳힌다.
+   px 값을 전부 0.9 배로 고치는 대신 zoom 한 줄로 전체를 줄인다 — 비율이 그대로 유지된다.
+
+   · 1100px 이하는 손대지 않는다. 좁은 화면은 이미 글자가 작아 더 줄이면 읽기 힘들다.
+   · zoom 안에서 vw · vh 는 "줄이기 전" 화면 크기로 잡힌다. 그래서 그 값을 쓰는 곳은
+     0.9 로 나눠 되돌려야 한다. 아래 두 곳이 그렇다.
+       히어로 높이   100vh 그대로 두면 화면보다 10% 짧아진다
+       헤더 좌우     본문이 1920 에서 멈출 때 헤더만 창 끝에 붙어 어긋난다 */
+@media (min-width: 1101px) {
+  html { zoom: .9; }
+  .brand-mark { left: max(var(--gutter), calc((100vw / .9 - 1920px) / 2 + 60px)); }
+  .gnb { right: max(var(--gutter), calc((100vw / .9 - 1920px) / 2 + 60px)); }
+  /* 붙박이 목차 높이도 100vh 기준이라 같이 되돌린다 */
+  .project-index { max-height: calc(100vh / .9 - 150px); }
+}
