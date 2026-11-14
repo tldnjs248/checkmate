@@ -181,29 +181,36 @@ a:focus-visible,button:focus-visible,select:focus-visible{
    6. HOW I PLAY — 세 수를 기록한 자리
    ─────────────────────────────────────────────────────────────── */
 /* 원래 두 칸 그리드라, 라벨을 띄우면 글이 라벨 칸에 갇힌다 — 보통 흐름으로 되돌린다.
-   세 수를 한 칸씩 가둔다. 역량 카드와 같은 규칙이다 */
+   세 수를 한 판에 모은다. 칸이 맞붙고 선 하나를 나눠 쓴다 — 기보판이다.
+   grid-auto-rows:1fr 이 세 칸을 가장 큰 칸 높이에 맞춘다. 줄 수가 달라져도 다시 맞는다 */
+.play{
+  display:grid;grid-auto-rows:1fr;
+  border:1px solid var(--line);}
 .play__step{
-  display:block;position:relative;
-  border:1px solid var(--line);
+  display:block;position:relative;margin:0;
+  border:0;border-top:1px solid var(--line);
   padding:24px 24px 24px calc(var(--col) + var(--indent));
-  margin-bottom:24px;
-  transition:border-color var(--t-fast) linear,background-color var(--t-mid) var(--e);}
-.play__step:last-child{margin-bottom:0;padding-bottom:24px;}
+  transition:box-shadow var(--t-fast) linear,background-color var(--t-mid) var(--e);}
+.play__step:first-child{border-top:0;}
+.play__step:last-child{padding-bottom:24px;}
 .play__text{max-width:none;padding-top:0;}
+/* 칸이 680 으로 좁다 — 넓은 자리(1038 · 1616)와 같은 16 은 여기서 커 보인다.
+   목록 카드 설명이 쓰는 14 로 한 단 낮춘다. 행간 1.6 은 그대로라 22.4 로 따라 줄어든다 */
+.play__text p{font-size:14px;}
 .play__chip{
   position:absolute;left:24px;top:24px;width:calc(var(--col) - 24px);
   background:none;color:var(--ink);padding:0;
   font-size:12px;font-weight:600;letter-spacing:.14em;}
 
-/* 라벨 │ 선 │ 내용 — 칸 안에서도 기보 틀을 지킨다 */
+/* 라벨 │ 선 │ 내용 — 세로선이 세 칸을 가로질러 하나로 내려간다 */
 .play__step::after{
-  content:"";position:absolute;left:var(--col);top:24px;bottom:24px;width:1px;background:var(--line);}
+  content:"";position:absolute;left:var(--col);top:0;bottom:0;width:1px;background:var(--line);}
 
-/* 지금 읽는 수 — 앞 두 칸은 외곽선만 진해진다 */
-.play__step.is-mate{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink);}
+/* 지금 읽는 수 — 칸 둘레에 선을 한 겹 둘러 이웃이 가진 옅은 선을 덮는다 */
+.play__step.is-mate{z-index:1;box-shadow:0 0 0 1px var(--ink);}
 
 /* 마지막 수 — 여기서만 칸이 채워진다. CHECKMATE 는 한 번뿐이다 */
-.play__step:last-child.is-mate{background:var(--ink);box-shadow:none;}
+.play__step:last-child.is-mate{background:var(--ink);}
 .play__step:last-child.is-mate .play__chip{color:#fff;}
 .play__step:last-child.is-mate .play__text p{color:#fff;}
 .play__step:last-child.is-mate::after{background:#555555;}
