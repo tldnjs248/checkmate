@@ -163,15 +163,15 @@ a:focus-visible,button:focus-visible,select:focus-visible{
   grid-column:1 / -1;grid-row:1;
   display:block;padding-bottom:12px;margin-bottom:12px;
   border-bottom:1px solid var(--line);
-  font-size:20px;font-weight:700;line-height:1;letter-spacing:.02em;color:var(--ink);}
+  font-size:14px;font-weight:600;line-height:1;letter-spacing:.02em;color:var(--ink-3);}
 .project__media,.project__side{grid-row:2;}
 .project__copy,.detail-toggle{grid-row:3;}
 .project__details{grid-row:4;}
-#project-1::before{content:"001";}
-#project-2::before{content:"002";}
-#project-3::before{content:"003";}
-#project-4::before{content:"004";}
-#project-5::before{content:"005";}
+#project-1::before{content:"01";}
+#project-2::before{content:"02";}
+#project-3::before{content:"03";}
+#project-4::before{content:"04";}
+#project-5::before{content:"05";}
 
 /* 번호 칸이 없어졌으니 제목은 칸 왼쪽 끝에서 시작한다 */
 .project__copy{position:relative;padding-left:0;}
@@ -316,7 +316,7 @@ a:focus-visible,button:focus-visible,select:focus-visible{
   content:counter(pcard,decimal-leading-zero);
   display:block;padding-bottom:12px;margin-bottom:12px;
   border-bottom:1px solid var(--line);
-  font-size:20px;font-weight:700;line-height:1;letter-spacing:.02em;color:var(--ink);}
+  font-size:14px;font-weight:600;line-height:1;letter-spacing:.02em;color:var(--ink-3);}
 .project-card__index{display:none;}
 /* 썸네일 — 칸을 더 채우도록 세로를 늘린다. 원본 커버는 1600x1112 */
 .project-card__thumb{aspect-ratio:5 / 4;}
