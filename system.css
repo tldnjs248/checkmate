@@ -161,7 +161,7 @@ a:focus-visible,button:focus-visible,select:focus-visible{
    제목 옆에 두면 둘이 같은 줄에서 겨루므로 떼어 놓는다 */
 .project::before{
   grid-column:1 / -1;grid-row:1;
-  display:block;padding-bottom:12px;margin-bottom:20px;
+  display:block;padding-bottom:12px;margin-bottom:12px;
   border-bottom:1px solid var(--line);
   font-size:20px;font-weight:700;line-height:1;letter-spacing:.02em;color:var(--ink);}
 .project__media,.project__side{grid-row:2;}
@@ -309,15 +309,17 @@ a:focus-visible,button:focus-visible,select:focus-visible{
 .project-grid{counter-reset:pcard;gap:40px 24px;}
 .project-card{
   counter-increment:pcard;
-  border:1px solid var(--line);padding:24px;
+  border:1px solid var(--line);padding:16px;
   transition:border-color var(--t-fast) linear;}
 .project-card:hover{border-color:var(--ink-3);}
 .project-card::before{
   content:counter(pcard,decimal-leading-zero);
-  display:block;padding-bottom:12px;margin-bottom:20px;
+  display:block;padding-bottom:12px;margin-bottom:12px;
   border-bottom:1px solid var(--line);
   font-size:20px;font-weight:700;line-height:1;letter-spacing:.02em;color:var(--ink);}
 .project-card__index{display:none;}
+/* 썸네일 — 칸을 더 채우도록 세로를 늘린다. 원본 커버는 1600x1112 */
+.project-card__thumb{aspect-ratio:5 / 4;}
 
 .project-card__view{
   right:0;bottom:0;height:36px;padding:0 16px;
@@ -330,6 +332,8 @@ a:focus-visible,button:focus-visible,select:focus-visible{
 .project-card__body{margin-top:20px;padding-top:16px;border-top:1px solid var(--line);}
 .project-card h2{
   font-size:18px;font-weight:600;line-height:1.45;letter-spacing:-.01em;color:var(--ink);}
+/* 한글은 낱말 단위로 끊는다. 긴 영문 한 덩어리만 예외로 쪼갠다 */
+.project-card h2,.project-card__description{word-break:keep-all;overflow-wrap:break-word;}
 .project-card time{
   padding-top:3px;font-size:12px;font-weight:600;letter-spacing:.06em;color:var(--ink-3);}
 .project-card__description{
