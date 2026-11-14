@@ -73,7 +73,8 @@ a:focus-visible,button:focus-visible,select:focus-visible{
 .skill-card li b{font-weight:600;color:var(--ink);}
 
 /* 영문 라벨 — 대문자 · 자간 .14em. 각 잡힌 느낌이 여기서 나온다 */
-.section-head__title h2,.section-name,.footer__label,.skill-card__no,.play__chip{
+.section-head__title h2,.section-name,.intro__copy .section-name,
+.footer__label,.skill-card__no,.play__chip{
   font-size:12px;font-weight:600;line-height:1.2;letter-spacing:.14em;
   text-transform:uppercase;color:var(--ink-3);}
 
