@@ -1,0 +1,552 @@
+/* ═══════════════════════════════════════════════════════════════
+   CHECKMATE — 디자인 시스템 · 기보판
+   깊이있게 확인하고, 결정적인 수를 둔다.
+
+   네 페이지(메인 · 목록 · 소개 · 상세)가 같은 값을 쓴다.
+   각 페이지 CSS 뒤에 붙여 읽는다 — 이 판이 마지막에 이긴다.
+
+   색 4   #111 · #555 · #767676 · #fff
+   선 1   1px #E3E3E3
+   글자 7 56 / 40 / 24 / 18 / 16 / 14 / 12
+   움직임 2  150ms · 220ms
+   모서리 0  (폰 목업만 예외 — 그건 실물이다)
+   ═══════════════════════════════════════════════════════════════ */
+
+:root{
+  /* ── 색 — 11종 → 6개 ── */
+  --ink:#111111;        /* 제목 · 본문 · 채움 · 강조 */
+  --ink-2:#555555;      /* 보조 글자 */
+  --ink-3:#767676;      /* 흐린 글자 · 카드 그래픽 선 */
+  --line:#e3e3e3;       /* 모든 칸 선 */
+  --paper:#ffffff;
+  --fill-s:#f5f5f5;     /* 옅은 채움 — 이미지 자리뿐 */
+
+  /* ── 격자 — 기보지의 칸 ── */
+  --col:160px;          /* 라벨 · 번호가 들어가는 왼쪽 칸 */
+  --indent:24px;        /* 선에서 내용까지 — 글자가 선에 닿지 않게 */
+
+  /* ── 움직임 — 7가지 → 2개 ── */
+  --t-fast:150ms;
+  --t-mid:220ms;
+  --e:cubic-bezier(.2,0,0,1);
+
+  /* 사이트가 쓰던 토큰도 같은 값으로 모은다 — 여기서 막지 않으면
+     #707070 · 가는 선 두 종류가 페이지마다 되살아난다 */
+  --mute:#767676;
+  --soft:#e3e3e3;
+  --soft-line:#e3e3e3;
+}
+
+/* 숫자는 폭을 고정한다 — 번호가 세로로 줄 맞는다. 기보판의 핵심 한 줄 */
+body{font-variant-numeric:tabular-nums;background:var(--paper);}
+
+/* 모서리는 전부 각지게. 폰 목업만 예외 — 그건 실물이다 */
+.button,.skill-card,.detail-toggle,.section-head__more,.project__details,
+.project__media,.project__side,input,select,button{border-radius:0;}
+
+/* 움직임은 두 속도만. transition:all 은 쓰지 않는다 */
+a,button,.skill-card,.project__details>div,.detail-toggle,.section-head__more{
+  transition:color var(--t-fast) linear,background-color var(--t-fast) linear,
+             border-color var(--t-fast) linear,opacity var(--t-fast) linear;}
+
+/* 머리말 — 네 페이지가 같은 규격을 쓴다 */
+.site-header{border-bottom:1px solid var(--line);background:var(--paper);}
+.brand-mark b{font-size:12px;font-weight:700;letter-spacing:.14em;color:var(--ink);}
+.brand-mark span{font-size:12px;font-weight:500;letter-spacing:.04em;color:var(--ink-3);}
+.gnb a{font-size:12px;font-weight:600;letter-spacing:.14em;color:var(--ink-3);}
+.gnb a:hover,.gnb a.is-current{color:var(--ink);}
+
+/* 키보드 초점 — 지금 없던 것 */
+a:focus-visible,button:focus-visible,select:focus-visible{
+  outline:2px solid var(--ink);outline-offset:2px;}
+
+/* ───────────────────────────────────────────────────────────────
+   1. 글자 — 18종 → 7단계
+   ─────────────────────────────────────────────────────────────── */
+.hero__statement h1{font-size:56px;font-weight:700;line-height:1.18;letter-spacing:-.03em;color:var(--ink);}
+.project__copy h3,.project__copy h2{font-size:24px;font-weight:700;line-height:1.35;letter-spacing:-.02em;color:var(--ink);}
+.skill-card h3{font-size:18px;font-weight:600;line-height:1.45;letter-spacing:-.01em;color:var(--ink);}
+.project__desc,.play__text p,.about__facts dd p,.skill-card li{
+  font-size:16px;font-weight:500;line-height:1.6;letter-spacing:-.025em;color:var(--ink-2);}
+.project__meta,.footer__line,.footer a,.footer p{
+  font-size:14px;font-weight:500;line-height:1.55;letter-spacing:-.01em;}
+.skill-card li b{font-weight:600;color:var(--ink);}
+
+/* 영문 라벨 — 대문자 · 자간 .14em. 각 잡힌 느낌이 여기서 나온다 */
+.section-head__title h2,.section-name,.footer__label,.skill-card__no,.play__chip{
+  font-size:12px;font-weight:600;line-height:1.2;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink-3);}
+
+/* ───────────────────────────────────────────────────────────────
+   2. 영역 제목 — 번호가 위, 제목이 아래. 한 덩어리로 묶여 아래 항목과 갈린다
+        03
+        ABOUT →
+        수를 두는 사람
+   ─────────────────────────────────────────────────────────────── */
+/* 원래 가로로 늘어놓는 상자라, 번호를 넣으면 라벨 옆에 붙는다 — 세로로 쌓이게 되돌린다 */
+.section-head__title{display:block;}
+.section-head__title h2{display:inline-block;vertical-align:baseline;margin:0;}
+.section-head__more{display:inline-block;vertical-align:baseline;margin-left:10px;}
+
+.section-head__title,.intro .section-name{
+  position:relative;padding-left:0;min-height:0;}
+.section-head__title::before,.intro .section-name::before{
+  position:static;display:block;width:auto;margin-bottom:12px;
+  font-size:40px;font-weight:700;line-height:1;letter-spacing:-.02em;color:var(--ink);}
+.section-head__title::after,.intro .section-name::after{display:none;}
+.projects .section-head__title::before{content:"01";}
+.intro .section-name::before{content:"02";}
+.about .section-head__title::before{content:"03";}
+
+/* 한글 설명이 진짜 제목이 된다 — 상세 페이지의 `OPENING / 프로젝트 개요` 와 같은 틀 */
+.section-head__title p,.intro .section-name span{
+  display:block;margin-top:8px;
+  font-size:24px;font-weight:700;line-height:1.35;letter-spacing:-.02em;
+  text-transform:none;color:var(--ink);}
+
+/* 전체 보기 — `>` 를 제대로 된 화살표로 */
+.section-head__more{font-size:0;color:var(--ink-3);}
+.section-head__more::before{content:"→";font-size:14px;letter-spacing:0;}
+.section-head__more:hover{color:var(--ink);}
+
+/* 히어로 — 작은 기록 머리글 하나 */
+.hero__statement{position:relative;}
+.hero__statement::before{
+  content:"PORTFOLIO 2026";display:block;margin-bottom:16px;
+  font-size:12px;font-weight:600;letter-spacing:.14em;color:var(--ink-3);}
+
+/* ───────────────────────────────────────────────────────────────
+   3. 버튼 — 높이 36 · 안쪽 여백 0 16 · 라벨 14px 600
+   ─────────────────────────────────────────────────────────────── */
+.button{
+  display:inline-flex;align-items:center;height:36px;padding:0 16px;
+  font-size:14px;font-weight:600;letter-spacing:-.01em;
+  background:var(--ink);color:#fff;border:1px solid var(--ink);}
+.button:hover{background:var(--paper);color:var(--ink);}
+
+/* ───────────────────────────────────────────────────────────────
+   4. 기보 칸 — 라벨 │ 선 │ 내용
+   ─────────────────────────────────────────────────────────────── */
+.project__details>div,.about__facts>div{
+  display:grid;grid-template-columns:var(--col) 1fr;column-gap:var(--indent);
+  padding:12px 0;border-bottom:1px solid var(--line);position:relative;}
+.project__details>div>dt,.about__facts>div>dt{
+  align-self:stretch;border-right:1px solid var(--line);padding-right:var(--indent);}
+.project__details dt b,.about__facts dt b{
+  font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);}
+.project__details dt span{
+  display:block;margin-top:2px;font-size:12px;font-weight:500;letter-spacing:0;
+  text-transform:none;color:var(--ink-3);}
+
+/* ⑥ 행을 짚는다 — 바탕은 칠하지 않고 왼쪽에 먹색 눈금만 */
+.project__details>div::before,.about__facts>div::before{
+  content:"";position:absolute;left:-16px;top:14px;width:0;height:1px;background:var(--ink);
+  transition:width var(--t-fast) linear;}
+.project__details>div:hover::before,.about__facts>div:hover::before{width:9px;}
+.project__details>div:hover dd p,.about__facts>div:hover dd p{color:var(--ink);}
+
+/* ───────────────────────────────────────────────────────────────
+   5. 프로젝트 — 한 수를 한 칸에 가둔다
+      이미지 위에 글을 얹지 않는 이유: 커버 이미지에 이미 제목이 크게 박혀 있어
+      겹치면 둘 다 안 읽힌다. 그래서 칸으로 가두고 번호로 센다.
+   ─────────────────────────────────────────────────────────────── */
+/* 안쪽 여백은 사이트가 원래 쓰던 60 / 68 그대로 둔다.
+   줄이면 내용이 페이지 왼쪽 기준선(150)에서 벗어나 혼자 튀어나온다 */
+.project{
+  border:1px solid var(--line);padding:60px 60px 68px;margin-bottom:64px;
+  transition:border-color var(--t-fast) linear;}
+.project:hover{border-color:var(--ink-3);}
+
+/* 번호는 칸 맨 위 — 썸네일보다 앞에 두고, 아래 선으로 끊는다.
+   제목 옆에 두면 둘이 같은 줄에서 겨루므로 떼어 놓는다 */
+.project::before{
+  grid-column:1 / -1;grid-row:1;
+  display:block;padding-bottom:12px;margin-bottom:20px;
+  border-bottom:1px solid var(--line);
+  font-size:20px;font-weight:700;line-height:1;letter-spacing:.02em;color:var(--ink);}
+.project__media,.project__side{grid-row:2;}
+.project__copy,.detail-toggle{grid-row:3;}
+.project__details{grid-row:4;}
+#project-1::before{content:"001";}
+#project-2::before{content:"002";}
+#project-3::before{content:"003";}
+#project-4::before{content:"004";}
+#project-5::before{content:"005";}
+
+/* 번호 칸이 없어졌으니 제목은 칸 왼쪽 끝에서 시작한다 */
+.project__copy{position:relative;padding-left:0;}
+.project__copy::before,.project__copy::after{content:none;display:none;}
+
+/* ───────────────────────────────────────────────────────────────
+   6. HOW I PLAY — 세 수를 기록한 자리
+   ─────────────────────────────────────────────────────────────── */
+/* 원래 두 칸 그리드라, 라벨을 띄우면 글이 라벨 칸에 갇힌다 — 보통 흐름으로 되돌린다.
+   세 수를 한 칸씩 가둔다. 역량 카드와 같은 규칙이다 */
+.play__step{
+  display:block;position:relative;
+  border:1px solid var(--line);
+  padding:24px 24px 24px calc(var(--col) + var(--indent));
+  margin-bottom:24px;
+  transition:border-color var(--t-fast) linear,background-color var(--t-mid) var(--e);}
+.play__step:last-child{margin-bottom:0;padding-bottom:24px;}
+.play__text{max-width:none;padding-top:0;}
+.play__chip{
+  position:absolute;left:24px;top:24px;width:calc(var(--col) - 24px);
+  background:none;color:var(--ink);padding:0;
+  font-size:12px;font-weight:600;letter-spacing:.14em;}
+
+/* 라벨 │ 선 │ 내용 — 칸 안에서도 기보 틀을 지킨다 */
+.play__step::after{
+  content:"";position:absolute;left:var(--col);top:24px;bottom:24px;width:1px;background:var(--line);}
+
+/* 지금 읽는 수 — 앞 두 칸은 외곽선만 진해진다 */
+.play__step.is-mate{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink);}
+
+/* 마지막 수 — 여기서만 칸이 채워진다. CHECKMATE 는 한 번뿐이다 */
+.play__step:last-child.is-mate{background:var(--ink);box-shadow:none;}
+.play__step:last-child.is-mate .play__chip{color:#fff;}
+.play__step:last-child.is-mate .play__text p{color:#fff;}
+.play__step:last-child.is-mate::after{background:#555555;}
+
+/* 화면이 좁아지면 라벨 칸이 글을 눌러서, 라벨을 윗줄로 내리고 칸을 다 쓴다 */
+@media (max-width:1400px){
+  .play__step{padding-left:24px;}
+  .play__chip{position:static;width:auto;display:block;margin-bottom:12px;}
+  .play__step::after{display:none;}
+}
+
+/* ───────────────────────────────────────────────────────────────
+   7. 역량 카드 — ③ 면은 칠하지 않고 선만 굵어진다
+   ─────────────────────────────────────────────────────────────── */
+.skill-card{border:1px solid var(--line);}
+.skill-card:hover{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink);}
+.skill-card__no,.skill-card__art{color:var(--ink-3);}
+
+/* ───────────────────────────────────────────────────────────────
+   8. 선 — 6종 → 2종. 장 구분만 2px 먹색
+   ─────────────────────────────────────────────────────────────── */
+.projects,.intro,.about{border-top:1px solid var(--line);}
+.project__details{border-top:1px solid var(--line);}
+.site-header,.footer__base,.footer{border-color:var(--line);}
+.footer a:hover{color:var(--ink);}
+.footer__base p,.footer__col p,.footer__line{color:var(--ink-3);}
+.footer__mark{font-size:12px;font-weight:600;letter-spacing:.14em;color:var(--ink);}
+
+/* 이미지 자리는 옅은 면 하나로 */
+.project__media.placeholder,.project__side.placeholder{background:var(--fill-s);}
+
+/* ───────────────────────────────────────────────────────────────
+   0. 네 페이지 공통 — 머리말 · 모서리 · 초점 · 움직임
+   ─────────────────────────────────────────────────────────────── */
+
+/* 모서리는 전부 각지게 */
+.project-card,.project-card__thumb,.skill-card,.filter-options button,.sort-row select,
+.report-button,.top-button,.placeholder,.detail-cover,.empty-state,
+.contact-copy a,.contact-copy button,.profile-docs a,.project-card__tags span{border-radius:0;}
+
+/* 이미지 · 영상 자리는 옅은 면 하나로 */
+.placeholder,.detail-cover,.project-card__thumb,.profile__photo{background:var(--fill-s);}
+.placeholder .ph-label,.ph-label{font-size:12px;font-weight:600;letter-spacing:.14em;color:var(--ink-3);}
+.placeholder .ph-note,.ph-note{font-size:12px;font-weight:500;letter-spacing:0;color:var(--ink-3);}
+.project-card__ph{font-size:12px;font-weight:600;letter-spacing:.14em;color:var(--ink-3);}
+
+/* ═══════════════════════════════════════════════════════════════
+   1. 목록 (projects.html)
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── 1-1. 머리 — 절대 배치를 흐름 배치로 되돌리고 메인 히어로와 같은 단으로 ── */
+.page-intro{height:auto;min-height:0;padding:132px 60px 56px;}
+.page-intro .eyebrow,.page-intro h1,.page-intro__copy{
+  position:static;top:auto;right:auto;bottom:auto;left:auto;width:auto;}
+.page-intro .eyebrow{
+  font-size:12px;font-weight:600;line-height:1.2;letter-spacing:.14em;color:var(--ink-3);}
+.page-intro h1{
+  margin-top:16px;font-size:56px;font-weight:700;line-height:1.18;
+  letter-spacing:-.03em;color:var(--ink);}
+.page-intro h1 span{
+  display:block;margin-top:10px;font-size:24px;font-weight:700;line-height:1.35;
+  letter-spacing:-.02em;color:var(--ink);}
+.page-intro__copy{margin-top:28px;}
+.page-intro__copy p{
+  font-size:16px;font-weight:500;line-height:1.6;letter-spacing:-.025em;color:var(--ink-2);}
+.page-intro__copy span{
+  display:block;margin-top:12px;
+  font-size:12px;font-weight:600;letter-spacing:.14em;color:var(--ink-3);}
+
+/* ── 1-2. 고르는 자리 — 라벨 │ 선 │ 값. 메인 상세표와 같은 틀 ── */
+.project-tools{border-top:1px solid var(--line);}
+.sort-row,.filter-group,.filter-group + .filter-group{
+  display:grid;grid-template-columns:var(--col) minmax(0,1fr);column-gap:var(--indent);
+  align-items:center;margin:0;padding:14px 0;
+  border-top:0;border-bottom:1px solid var(--line);}
+.sort-row p,.filter-group h3{
+  align-self:stretch;display:flex;align-items:center;
+  border-right:1px solid var(--line);padding-right:var(--indent);
+  font-size:12px;font-weight:600;letter-spacing:.14em;color:var(--ink-3);}
+
+/* 칩 — 버튼과 같은 규격(높이 36 · 여백 0 16) */
+.filter-options{gap:8px;}
+.filter-options button{
+  min-height:36px;height:36px;padding:0 16px;
+  border:1px solid var(--line);background:var(--paper);color:var(--ink-2);
+  font-size:14px;font-weight:500;letter-spacing:-.01em;
+  transition:color var(--t-fast) linear,background-color var(--t-fast) linear,border-color var(--t-fast) linear;}
+.filter-options button:hover{background:var(--paper);border-color:var(--ink);color:var(--ink);}
+.filter-options button.is-active,.filter-options button.is-active:hover{
+  background:var(--ink);border-color:var(--ink);color:#fff;font-weight:600;}
+.filter-options button:disabled,.filter-options button:disabled:hover{
+  background:var(--paper);border-color:var(--line);color:#bbbbbb;}
+
+.sort-row select{
+  height:36px;min-width:150px;padding:0 34px 0 14px;
+  border:1px solid var(--line);background-color:var(--paper);
+  font-size:14px;font-weight:500;letter-spacing:-.01em;color:var(--ink);}
+.sort-row select:hover{background-color:var(--paper);border-color:var(--ink);}
+
+/* ── 1-3. 카드 — 한 수를 한 칸에. 번호는 썸네일 위 ──
+   번호를 CSS 셈으로 매긴다. 거르면 보이는 카드만 다시 01 부터 센다 */
+.project-grid-section{border-top:1px solid var(--line);}
+.project-grid{counter-reset:pcard;gap:40px 24px;}
+.project-card{
+  counter-increment:pcard;
+  border:1px solid var(--line);padding:24px;
+  transition:border-color var(--t-fast) linear;}
+.project-card:hover{border-color:var(--ink-3);}
+.project-card::before{
+  content:counter(pcard,decimal-leading-zero);
+  display:block;padding-bottom:12px;margin-bottom:20px;
+  border-bottom:1px solid var(--line);
+  font-size:20px;font-weight:700;line-height:1;letter-spacing:.02em;color:var(--ink);}
+.project-card__index{display:none;}
+
+.project-card__view{
+  right:0;bottom:0;height:36px;padding:0 16px;
+  display:inline-flex;align-items:center;
+  background:var(--ink);color:#fff;
+  font-size:12px;font-weight:600;letter-spacing:.14em;}
+.project-card__link:hover .project-card__thumb,
+.project-card__link:focus-visible .project-card__thumb{background:var(--fill-s);}
+
+.project-card__body{margin-top:20px;padding-top:16px;border-top:1px solid var(--line);}
+.project-card h2{
+  font-size:18px;font-weight:600;line-height:1.45;letter-spacing:-.01em;color:var(--ink);}
+.project-card time{
+  padding-top:3px;font-size:12px;font-weight:600;letter-spacing:.06em;color:var(--ink-3);}
+.project-card__description{
+  margin-top:10px;font-size:14px;font-weight:500;line-height:1.55;
+  letter-spacing:-.01em;color:var(--ink-2);}
+.project-card__tags{margin-top:16px;gap:6px;}
+.project-card__tags span{
+  height:22px;display:inline-flex;align-items:center;padding:0 8px;
+  border:1px solid var(--line);font-size:12px;font-weight:500;
+  letter-spacing:.02em;color:var(--ink-3);}
+
+.empty-state{
+  height:320px;border:1px solid var(--line);
+  font-size:16px;font-weight:500;letter-spacing:-.025em;color:var(--ink-2);}
+
+/* ═══════════════════════════════════════════════════════════════
+   2. 소개 (about.html)
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── 2-1. 머리 — 번호가 위, 제목이 아래 ── */
+.about-hero__head{display:block;}
+.about-hero .eyebrow{
+  font-size:12px;font-weight:600;line-height:1.2;letter-spacing:.14em;color:var(--ink-3);}
+.about-hero h1{
+  margin-top:16px;font-size:56px;font-weight:700;line-height:1.18;
+  letter-spacing:-.03em;color:var(--ink);}
+
+.profile__slogan{
+  font-size:24px;font-weight:700;line-height:1.35;letter-spacing:-.02em;color:var(--ink);}
+.profile__name{margin-top:16px;font-size:18px;font-weight:600;letter-spacing:-.01em;color:var(--ink);}
+.profile__name span{
+  margin-left:10px;font-size:12px;font-weight:600;letter-spacing:.14em;color:var(--ink-3);}
+.profile__intro p{
+  font-size:16px;font-weight:500;line-height:1.6;letter-spacing:-.025em;color:var(--ink-2);}
+
+/* ── 2-2. 기본 정보 — 라벨 │ 선 │ 값 ──
+   원래 두 단으로 쪼개져 있어 라벨 줄이 네 번 끊긴다. 한 단으로 모은다 */
+.profile__facts{display:block;border-top:1px solid var(--line);}
+.profile__facts > div{
+  position:relative;
+  grid-template-columns:var(--col) minmax(0,1fr);column-gap:var(--indent);
+  padding:12px 0;border-bottom:1px solid var(--line);}
+.profile__facts dt{
+  align-self:stretch;border-right:1px solid var(--line);padding-right:var(--indent);
+  font-size:12px;font-weight:600;letter-spacing:.14em;color:var(--ink-3);}
+.profile__facts dd{
+  font-size:16px;font-weight:500;line-height:1.6;letter-spacing:-.025em;color:var(--ink);}
+.profile__facts dd span{
+  display:block;margin-top:4px;font-size:14px;font-weight:500;line-height:1.55;color:var(--ink-2);}
+/* 행 짚기 — 바탕은 칠하지 않고 왼쪽 눈금만 */
+.profile__facts > div::before{
+  content:"";position:absolute;left:-16px;top:14px;width:0;height:1px;background:var(--ink);
+  transition:width var(--t-fast) linear;}
+.profile__facts > div:hover::before{width:9px;}
+.profile__facts > div:hover dd{color:var(--ink);}
+
+.profile-docs{display:flex;flex-wrap:wrap;gap:12px;}
+.profile-docs a{
+  display:inline-flex;align-items:center;height:36px;padding:0 16px;
+  border:1px solid var(--ink);background:var(--ink);color:#fff;
+  font-size:14px;font-weight:600;letter-spacing:-.01em;}
+.profile-docs a:hover,.profile-docs a:focus-visible{background:var(--paper);color:var(--ink);}
+
+/* ── 2-3. 수행 스타일 · 역량 카드 ── */
+.playstyle__title{
+  font-size:24px;font-weight:700;line-height:1.35;letter-spacing:-.02em;color:var(--ink);}
+.playstyle__title span{
+  margin-left:10px;font-size:12px;font-weight:600;letter-spacing:.14em;color:var(--ink-3);}
+.skill-card__lead{
+  margin-top:16px;font-size:16px;font-weight:600;letter-spacing:-.01em;color:var(--ink);}
+.skill-card__body{
+  margin-top:8px;font-size:16px;font-weight:500;line-height:1.6;
+  letter-spacing:-.025em;color:var(--ink-2);}
+
+/* ── 2-4. 번호 붙은 영역 — 번호가 위, 라벨이 아래 ── */
+.numbered-section{border-top:1px solid var(--line);}
+.section-label{display:block;}
+.section-label span{
+  display:block;font-size:40px;font-weight:700;line-height:1;
+  letter-spacing:-.02em;color:var(--ink);}
+.section-label h2{
+  margin-top:12px;font-size:12px;font-weight:600;line-height:1.2;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);}
+
+.contact-copy > p{
+  font-size:56px;font-weight:700;line-height:1.18;letter-spacing:-.03em;color:var(--ink);}
+.contact-copy > div{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px;}
+.contact-copy a,.contact-copy button{
+  display:inline-flex;align-items:center;height:36px;padding:0 16px;
+  font-size:14px;font-weight:600;letter-spacing:-.01em;
+  border:1px solid var(--ink);background:var(--ink);color:#fff;cursor:pointer;}
+.contact-copy button{background:var(--paper);color:var(--ink);}
+.contact-copy a:hover{background:var(--paper);color:var(--ink);}
+.contact-copy button:hover{background:var(--ink);color:#fff;}
+.contact-copy > p.copy-status{
+  margin-top:12px;font-size:12px;font-weight:600;letter-spacing:.14em;color:var(--ink-3);}
+
+/* ═══════════════════════════════════════════════════════════════
+   3. 상세 (project-detail.html)
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── 3-1. 머리 ── */
+.detail-topbar{padding-bottom:12px;border-bottom:1px solid var(--line);}
+.back-link,.detail-index{
+  font-size:12px;font-weight:600;letter-spacing:.14em;color:var(--ink-3);}
+.back-link:hover{color:var(--ink);}
+.detail-intro h1{
+  font-size:40px;font-weight:700;line-height:1.2;letter-spacing:-.03em;color:var(--ink);}
+.detail-sub{
+  margin-top:10px;font-size:12px;font-weight:600;line-height:1.2;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);}
+.detail-summary{
+  margin-top:16px;font-size:16px;font-weight:500;line-height:1.6;
+  letter-spacing:-.025em;color:var(--ink-2);}
+
+.report-button{
+  height:36px;padding:0 16px;
+  border:1px solid var(--ink);background:var(--ink);color:#fff;
+  font-size:14px;font-weight:600;letter-spacing:-.01em;}
+.report-button i{padding-left:6px;}
+.report-button:hover,.report-button:focus-visible{background:var(--paper);color:var(--ink);}
+
+/* ── 3-2. 정보표 — 네 단을 기보 칸으로 되돌린다 ── */
+.project-facts{display:block;max-width:none;border-top:1px solid var(--line);}
+.project-facts > div{
+  position:relative;display:grid;
+  grid-template-columns:var(--col) minmax(0,1fr);column-gap:var(--indent);
+  padding:12px 0;border-bottom:1px solid var(--line);}
+.project-facts dt{
+  align-self:stretch;border-right:1px solid var(--line);padding-right:var(--indent);
+  font-size:12px;font-weight:600;letter-spacing:.14em;color:var(--ink-3);}
+.project-facts dd{
+  margin-top:0;font-size:16px;font-weight:500;line-height:1.6;
+  letter-spacing:-.025em;color:var(--ink);}
+.project-facts > div::before{
+  content:"";position:absolute;left:-16px;top:14px;width:0;height:1px;background:var(--ink);
+  transition:width var(--t-fast) linear;}
+.project-facts > div:hover::before{width:9px;}
+/* 핵심 판단 — 버린 수는 흐리게, 택한 수는 먹색으로 */
+.project-facts .fact-call dt{color:var(--ink);font-weight:700;}
+.call-from{color:var(--ink-3);font-weight:500;}
+.call-arrow{color:var(--ink-3);font-weight:400;}
+.call-to{color:var(--ink);font-weight:700;}
+
+/* ── 3-3. 본문 절 — 번호가 위, 라벨 · 제목이 아래. 메인 영역 제목과 같은 틀 ── */
+.case-section{padding-bottom:56px;margin-bottom:56px;border-bottom:1px solid var(--line);}
+.case-section:last-child{border-bottom:0;}
+.section-heading{display:block;margin-bottom:24px;}
+.section-heading span{
+  display:block;font-size:40px;font-weight:700;line-height:1;
+  letter-spacing:-.02em;color:var(--ink);}
+.section-heading h2{
+  margin-top:12px;font-size:24px;font-weight:700;line-height:1.35;
+  letter-spacing:-.02em;color:var(--ink);}
+.section-heading h2 em{
+  display:block;margin-bottom:8px;font-size:12px;font-weight:600;
+  letter-spacing:.14em;color:var(--ink-3);}
+.section-body{grid-column:auto;max-width:760px;margin-top:20px;}
+.section-body p{
+  font-size:16px;font-weight:500;line-height:1.6;letter-spacing:-.025em;color:var(--ink-2);}
+.section-body p + p{margin-top:14px;}
+
+/* 그림 자리도 제목과 같은 왼쪽 끝에서 시작한다 */
+.section-visual{display:block;}
+.section-visual > *{grid-column:auto;}
+
+/* ── 3-4. 목차 — 지금 읽는 절을 눈금으로 짚는다 ── */
+.project-index > p{
+  margin-bottom:12px;font-size:12px;font-weight:600;letter-spacing:.14em;color:var(--ink-3);}
+.project-index nav{border-top:1px solid var(--line);}
+.project-index a{
+  position:relative;display:block;padding:12px 0 12px 16px;
+  border-bottom:1px solid var(--line);
+  font-size:14px;font-weight:500;letter-spacing:-.01em;color:var(--ink-3);
+  transition:color var(--t-fast) linear;}
+.project-index a::before{
+  content:"";position:absolute;left:0;top:50%;width:0;height:1px;background:var(--ink);
+  transition:width var(--t-fast) linear;}
+.project-index a:hover{color:var(--ink);}
+.project-index a:hover::before{width:9px;}
+.project-index a.is-active{color:var(--ink);font-weight:700;}
+.project-index a.is-active::before{width:9px;}
+
+/* 화면이 좁아지면 목차가 가로 줄로 바뀐다 — 눈금 자리를 빼고 밑줄로 짚는다 */
+@media (max-width:1100px){
+  .project-index a{padding:12px 0;border-bottom:0;}
+  .project-index a::before{left:0;right:auto;top:auto;bottom:0;}
+  .project-index a:hover::before,.project-index a.is-active::before{width:100%;}
+}
+
+/* ── 3-5. 다른 프로젝트 — 바탕 대신 눈금으로 짚는다 ── */
+.other-projects__head{padding-bottom:16px;}
+.other-projects__head h2{
+  font-size:24px;font-weight:700;line-height:1.35;letter-spacing:-.02em;color:var(--ink);}
+.other-projects__head span{font-size:12px;font-weight:600;letter-spacing:.14em;color:var(--ink-3);}
+.project-index-list{border-top:1px solid var(--line);}
+.project-row{border-bottom:1px solid var(--line);}
+.project-row__link{
+  position:relative;padding:18px 0;
+  transition:color var(--t-fast) linear;}
+.project-row__link:hover,.project-row__link:focus-visible{background:transparent;padding-left:0;}
+.project-row__link::before{
+  content:"";position:absolute;left:-16px;top:28px;width:0;height:1px;background:var(--ink);
+  transition:width var(--t-fast) linear;}
+.project-row__link:hover::before,.project-row__link:focus-visible::before{width:9px;}
+.project-row__cats span,.project-row__year{
+  font-size:12px;font-weight:500;letter-spacing:.04em;color:var(--ink-3);}
+.project-row__name{
+  font-size:18px;font-weight:600;line-height:1.45;letter-spacing:-.01em;color:var(--ink);}
+.project-row__name i{padding-left:6px;font-size:12px;color:var(--ink-3);}
+.project-row__desc{
+  font-size:14px;font-weight:500;line-height:1.55;letter-spacing:-.01em;color:var(--ink-2);}
+
+/* ── 3-6. 맨 위로 ── */
+.top-button{
+  width:auto;height:36px;padding:0 16px;
+  display:inline-flex;align-items:center;
+  border:1px solid var(--ink);background:var(--ink);color:#fff;
+  font-size:12px;font-weight:600;letter-spacing:.14em;}
+.top-button:hover,.top-button:focus-visible{background:var(--paper);color:var(--ink);}
