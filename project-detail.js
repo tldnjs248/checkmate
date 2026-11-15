@@ -229,7 +229,7 @@ const visual=(kind,imgs)=>{const g=imgs||[];return `<div class="section-visual">
   :`<div class="visual-wide">${slot('프로젝트 이미지 1',g[0])}${slot('프로젝트 이미지 2',g[1])}${slot('프로젝트 이미지 3',g[2])}</div>`
 }</div>`;};
 /* 본문 제목은 작은 영문 + 큰 한글, 본문 문단은 이미지 자리 위에 */
-document.querySelector('#detail-sections').innerHTML=project.sections.map((section,i)=>`<section class="case-section" id="${section[0]}"><div class="section-heading"><span>${String(i+1).padStart(2,'0')}</span><h2><em>${section[1]}</em>${section[2]}</h2><div class="section-body">${section[4].map(para=>`<p>${para}</p>`).join('')}</div></div>${visual(section[3],section[5])}</section>`).join('');
+document.querySelector('#detail-sections').innerHTML=project.sections.map((section,i)=>`<section class="case-section" id="${section[0]}"><div class="section-heading"><h2><em><b>${String(i+1).padStart(2,'0')}</b>${section[1]}</em>${section[2]}</h2><div class="section-body">${section[4].map(para=>`<p>${para}</p>`).join('')}</div></div>${visual(section[3],section[5])}</section>`).join('');
 /* 목차는 한글 이름만 (칸 폭이 210px) */
 document.querySelector('#section-nav').innerHTML=project.sections.map((section,i)=>`<a href="#${section[0]}" class="${i===0?'is-active':''}">${String(i+1).padStart(2,'0')}　${section[2]}</a>`).join('');
 /* 하단 다른 프로젝트 — 목록 페이지의 INDEX 행과 같은 형식 */

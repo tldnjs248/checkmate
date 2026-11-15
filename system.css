@@ -497,15 +497,15 @@ a:focus-visible,button:focus-visible,select:focus-visible{
 .case-section{padding-bottom:56px;margin-bottom:56px;border-bottom:1px solid var(--line);}
 .case-section:last-child{border-bottom:0;}
 .section-heading{display:block;margin-bottom:24px;}
-.section-heading span{
-  display:block;font-size:40px;font-weight:700;line-height:1;
-  letter-spacing:-.02em;color:var(--ink);}
+/* 번호를 따로 크게 세우지 않는다 — 한 쪽에서 일곱 번 반복되는 머리말이라
+   크게 두면 이유 없이 소리친다. 라벨과 같은 값으로 한 줄에 둔다 */
 .section-heading h2{
-  margin-top:12px;font-size:24px;font-weight:700;line-height:1.35;
+  font-size:24px;font-weight:700;line-height:1.35;
   letter-spacing:-.02em;color:var(--ink);}
 .section-heading h2 em{
   display:block;margin-bottom:8px;font-size:12px;font-weight:600;
   letter-spacing:.14em;color:var(--ink-3);}
+.section-heading h2 em b{font-weight:600;margin-right:12px;}
 .section-body{grid-column:auto;max-width:760px;margin-top:20px;}
 .section-body p{
   font-size:16px;font-weight:500;line-height:1.6;letter-spacing:-.025em;color:var(--ink-2);}
