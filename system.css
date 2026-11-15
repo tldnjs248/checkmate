@@ -575,8 +575,14 @@ a:focus-visible,button:focus-visible,select:focus-visible{
    contain 으로 넣는다 — 장표에 글자가 있어 조금이라도 잘리면 못 읽는다.
    single 은 칸을 꽉 채워 쓰는 배치다. 장표가 빽빽해서 3단으로 쪼개면 글자가 안 보인다 */
 .visual-single{display:block;}
+/* 두 칸 배치에서 상자가 늘어나지 않게 — 늘어나면 짧은 쪽 그림 아래에 흰 자리가 남는다 */
+.visual-pair,.visual-asymmetric{align-items:start;}
 .case-figure{
   margin:0;border:1px solid var(--line);background:#fff;overflow:hidden;}
-.case-figure img{
-  display:block;width:100%;height:auto;aspect-ratio:16 / 9;
-  object-fit:contain;background:#fff;}
+/* 비율을 묶지 않는다 — 장표마다 잘라낸 높이가 달라 16:9 로 고정하면 빈 띠가 생긴다.
+   img 에 width·height 가 붙어 있어 읽기 전에도 자리를 제대로 잡는다 */
+.case-figure img{display:block;width:100%;height:auto;background:#fff;}
+
+/* 자리표시가 300 은 너무 길다 — 아직 그림이 없는 칸이 화면을 길게 비운다.
+   detail.css 의 min(300px,20vw) 를 덮는다 */
+.section-visual .placeholder{height:min(200px,13vw);}

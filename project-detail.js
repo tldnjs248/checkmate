@@ -27,7 +27,7 @@ const projects = [
       ['finding','FINDING','참가자마다 달랐던 탐색 경로','single',[
         '참가자들은 저마다 다른 메뉴로 예약 내역을 찾았습니다. 전체 메뉴 · 나의 티켓 · 장바구니 · 승차권 예매를 오가며 재탐색이 반복됐습니다.',
         '기능이 있을 자리를 예측하지 못해 경로가 길어졌습니다. 문제의 원인이 특정 화면이 아니라 정보구조와 기능 배치 전반에 걸쳐 있다는 것이 여기서 드러났습니다.',
-      ],['korail-talk-finding.jpg']],
+      ],['korail-talk-finding.png']],
       ['move','MOVE','개선 대상을 바꾼 판단','single',[
         '좌석 선택은 화면 단위 개선 과제로, 예약 승차권 조회는 탐색 경로와 정보구조 전반의 문제로 판단해 최종 개선 대상을 바꿨습니다.',
         '통합의 기준은 네 서비스를 견주어 잡았습니다. SRT 는 승차권 확인을 하단 탭에 고정해 위치를 기억할 필요를 없앴고, 티머니GO 는 예약 · 결제 내역을 하나로 묶었으며, 야놀자는 내 예약을 단일 경로로 제공합니다.',
@@ -40,7 +40,7 @@ const projects = [
         '예약 내역 확인 평균 수행 시간이 24.5초에서 6.4초로, 18.1초 줄었습니다. 기능 인지 점수는 37.5점에서 100점이 됐습니다.',
         '게이즈플롯 · 히트맵 · 클러스터를 합친 전체 평균 성공 비율은 85% 였고, 대부분의 참가자가 같은 경로로 예약 내역을 찾았습니다. 탐색 구조가 사용자에게 일관되게 인지된다는 뜻입니다.',
         '프로젝트는 과목 우수작으로 선정됐습니다.',
-      ],['korail-talk-result.jpg','korail-talk-quant.jpg']],
+      ],['korail-talk-result.png','korail-talk-quant.png']],
     ]
   },
   {
@@ -88,10 +88,10 @@ const projects = [
         'OTT 와 경쟁하면서 영화관은 특별관과 공연 · 체험형 콘텐츠로 차별화된 관람 경험을 넓히고 있습니다. 롯데컬처웍스도 관객 수를 늘리기보다 객단가와 경험 가치를 높이는 쪽에 집중하고 있습니다.',
         '영화 탐색부터 예매까지를 하나의 연속된 흐름으로 개선해, 사용자가 특별관을 더 쉽고 편하게 고를 수 있도록 한 프로젝트입니다.',
       ],['lotte-cinema-issues.jpg']],
-      ['check','CHECK','범위를 좁힌 근거','pair',[
+      ['check','CHECK','범위를 좁힌 근거','single',[
         '결제 단계는 해결책이 정책과 시스템에 달려 있어 화면으로 바꿀 것이 없었습니다. 그래서 결제를 범위에서 덜어냈습니다.',
         '대신 특별관을 택했습니다. 전체 관객이 13.8% 줄어드는 동안 특수상영 매출은 46.3% 늘었습니다. 회사의 전략과 사용자의 수요가 같은 곳을 가리키고 있었습니다.',
-      ]],
+      ],['lotte-cinema-market.jpg']],
       ['evidence','EVIDENCE','1차 사용성 평가와 아이트래킹','single',[
         '2026년 9월 28일, 참가자 다섯 명에게 다섯 과업을 주고 아이트래킹과 함께 1차 평가를 진행했습니다. 시나리오는 \u0027이번 주 토요일 저녁 8시 이후, 친구 생일이라 잠실에서 함께 영화를 본다\u0027 였습니다.',
         '과업은 영화 탐색 · 관람 장소 비교 · 특별관 비교 · 상영시간 선택 · 좌석 선택 다섯 단계였습니다.',
@@ -99,7 +99,7 @@ const projects = [
       ['finding','FINDING','세 갈래로 나뉜 문제','single',[
         '첫 과업 성공률은 40% 였습니다. 다섯 중 세 명이 상세 화면을 거치지 않고 곧장 예매로 갔습니다. 두 번째 과업은 45% 로 가장 낮았습니다.',
         '한 참가자는 \u0027아니 잠실이 없는데?\u0027 를 다섯 번 반복했고, 다른 참가자는 영화와 영화 예매 화면을 다섯 번 오가며 163초를 썼습니다. 문제는 특별관 비교 · 영화 탐색 · 영화관 탐색 세 갈래로 나뉘었습니다.',
-      ],['lotte-cinema-finding.jpg']],
+      ],['lotte-cinema-finding.png']],
       ['move','MOVE','탐색의 출발점을 셋으로','single',[
         '사용자마다 예매를 시작하는 자리가 달랐습니다. 보고 싶은 영화가 정해진 목적형, 지역과 극장을 먼저 고르는 실용형, GV 나 특별전 같은 관람 방식을 찾는 경험형 셋으로 나눴습니다.',
         '세 출발점이 서로 다른 자리에서 시작하되 공통 예매 단계에서 합류하도록 흐름을 설계했습니다.',
@@ -108,7 +108,7 @@ const projects = [
         '요구사항을 일곱 가지 기능으로 정리하고, 각각 어느 화면에서 어떻게 쓰이는지 붙였습니다. 특별관 비교는 예매 시트의 스페셜관 칩 · 정보 시트 · 비교 표와 좌석 시야 3D 보기로, 영화 탐색은 홈 통합 검색과 관람 목적 알약으로 풀었습니다.',
         '영화관 탐색은 지역 기반 검색과 여러 영화관을 나란히 보는 화면으로 풀었습니다. 회차가 없을 때 띄울 문구까지 함께 정했습니다.',
       ],['lotte-cinema-features.jpg']],
-      ['current','CURRENT POSITION','현재 단계','wide',[
+      ['current','CURRENT POSITION','현재 단계','single',[
         '요구사항과 정보구조 설계를 마치고 프로토타입을 만들고 있습니다. 개선 후 수치는 같은 과업과 조건으로 2차 평가를 마친 뒤 이 자리에 넣을 예정입니다.',
       ]],
     ]
@@ -128,7 +128,7 @@ const projects = [
       ['check','CHECK','주제를 사람 말에서 찾다','single',[
         '주제를 먼저 정하지 않고 졸업생에게 물었습니다. 구글 폼으로 9월 6일부터 16일까지 학과 졸업 예정자를 대상으로 설문했습니다.',
         '함께 작업할 때 무엇이 달라지냐는 물음에 52.3% 가 아이디어와 관점이 확장된다고 답했습니다. 결과물의 방향을 바꾼 요인으로는 51.1% 가 주변인의 피드백과 외부 관점을 꼽았고, 47.4% 는 협업으로 실제 다른 결과가 만들어졌다고 했습니다.',
-      ],['dmd-graduation-survey.jpg']],
+      ],['dmd-graduation-survey.png']],
       ['finding','FINDING','답변에서 뽑은 세 키워드','single',[
         '답을 묶어 브랜드 키워드 셋을 뽑았습니다. 개성(Differents)은 서로 다른 성격과 관점, 연결(Connect)은 서로에게 이끌려 영향을 주고받는 것, 생성(Creation)은 연결되며 처음에는 없던 결과가 만들어지는 것입니다.',
         'SYNC 를 단순한 동기화가 아니라 서로 다른 개성이 당기고 교차하며 새롭게 창조되는 생성적 연결로 정의하고, 슬로건을 LET\u0027S SYNC! — 당기고, 닿고, 스파크! 로 정했습니다.',
@@ -197,10 +197,16 @@ document.querySelector('#project-facts').innerHTML=`<div><dt>프로젝트 유형
 /* 이미지 자리 — 오류 화면이 아니라 준비 중인 자리임이 읽히도록 안내를 함께 둔다 */
 const ph=(cls,label)=>`<div class="${cls} placeholder"><span class="ph-label">${label}</span><span class="ph-note">이미지 준비 중입니다</span></div>`;
 /* .section-visual 은 제목 · 본문과 같은 열에서 시작하기 위한 껍데기다 */
+/* 장표 그림의 본디 크기 — 자리를 미리 잡아 글이 밀리지 않게 한다.
+   장표마다 잘린 높이가 달라서 하나의 비율로 묶을 수 없다 */
+const CASE_SIZE={'korail-talk-bg.jpg':[1500,709],'korail-talk-problem.jpg':[1500,839],'korail-talk-test.jpg':[1500,839],'korail-talk-finding.png':[1500,777],'korail-talk-bench.jpg':[1500,833],'korail-talk-merge.jpg':[1500,831],'korail-talk-result.png':[1500,802],'korail-talk-quant.png':[1500,838],'lotte-cinema-issues.jpg':[1474,584],'lotte-cinema-test.jpg':[1500,636],'lotte-cinema-finding.png':[1364,576],'lotte-cinema-scenario.jpg':[1500,411],'lotte-cinema-features.jpg':[1490,500],'dmd-graduation-theme.jpg':[1500,842],'dmd-graduation-survey.png':[1500,816],'dmd-graduation-keywords.jpg':[1500,777],'dmd-graduation-users.jpg':[1500,792],'dmd-graduation-offline.jpg':[1500,820],'dmd-graduation-profile.jpg':[1500,846],'dmd-graduation-team.jpg':[1500,847],'dmd-graduation-motif.jpg':[1500,777],'lotte-cinema-market.jpg':[1500,822]};
 /* 장표 그림이 있으면 자리표시 대신 그림을 넣는다. 없으면 그대로 자리표시가 남는다 */
-const slot=(label,file)=>file
-  ?`<figure class="case-figure"><img src="images/case/${file}" alt="" loading="lazy" decoding="async"></figure>`
-  :ph('',label);
+const slot=(label,file)=>{
+  if(!file)return ph('',label);
+  const z=CASE_SIZE[file];
+  const wh=z?' width="'+z[0]+'" height="'+z[1]+'"':'';
+  return `<figure class="case-figure"><img src="images/case/${file}"${wh} alt="" loading="lazy" decoding="async"></figure>`;
+};
 const visual=(kind,imgs)=>{const g=imgs||[];return `<div class="section-visual">${
   kind==='single'
   ?`<div class="visual-single">${slot('프로젝트 이미지',g[0])}</div>`
