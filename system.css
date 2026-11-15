@@ -581,7 +581,9 @@ a:focus-visible,button:focus-visible,select:focus-visible{
   margin:0;border:1px solid var(--line);background:#fff;overflow:hidden;}
 /* 비율을 묶지 않는다 — 장표마다 잘라낸 높이가 달라 16:9 로 고정하면 빈 띠가 생긴다.
    img 에 width·height 가 붙어 있어 읽기 전에도 자리를 제대로 잡는다 */
-.case-figure img{display:block;width:100%;height:auto;background:#fff;}
+.case-figure img{display:block;width:auto;max-width:100%;height:auto;background:#fff;}
+/* 작은 조각은 늘리지 않는다 — 늘리면 글자가 흐려진다. 상자가 그림 폭에 맞춰 줄어든다 */
+.visual-single .case-figure{width:fit-content;max-width:100%;}
 
 /* 자리표시가 300 은 너무 길다 — 아직 그림이 없는 칸이 화면을 길게 비운다.
    detail.css 의 min(300px,20vw) 를 덮는다 */
