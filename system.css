@@ -316,15 +316,19 @@ a:focus-visible,button:focus-visible,select:focus-visible{
 .project-grid-section{border-top:1px solid var(--line);}
 .project-grid{counter-reset:pcard;gap:40px 24px;}
 .project-card{
-  counter-increment:pcard;
-  border:1px solid var(--line);padding:16px;
+  counter-increment:pcard;position:relative;
+  border:1px solid var(--line);padding:0;
   transition:border-color var(--t-fast) linear;}
 .project-card:hover{border-color:var(--ink-3);}
+/* 번호는 썸네일 위 왼쪽 끝. 16 지점에서 시작해 아래 제목·설명과 같은 줄에 선다.
+   색만 --ink-3 에서 --ink 로 올린다 — 커버 네 장의 왼쪽 위가 모두 밝아서(흰 255 · 파랑 0,134,255 ·
+   옅은회색 237) 흐린 회색은 코레일톡 위에서 1.3:1 로 안 읽힌다. --ink 는 네 장 모두 5.3 이상.
+   바탕이 바뀌면 글자색이 따라가는 것은 HOW I PLAY 의 검은 칸과 같은 규칙이다.
+   CSS 셈을 그대로 쓴다 — 걸러도 보이는 카드만 다시 01 부터 센다 */
 .project-card::before{
   content:counter(pcard,decimal-leading-zero);
-  display:block;padding-bottom:12px;margin-bottom:12px;
-  border-bottom:1px solid var(--line);
-  font-size:14px;font-weight:600;line-height:1;letter-spacing:.02em;color:var(--ink-3);}
+  position:absolute;top:16px;left:16px;z-index:2;
+  font-size:14px;font-weight:600;line-height:1;letter-spacing:.02em;color:var(--ink);}
 .project-card__index{display:none;}
 /* 썸네일 — 칸을 더 채우도록 세로를 늘린다. 원본 커버는 1600x1112 */
 .project-card__thumb{aspect-ratio:5 / 4;}
@@ -337,7 +341,8 @@ a:focus-visible,button:focus-visible,select:focus-visible{
 .project-card__link:hover .project-card__thumb,
 .project-card__link:focus-visible .project-card__thumb{background:var(--fill-s);}
 
-.project-card__body{margin-top:20px;padding-top:16px;border-top:1px solid var(--line);}
+/* 칸 여백을 0 으로 돌렸으니 글 쪽이 여백을 가진다. 선은 칸을 끝에서 끝까지 가로지른다 */
+.project-card__body{margin-top:0;padding:16px;border-top:1px solid var(--line);}
 .project-card h2{
   font-size:18px;font-weight:600;line-height:1.45;letter-spacing:-.01em;color:var(--ink);}
 /* 한글은 낱말 단위로 끊는다. 긴 영문 한 덩어리만 예외로 쪼갠다 */
