@@ -330,8 +330,10 @@ a:focus-visible,button:focus-visible,select:focus-visible{
   position:absolute;top:16px;left:16px;z-index:2;
   font-size:14px;font-weight:600;line-height:1;letter-spacing:.02em;color:var(--ink);}
 .project-card__index{display:none;}
-/* 썸네일 — 칸을 더 채우도록 세로를 늘린다. 원본 커버는 1600x1112 */
-.project-card__thumb{aspect-ratio:5 / 4;}
+/* 썸네일 — 4:3 (1600x1200 비율). 원본 커버는 1600x1112 라 가로를 7% 만 덜어낸다.
+   height:auto 가 꼭 필요하다 — projects.css 의 좁은 화면 규칙이 42vw·62vw·58vw 로
+   높이를 못 박아서 aspect-ratio 를 덮어쓰고 있었다. 그래서 창 폭마다 비율이 달라졌다 */
+.project-card__thumb{aspect-ratio:4 / 3;height:auto;}
 
 .project-card__view{
   right:0;bottom:0;height:36px;padding:0 16px;
