@@ -569,3 +569,14 @@ a:focus-visible,button:focus-visible,select:focus-visible{
   border:1px solid var(--ink);background:var(--ink);color:#fff;
   font-size:12px;font-weight:600;letter-spacing:.14em;}
 .top-button:hover,.top-button:focus-visible{background:var(--paper);color:var(--ink);}
+
+/* ── 상세 페이지 장표 그림 (2026-11-16) ──────────────────────
+   최종 장표를 그대로 넣는 자리. 장표는 1920x1080 이라 16:9 로 세운다.
+   contain 으로 넣는다 — 장표에 글자가 있어 조금이라도 잘리면 못 읽는다.
+   single 은 칸을 꽉 채워 쓰는 배치다. 장표가 빽빽해서 3단으로 쪼개면 글자가 안 보인다 */
+.visual-single{display:block;}
+.case-figure{
+  margin:0;border:1px solid var(--line);background:#fff;overflow:hidden;}
+.case-figure img{
+  display:block;width:100%;height:auto;aspect-ratio:16 / 9;
+  object-fit:contain;background:#fff;}
