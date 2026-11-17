@@ -278,3 +278,9 @@ strong,b{font-weight:600;}
    머리 단(32)보다는 늘 커야 하므로 36 아래로는 내리지 않는다. */
 @media (max-width:1100px){ :root{ --t-display:42px; } }
 @media (max-width:760px){  :root{ --t-display:36px; } }
+
+/* ══ 소개 — 학력 · 수상을 한 줄로 (2026-11-18 사용자 지정) ══════════
+   여러 줄로 쌓여 있던 것을 ` · ` 로 이어 한 줄씩 적는다.
+   위 네 줄(직군 · 생년월일 · 지역 · 이메일)과 같은 모양이 된다.
+   수상 두 건은 각각 한 줄이므로 사이 여백만 한 단 줄인다. */
+.profile__facts dd em{margin-top:var(--s2);}
