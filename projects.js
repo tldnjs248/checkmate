@@ -3,8 +3,8 @@
 
    성격(types)    : ux / service / brand / ai   — 한 프로젝트가 여러 개 가질 수 있다
    결과물(outputs): report / proposal / storyboard / plan
-   추천순(featured): 1이 맨 앞 — 목록 첫 진입 기본 정렬
-   최신순(order)   : 종료 연월 기준, 큰 값이 먼저 · 오래된순은 역순
+   차례(featured) : 1이 맨 앞 — 목록은 늘 이 차례로만 보여 준다
+                    (2026-11-18 사용자 지정: 추천순 · 최신순 고르는 칸을 뺐다)
 
    필터 버튼은 아래 TYPES · OUTPUTS · projects 에서 만들어진다. 그래서
      · 해당 프로젝트가 하나도 없는 옵션  → 버튼이 아예 안 보인다
@@ -86,7 +86,13 @@ const projects = [
 /* 커버 이미지가 있는 프로젝트 — 파일은 images/<id>-wide|side|band.jpg */
 const COVER = new Set(['lotte-cinema', 'korail-talk', 'mould', 'dmd-graduation']);
 
-const state = { type: 'all', output: 'all', sort: 'featured' };
+/* 목록 카드 칸은 4:3 이라 16:9 사진을 넣으면 좌우가 25% 잘린다(= 그만큼 확대돼 보인다).
+   아래 프로젝트는 4:3 로 따로 만든 사진이 있어 잘리지 않고 제 크기로 들어간다.
+   없는 프로젝트는 메인과 같은 -wide.jpg 를 그대로 쓴다. (2026-11-18 사용자 지정) */
+const CARD = new Set(['korail-talk']);
+const cover = (id) => `images/${id}${CARD.has(id) ? '-card' : '-wide'}.jpg`;
+
+const state = { type: 'all', output: 'all' };
 const grid = document.querySelector('#project-grid');
 const resultCount = document.querySelector('#result-count');
 const emptyState = document.querySelector('#empty-state');
@@ -129,15 +135,13 @@ function syncAvailability() {
 }
 
 function getVisibleProjects() {
-  const filtered = projects.filter((project) => matches(project, state.type, state.output));
-
-  return filtered.sort((a, b) => {
-    if (state.sort === 'featured') return a.featured - b.featured;
-    if (state.sort === 'oldest') return a.order - b.order;
-    if (state.sort === 'name') return a.name.localeCompare(b.name, 'ko');
-    return b.order - a.order;
-  });
+  return projects
+    .filter((project) => matches(project, state.type, state.output))
+    .sort((a, b) => a.featured - b.featured);
 }
+
+/* 처음 그릴 때는 움직이지 않는다 — 목록은 훑어보러 오는 곳이라 기다리게 하면 안 된다 */
+let painted = false;
 
 function render() {
   const visible = getVisibleProjects();
@@ -151,17 +155,17 @@ function render() {
       <article class="project-card">
         <a class="project-card__link" href="project-detail.html?project=${project.id}" aria-label="${project.name} 상세 페이지로 이동">
           <div class="project-card__thumb">
-            ${COVER.has(project.id) ? `<img class="project-card__img" src="images/${project.id}-wide.jpg" alt="" loading="lazy" decoding="async">` : '<span class="project-card__ph">이미지 준비 중입니다</span>'}
+            ${COVER.has(project.id) ? `<img class="project-card__img" src="${cover(project.id)}" alt="" loading="lazy" decoding="async">` : '<span class="project-card__ph">이미지 준비 중입니다</span>'}
             <span class="project-card__index">${String(index + 1).padStart(2, '0')}</span>
             <span class="project-card__view">VIEW PROJECT ↗</span>
           </div>
           <div class="project-card__body">
             <div class="project-card__heading">
               <h2>${project.name}</h2>
-              <time>${project.period}</time>
             </div>
             <p class="project-card__description">${project.description}</p>
-            <p class="project-card__tags">${tags.map((tag) => `<span>${tag}</span>`).join('')}</p>
+            <!-- 기간은 맨 아래 칩 줄 오른쪽 끝에 — 2026-11-18 (사용자 지정) -->
+            <p class="project-card__tags">${tags.map((tag) => `<span>${tag}</span>`).join('')}<time>${project.period}</time></p>
           </div>
         </a>
       </article>
@@ -172,6 +176,14 @@ function render() {
   resultCount.textContent = String(visible.length).padStart(2, '0');
   emptyState.hidden = visible.length !== 0;
   syncAvailability();
+
+  /* 눌렀는데 아무 일도 안 일어난 것처럼 보이면 안 된다 — 150ms 로 한 번 밝아진다.
+     차례를 두지 않는 이유: 결과를 빨리 보려고 누른 것이라 기다림이 생기면 안 된다.
+     (2026-11-18 사용자 지정) */
+  if (painted && grid.animate && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    grid.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 220, easing: 'cubic-bezier(.2, 0, 0, 1)' });
+  }
+  painted = true;
 }
 
 /* 버튼 클릭 */
@@ -187,11 +199,6 @@ function render() {
     });
     render();
   });
-});
-
-document.querySelector('#project-sort').addEventListener('change', (event) => {
-  state.sort = event.target.value;
-  render();
 });
 
 buildOptions(typeGroup, TYPES);

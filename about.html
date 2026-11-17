@@ -5,15 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="주시원 UX/UI · 서비스 기획자 소개와 역량">
   <title>ABOUT — SIWON JOO</title>
-  <link rel="stylesheet" href="about.css?v=26">
-  <link rel="stylesheet" href="system.css?v=26">
+  <link rel="stylesheet" href="about.css?v=68">
+  <link rel="stylesheet" href="system.css?v=68">
+  <link rel="stylesheet" href="tokens.css?v=68">
+  <link rel="stylesheet" href="motion.css?v=68">
+  <!-- 자바스크립트가 살아 있을 때만 나타나는 효과를 켠다 (죽으면 글이 그냥 보인다) -->
+  <script>(function(d){d.documentElement.classList.add('js-motion');setTimeout(function(){if(!window.__motion)d.documentElement.classList.remove('js-motion');},3000);})(document);</script>
 </head>
 <body>
   <a class="skip-link" href="#about-main">본문 바로가기</a>
   <header class="site-header">
     <a class="brand-mark" href="index.html" aria-label="메인으로 이동"><b>CHECKMATE</b><span>주시원</span></a>
     <nav class="gnb" aria-label="주요 메뉴">
-      <a href="projects.html">PROJECTS</a><a class="is-current" href="about.html">ABOUT</a><a href="주시원_이력서_자기소개서.pdf" download>RESUME ↗</a>
+      <a href="projects.html">PROJECTS</a><a class="is-current" href="about.html">ABOUT</a><a href="주시원_이력서.pdf" download>RESUME ↗</a>
     </nav>
   </header>
 
@@ -26,9 +30,12 @@
 
       <div class="profile">
         <!-- 사진 — 기본은 증명사진, 올려 두면 체스판 사진으로 바뀐다 -->
-        <div class="profile__photo">
-          <img class="profile__photo-a" src="images/profile-1.jpg" alt="주시원 프로필 사진" width="840" height="1120" decoding="async">
-          <img class="profile__photo-b" src="images/profile-2.jpg" alt="" aria-hidden="true" width="840" height="1120" loading="lazy" decoding="async">
+        <div class="profile__side">
+          <div class="profile__photo">
+            <img class="profile__photo-a" src="images/profile-1.jpg" alt="주시원 프로필 사진" width="840" height="1120" decoding="async">
+            <img class="profile__photo-b" src="images/profile-2.jpg" alt="" aria-hidden="true" width="840" height="1120" loading="lazy" decoding="async">
+          </div>
+          <div class="profile-docs" id="resume"><a href="주시원_이력서.pdf" download>이력서 PDF 보기 ↗</a><a href="주시원_자기소개서.pdf" download>자기소개서 PDF 보기 ↗</a></div>
         </div>
 
         <div class="profile__copy">
@@ -45,9 +52,8 @@
             <div><dt>지역</dt><dd>서울 · 경기</dd></div>
             <div><dt>이메일</dt><dd>tldnjs248@gmail.com</dd></div>
             <div><dt>학력</dt><dd>계원예술대학교<span>디지털미디어디자인과 기획 세부전공<br>2027.02 졸업예정</span></dd></div>
-            <div><dt>수상</dt><dd>커뮤니케이션국제어워드 특별상<span>디지털미디어디자인 부문 · MOULD<br>2026.10</span></dd></div>
+            <div><dt>수상</dt><dd>졸업작품(캡스톤디자인) 최우수상<span>교내 · LET'S SYNC<br>2026.11</span><em>커뮤니케이션국제어워드 특별상</em><span>디지털미디어디자인 부문 · MOULD<br>2026.10</span></dd></div>
           </dl>
-          <div class="profile-docs" id="resume"><a href="#" target="_blank" rel="noopener">이력서 PDF 보기 ↗</a><a href="#" target="_blank" rel="noopener">자기소개서 PDF 보기 ↗</a></div>
         </div>
       </div>
 
@@ -59,18 +65,18 @@
             <p class="skill-card__no">/ 001</p>
             <h3>CHECK</h3>
             <p class="skill-card__lead">근거를 쌓는다</p>
-            <p class="skill-card__body">가정에서 시작하지 않고 사용자와 조건을 직접 확인해 판단의 근거를 만듭니다.</p>
+            <p class="skill-card__body">가정에서 끝내지 않고 사용자와 조건을 직접 확인해 판단의 근거를 만듭니다.</p>
           </article>
           <article class="skill-card">
             <p class="skill-card__no">/ 002</p>
             <h3>MATE</h3>
-            <p class="skill-card__lead">함께 판단한다</p>
+            <p class="skill-card__lead">협업하며 판단한다</p>
             <p class="skill-card__body">의견의 목적을 이해하고 필요한 조건을 맞춰 더 설득력 있는 판단으로 만듭니다.</p>
           </article>
           <article class="skill-card">
             <p class="skill-card__no">/ 003</p>
-            <h3>CHECKMATE!</h3>
-            <p class="skill-card__lead">결정한다</p>
+            <h3>CHECKMATE</h3>
+            <p class="skill-card__lead">실행으로 완성시킨다</p>
             <p class="skill-card__body">쌓은 근거와 함께 내린 판단을 결과물과 실행 계획으로 끝까지 옮깁니다.</p>
           </article>
         </div>
@@ -108,7 +114,8 @@
       </div>
       <div class="footer__col">
         <p class="footer__label">DOCUMENT</p>
-        <a href="주시원_이력서_자기소개서.pdf" download>이력서 · 자기소개서 PDF ↗</a>
+        <a href="주시원_이력서.pdf" download>이력서 PDF ↗</a>
+        <a href="주시원_자기소개서.pdf" download>자기소개서 PDF ↗</a>
       </div>
     </div>
     <div class="footer__base">
@@ -116,7 +123,8 @@
       <p>UX/UI &middot; 서비스 기획자</p>
     </div>
   </footer>
-  <script src="about.js?v=26"></script>
-  <script src="skills.js?v=26"></script>
+  <script src="about.js?v=68"></script>
+  <script src="skills.js?v=68"></script>
+  <script src="motion.js?v=68"></script>
 </body>
 </html>

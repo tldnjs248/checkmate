@@ -1,0 +1,283 @@
+/* ══ 메인 배치 2차 — 2026-11-17 (사용자 지정) ═══════════════════════
+   1. 히어로        왼쪽 슬로건 · 소개 · 문서 단추 / 오른쪽 CHECK · MATE · CHECKMATE
+   2. 프로젝트      왼쪽 탭이 화면에 붙고 오른쪽이 세로로 흐른다
+   3. HOW I PLAY    기보판(검은 칸 · 세로선 · 깜빡이는 테두리)을 버리고
+                    호버할 때 테두리만 진해지게
+
+   박스는 두 종류만 쓴다 — 큰 칸 1195 · 작은 칸 581 · 사이 32.
+   간격은 tokens.css 의 일곱 단만 쓴다 — 4 · 8 · 12 · 20 · 32 · 48 · 96.
+   중간값을 만들지 않는다. 22 가 필요해 보이면 20 이나 32 를 고른다.
+   페이지 좌우 60 과 머리말 높이 80 은 구조 값이라 수열 밖에 둔다.
+
+   보이는 값(색 · 모서리 · 카드 바탕)은 tokens.css 가 뒤에서 정한다.
+   이 파일은 배치와 간격만 맡는다. */
+
+/* ── 1. 히어로 ──────────────────────────────────────────────── */
+/* 2026-11-18 (사용자 지정) 위아래를 한 단씩 좁혔다.
+   68svh 는 글보다 빈자리가 먼저 높이를 정하게 만들어서 뺀다 —
+   이제 글과 안여백이 높이를 정한다. 위 128 = 머리말 80 + s6 48.
+
+   아래 72 는 수열(4·8·12·20·32·48·96) 밖의 값이다. 일부러 그렇게 뒀다.
+   히어로와 프로젝트 사이에는 구분선 1px 이 지나가고, 그 선 위아래는
+   같은 값이어야 한다. 96 과 48 의 가운데는 72 인데 수열에 그 칸이 없다.
+   한쪽만 96 으로 두면 선이 한쪽으로 치우쳐 보인다. 그래서 좌우 60 ·
+   머리말 80 과 같이 '구조 값'으로 보고 수열 밖에 둔다 — 선 위 72 · 아래 72.
+   (줄이기 전 96+96=192 → 줄인 뒤 48+48=96 → 가운데 72+72=144
+    → 2026-11-18 거기서 20% 더 벌려 86+86=172) */
+.hero {
+  height: auto;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1195fr) minmax(0, 581fr);
+  column-gap: var(--s5);
+  align-items: end;
+  padding: 128px 60px 86px;   /* 선 위 86 */
+}
+.hero__role { font-weight: var(--fw-strong); color: var(--ink-3); }
+.hero h1 { margin-top: var(--s4); font-size: var(--t-display); line-height: 1.22; }
+.hero__intro { margin-top: var(--s5); line-height: 1.8; color: var(--ink-2); }
+.hero__actions { margin-top: var(--s6); display: flex; gap: var(--s3); }
+
+/* 이어 읽으면 한 문장이 된다 — 그래서 어미가 ~고 / ~고 / ~합니다 이다.
+   영문 라벨이 설명을 대신하므로 라벨을 빼면 안 된다. */
+.hero__steps { margin: 0; padding: 0; list-style: none; display: grid; gap: var(--s4); }
+.hero__steps li { padding-top: var(--s3); border-top: 1px solid var(--ink); }
+.hero__steps b { display: block; }
+.hero__steps span {
+  display: block; margin-top: var(--s2);
+  font-size: var(--t-title); font-weight: var(--fw-strong); letter-spacing: var(--ls-tight);
+}
+
+/* ── 섹션 머리말 ─────────────────────────────────────────────── */
+.section-head { height: auto; padding: var(--s7) 60px var(--s5); }
+
+/* 프로젝트 머리말만 예외 — app.js 가 왼쪽 탭 안으로 옮긴다.
+   칸 안으로 들어왔으니 좌우 여백은 칸이 갖고, 아래 32 로 탭과 가른다.
+   (2026-11-18 사용자 지정) */
+.work .section-head { padding: 0 0 var(--s5); }
+
+/* ── 2. 프로젝트 — 왼쪽 탭 고정 · 오른쪽 흐름 ──────────────────── */
+.work {
+  padding: 86px 60px var(--s7);   /* 선 아래 86 — 위와 같은 값 */
+  display: grid;
+  grid-template-columns: minmax(0, 581fr) minmax(0, 1195fr);
+  column-gap: var(--s5);
+  align-items: start;
+}
+
+/* 왼쪽 탭 — 머리말(80) 아래 32 에 붙어 따라온다 */
+.work__nav { position: sticky; top: 112px; }
+.work__list { margin: 0; padding: 0; list-style: none; display: grid; gap: var(--s3); }
+.work__trigger {
+  display: grid;
+  gap: var(--s1);
+  width: 100%;
+  padding: var(--s4);
+  text-align: left;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+.work__item-head {
+  display: flex; gap: var(--s3); align-items: baseline;
+  margin-bottom: var(--s1);          /* 칸 사이 4 와 합쳐 8 */
+  font-size: var(--t-title); font-weight: var(--fw-strong);
+  letter-spacing: var(--ls-tight); color: var(--ink);
+}
+/* 두 줄은 같은 위계로 둔다 — 크기 · 굵기 · 색이 모두 같다 */
+.work__item-line { font-size: var(--t-body); line-height: 1.6; color: var(--ink-2); word-break: keep-all; }
+/* `전체 보기 →` 는 뺐다 — 바로 위 머리말의 화살표가 같은 곳으로 간다 (2026-11-18 사용자 지정) */
+
+/* 오른쪽 흐름 — 프로젝트 하나가 카드 하나다.
+   카드 경계가 구분을 해 주므로 사이 간격은 96 에서 32 로 줄인다. */
+/* 오른쪽 흐름은 머리말 덩어리 높이만큼 내려서 시작한다 —
+   맨 위에서는 썸네일 윗변이 첫 탭(01 코레일톡) 윗변에 서고,
+   스크롤해서 걸리면 둘 다 화면 위 112 가 되어 머리말 윗변과 맞는다.
+   높이는 app.js 가 재서 --head-h 로 넣는다 — 글이 한 줄 늘어도 따라간다.
+   (2026-11-18 사용자 지정) */
+.work__flow { display: grid; gap: var(--s5); padding-top: var(--head-h, 0px); }
+/* 바탕도 안여백도 두지 않는다 — 왼쪽 탭이 이미 회색이라 두 회색이 맞붙으면 서로 먹고,
+   안여백이 남으면 썸네일 끝선이 왼쪽 탭 끝선과 어긋난다.
+   칸을 가르는 일은 왼쪽 탭이 하고, 오른쪽은 흰 바탕 위에 내용만 놓는다. */
+
+/* 영상이 16:9 라 칸도 16:9 로 둔다 — 그래야 영상이 한 점도 안 잘린다.
+   커버(1600×1112 · 1.44:1)는 위아래 19% 만 잘려서 제목과 로고가 그대로 남는다. */
+.work__media { display: block; position: relative; aspect-ratio: 16 / 9; background: var(--paper); }
+.work__media img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+/* 올리면 커버 위로 떠오르는 움직이는 자료 */
+.work__motion {
+  position: absolute; inset: 0;
+  opacity: 0; pointer-events: none;
+  transition: opacity .35s ease;
+  background: var(--paper);
+}
+.work__media:hover .work__motion,
+.work__entry:focus-within .work__motion { opacity: 1; }
+.work__motion--video { width: 100%; height: 100%; object-fit: cover; }
+/* 세로 화면 여러 장 — 가로로 늘어놓고 올린 동안 천천히 훑는다 */
+.work__motion--strip { display: flex; gap: var(--s3); align-items: center; padding: 0 var(--s3); }
+.work__motion--strip img { width: auto; height: 100%; object-fit: contain; }
+.work__media:hover .work__motion--strip,
+.work__entry:focus-within .work__motion--strip { animation: work-pan 11s ease-in-out infinite alternate; }
+@keyframes work-pan { from { transform: translateX(0); } to { transform: translateX(-210px); } }
+@media (prefers-reduced-motion: reduce) {
+  .work__motion { transition: none; }
+  .work__media:hover .work__motion, .work__entry:focus-within .work__motion { opacity: 0; }
+}
+
+/* 제목 한 줄 · 그 아랫줄에 산출물과 기간 (2026-11-18 사용자 지정) */
+.work__head {
+  margin-top: var(--s4);
+  display: grid; grid-template-columns: minmax(0, 1fr);
+  row-gap: var(--s1);
+}
+.work__title { font-size: var(--t-title); line-height: 1.4; }
+.work__title a:hover, .work__title a:focus-visible { text-decoration: underline; text-underline-offset: 4px; }
+/* 제목 바로 아랫줄 — 왼쪽 정렬이고 좁으면 접힌다 */
+.work__spec {
+  text-align: left;
+  font-size: var(--t-label); font-weight: var(--fw-strong);
+  letter-spacing: -.02em; color: var(--ink-3); white-space: normal;
+}
+
+.work__desc { margin-top: var(--s3); line-height: 1.7; color: var(--ink-2); word-break: keep-all; }
+
+/* 네 블록 — 왼쪽 라벨 칸 190, 오른쪽 글 */
+.work__blocks { margin-top: var(--s5); border-top: 1px solid var(--line); }
+.work__blocks > div {
+  display: grid; grid-template-columns: 190px minmax(0, 1fr);
+  column-gap: var(--s4); align-items: start;
+  padding: var(--s4) 0;
+  border-bottom: 1px solid var(--line);
+}
+.work__blocks dt { display: grid; gap: var(--s1); }
+.work__blocks dt b { font-size: var(--t-label); font-weight: var(--fw-strong); letter-spacing: var(--ls-wide); color: var(--ink); }
+.work__blocks dt span { font-size: var(--t-label); font-weight: var(--fw-strong); letter-spacing: -.02em; color: var(--ink-3); }
+.work__blocks dd { margin: 0; }
+.work__blocks dd p { line-height: 1.7; color: var(--ink-2); word-break: keep-all; }
+.work__blocks dd p + p { margin-top: var(--s2); }
+
+/* 상세로 가는 길은 제목과 썸네일 두 개뿐이다 — 단추를 따로 두지 않는다.
+   썸네일은 키보드에서 건너뛰고(aria-hidden), 제목 링크가 초점을 받는다. */
+
+/* ── 3. HOW I PLAY — 왼쪽 주장 / 오른쪽 증거 ───────────────────── */
+.intro { display: block; padding: var(--s7) 60px var(--s7); }
+.intro__art { display: none; }
+/* 선으로 가르지 않고 역량 카드처럼 옅은 회색 칸으로 떼어 놓는다 */
+.play { display: grid; gap: var(--s3); border: 0; }
+.play__step {
+  display: grid;
+  /* 왼쪽 칸 320 — 2026-11-18 (사용자 지정)
+     581fr 일 때 왼쪽 칸은 565 인데 글이 가장 긴 줄도 262 라 300 가까이가 빈자리였다.
+     칸 사이는 그대로 32 다 — 간격 수열에서 가장 많이 쓰는 값이라(25번) 손대지 않았다.
+     320 은 그 32 의 열 배다. 가장 긴 줄 262 가 들어가고 58 이 남는다. */
+  grid-template-columns: 320px minmax(0, 1fr);
+  column-gap: var(--s5);
+  align-items: start;
+  margin: 0;
+  /* 위아래는 한 단 위(32), 좌우는 그대로(20) — 칸이 숨 쉬게 */
+  padding: var(--s5) var(--s4);
+  border: 0;
+  background: var(--surface);
+  border-radius: var(--r-outer);
+}
+.play__step::after { content: none; display: none; }
+
+/* system.js 가 스크롤할 때마다 지금 읽는 칸에 .is-mate 를 붙이고,
+   system.css 가 그걸 받아 마지막 칸(CHECKMATE)을 검게 칠하고 테두리를 깜빡인다.
+   기보판에 쓰던 장치라 여기서 전부 끈다 — 클래스는 계속 붙되 받는 규칙이 없으면
+   아무 일도 일어나지 않는다. system.js 는 다른 페이지도 쓰므로 건드리지 않는다. */
+.play__step.is-mate,
+.play__step:last-child.is-mate { background: var(--surface); box-shadow: none; z-index: auto; }
+
+/* 칸 자체에는 호버 효과를 두지 않는다 — 칸을 눌러도 아무 데도 가지 않기 때문이다.
+   움직이는 것은 실제로 눌리는 프로젝트 줄 하나뿐이다 (아래 .play__proof a:hover). */
+
+/* styles.css 에 .intro__copy p { margin-top:28px; font-size:var(--fs-lead); line-height:1.5 }
+   가 있어 칸 안의 모든 글줄을 덮고 있었다. 위 틈만 44 가 되고(아래는 20),
+   간격 수열도 글자 크기도 안 지켜졌다. 그 규칙(.intro__copy p)보다 셈이 높아야
+   이기므로 .intro__copy .play 로 받아 여기서 다시 적는다. */
+.intro__copy .play p { margin-top: 0; font-size: var(--t-body); line-height: 1.5; }
+.intro__copy .play .play__no { font-size: var(--t-label); font-weight: var(--fw-strong); letter-spacing: var(--ls-wide); }
+.intro__copy .play .play__lead { margin-top: var(--s1); }
+.intro__copy .play .play__attitude { margin-top: var(--s3); line-height: 1.7; }
+
+/* 끝이 짧게 남아 애매해 보이지 않게 두 줄을 손으로 끊는다.
+   칸이 한 줄로 펴지는 좁은 화면에서는 그 끊음이 어색해지므로 끈다. */
+.play__attitude .lb { display: inline; }
+
+.play__no { color: var(--ink-3); }
+.play__name { margin-top: var(--s1); font-size: var(--t-title); letter-spacing: 0; }
+.play__lead { font-weight: var(--fw-strong); color: var(--ink); }
+.play__attitude { padding-right: var(--s5); color: var(--ink-2); word-break: keep-all; }
+
+/* 오른쪽은 한 일을 한 줄씩 적는 대신, 프로젝트마다 쓴 역량을 묶어 보여 준다.
+   줄 전체가 그 프로젝트 상세로 가는 링크다. */
+/* 좌우로 20 씩 물러나게 두고 줄마다 그만큼 안여백을 준다 —
+   글자 자리는 그대로이면서, 올렸을 때 생기는 바탕이 글자에 바짝 붙지 않는다 */
+/* 라벨(관련 역량 키워드)을 뺐으므로 위 여백 0 — 첫 줄 윗변이 왼쪽 `01` 과 같은 줄에 선다 */
+.play__proof ul { margin: 0 calc(var(--s4) * -1) 0; padding: 0; list-style: none; }
+.play__proof li { border-bottom: 1px solid var(--line); border-radius: var(--r-inner); }
+.play__proof li:last-child { border-bottom-color: transparent; }
+/* 올리면 선이 아니라 그 줄의 바탕이 한 단 진해진다 */
+.play__proof li:hover,
+.play__proof li:has(a:focus-visible) { background: var(--surface-2); }
+.play__proof a {
+  display: grid; grid-template-columns: 150px minmax(0, 1fr) auto;
+  column-gap: var(--s4); align-items: baseline;
+  padding: var(--s3) var(--s4);
+}
+.play__proof b { font-weight: var(--fw-strong); color: var(--ink); }
+.play__proof span { line-height: 1.6; color: var(--ink-2); word-break: keep-all; }
+.play__proof i { font-style: normal; color: var(--ink-3); }
+/* 누를 수 있는 것은 이 줄뿐이다 — 글자가 진해지고, 그 줄의 구분선이 같이 진해진다 */
+.play__proof a:hover b, .play__proof a:hover span, .play__proof a:hover i,
+.play__proof a:focus-visible b, .play__proof a:focus-visible span, .play__proof a:focus-visible i { color: var(--ink); }
+
+/* ── 좁은 화면 — 두 칸을 한 칸으로 접는다 ───────────────────── */
+@media (max-width: 1100px) {
+  .hero { grid-template-columns: minmax(0, 1fr); gap: var(--s6); align-items: start; padding: 144px 40px var(--s6); min-height: 0; }   /* 좁은 화면도 선 위아래 48 로 맞춘다 */
+  .hero h1 { font-size: 38px; }
+  .hero__steps { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .section-head { padding: var(--s6) 40px var(--s4); }
+  .work { grid-template-columns: minmax(0, 1fr); gap: var(--s5); padding: var(--s6) 40px var(--s6); }
+  /* 좁은 화면에서는 탭을 붙이지 않는다 — 세로로 세 칸을 쌓으면 화면을 다 먹는다 */
+  .work__nav { position: static; }
+  .work__list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .work__flow { gap: var(--s6); padding-top: 0; }
+  .work__blocks > div { grid-template-columns: minmax(0, 1fr); row-gap: var(--s2); }
+  .intro { padding: var(--s6) 40px var(--s6); }
+  .play__step { grid-template-columns: minmax(0, 1fr); row-gap: var(--s4); }
+  .play__attitude { padding-right: 0; }
+  .play__attitude .lb { display: none; }
+}
+
+@media (max-width: 760px) {
+  .hero { padding: 104px 20px var(--s5); gap: var(--s5); }   /* 선 위아래 32 */
+  .hero h1 { font-size: 26px; line-height: 1.35; }
+  .hero__intro { margin-top: var(--s4); }
+  .hero__actions { margin-top: var(--s5); flex-direction: column; }
+  .hero__steps { grid-template-columns: minmax(0, 1fr); gap: var(--s3); }
+  .section-head { padding: var(--s5) 20px var(--s4); }
+  .work { padding: var(--s5) 20px var(--s5); gap: var(--s4); }
+  .work__list { grid-template-columns: minmax(0, 1fr); gap: var(--s2); }
+  .work__trigger { padding: var(--s3); }
+  .intro { padding: var(--s5) 20px var(--s5); }
+  .play__step { padding: var(--s3); row-gap: var(--s3); }
+  /* 칸 안여백이 12 로 줄므로 띠가 물러나는 폭도 같이 줄인다 — 안 그러면 칸 밖으로 넘친다 */
+  .play__proof ul { margin-left: calc(var(--s3) * -1); margin-right: calc(var(--s3) * -1); }
+  .play__proof a { padding: var(--s3); }
+  .play__proof a { grid-template-columns: minmax(0, 1fr) auto; row-gap: var(--s1); }
+  .play__proof b { grid-column: 1 / -1; }
+}
+
+/* ── 스크롤이 얼라인에서 한 번 걸리게 ────────────────────────────
+   프로젝트 카드의 윗변이 왼쪽 고정 탭의 윗변(112 = 머리말 80 + 32)과
+   같은 줄에 설 때 한 번 붙는다.
+   proximity 라서 가까이 갔을 때만 붙고, 빠르게 넘기면 그냥 지나간다.
+   mandatory 로 하면 스크롤이 내 것이 아닌 느낌이 나므로 쓰지 않는다.
+   터치 관성과 겹치면 튕기므로 좁은 화면에서는 걸지 않는다. */
+@media (min-width: 1101px) {
+  html { scroll-snap-type: y proximity; }
+  .work__entry { scroll-snap-align: start; scroll-margin-top: 112px; }
+}

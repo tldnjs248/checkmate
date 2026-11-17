@@ -1,0 +1,73 @@
+/* ══════════════════════════════════════════════════════════════
+   움직임 — 2026-11-18 (사용자 지정)
+
+   기본 스타일은 '부드럽게 나타나기' 하나다. 쫀득한 맛은 이미 넣어 둔
+   프로젝트 스크롤 멈춤 한 곳에만 둔다. 움직임이 눈에 먼저 띄면
+   "내용보다 디자인"이 되므로, 값을 네 개로 묶고 늘리지 않는다.
+
+     시간  150ms 상태가 바뀔 때 (색 · 바탕) — 이미 각 CSS 에 들어 있다
+           550ms 처음 나타날 때 (2026-11-18 400 에서 늘림 — 빨랐다)
+     곡선  cubic-bezier(.2,0,0,1)  — system.css 가 쓰던 것과 같은 값
+     거리  12px  아래에서 위로. 그 이상은 눈이 따라가야 해서 피곤하다
+     차례  90ms  한 덩이 안에서 다음 것이 뜨기까지 (motion.js 가 넣는다)
+
+   ※ 선택자를 :where() 로 감싼 이유: `.hero h1` 같은 것은 무게가
+     `.is-in` 보다 커서, 뜨라고 해도 숨긴 규칙이 이겨 버린다.
+     :where() 안은 무게가 0 이라 `.is-in` 이 항상 이긴다.
+
+   ※ 아래 선택자 목록은 motion.js 의 것과 **같아야 한다**.
+     숨기는 일을 CSS 가 맡는 이유: 자바스크립트가 숨기면 글이 한 번
+     보였다가 사라졌다 다시 뜬다. 처음부터 숨어 있어야 깜빡이지 않는다.
+
+   ※ `.js-motion` 은 <head> 의 한 줄이 붙인다. 그 줄은 3초 뒤에도
+     motion.js 가 안 돌았으면 표시를 떼어 낸다 — 파일이 깨져도
+     화면이 비어 버리는 일은 없다.
+   ══════════════════════════════════════════════════════════════ */
+
+:root{
+  --m-in:550ms;
+  --m-e:cubic-bezier(.2, 0, 0, 1);
+  --m-rise:12px;
+}
+
+/* ── 아래에서 위로 떠오르는 것 ────────────────────────────────── */
+.js-motion :where(.hero__role, .hero h1, .hero__intro, .hero__actions, .hero__steps li, .play__step, .case-section, .about-hero__head, .profile__side, .profile__copy, .playstyle__cards .skill-card){
+  opacity:0;
+  transform:translateY(var(--m-rise));
+  transition:opacity var(--m-in) var(--m-e), transform var(--m-in) var(--m-e);
+  transition-delay:var(--reveal-delay, 0ms);
+}
+
+/* ── 천천히 더 멀리 떠오르는 것 — HOW I PLAY (2026-11-18 사용자 지정) ──
+   큰 칸 세 개를 CHECK → MATE → CHECKMATE 차례로 읽는 자리다.
+   하나씩 천천히 떠올라야 "쌓인다"는 내용과 움직임이 맞는다.
+   새 규칙을 만들지 않고 위에서 쓰는 두 변수만 이 블록에서 바꾼다.
+     거리 12 → 28   떠오르는 게 눈에 보여야 한다
+     시간 550 → 800 천천히
+   차례 간격(90 → 160)은 motion.js 가 넣는다. */
+.js-motion :where(.play__step){
+  --m-rise:28px;
+  --m-in:800ms;
+}
+
+/* ── 밝아지기만 하는 것 ──────────────────────────────────────
+   넓은 그림이 움직이면 멀미가 난다. 상세 커버가 그렇다. */
+.js-motion :where(.detail-cover){
+  opacity:0;
+  transition:opacity var(--m-in) var(--m-e);
+}
+
+/* ── 다 뜬 상태 ─────────────────────────────────────────────── */
+.js-motion .is-in{
+  opacity:1;
+  transform:none;
+}
+
+/* 움직임을 줄이도록 설정한 사람에게는 아무것도 하지 않는다 */
+@media (prefers-reduced-motion: reduce){
+  .js-motion :where(.hero__role, .hero h1, .hero__intro, .hero__actions, .hero__steps li, .play__step, .case-section, .detail-cover, .about-hero__head, .profile__side, .profile__copy, .playstyle__cards .skill-card){
+    opacity:1 !important;
+    transform:none !important;
+    transition:none !important;
+  }
+}

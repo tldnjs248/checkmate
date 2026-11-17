@@ -1,23 +1,35 @@
 /* ══════════════════════════════════════════════════════════════
-   역량 카드 — 2×2 네 장 (시안 470:1813)
+   역량 카드 — 2×2 네 장
    메인(index.html) ABOUT 미리보기와 소개(about.html) SKILLS 가
    같은 카드를 써야 하므로 이 파일 하나로 두고 양쪽에서 불러온다.
    그릴 자리는 두 페이지 모두 #skill-list 다.
 
-   항목 형식 (2026-11-11 사용자 지정)
-     · AI · TOOL 은 도구마다 어떻게 쓰는지 한 줄씩 — `이름 — 사용 방법`
-     · UX · UI RESEARCH · 협업 역량 은 항목 이름만
-       (사용 방법은 소개 페이지가 아니라 이력서에서 보여 준다)
+   2026-11-17 바뀐 것 (사용자 지정)
+     HOW I PLAY 가 프로젝트별 역량 키워드를 다 보여 주게 되면서
+     `UX · UI RESEARCH` 와 `협업 역량` 두 장이 그것과 통째로 겹쳤다.
+     두 장을 빼고 그 자리에 이력서에만 있던 사실을 넣는다.
+       윗줄  TOOL · AI          (도구 이야기는 HOW I PLAY 에 없다 — 그대로 둔다)
+       아랫줄 교내활동 · 경력사항  (이력서에서 가져옴)
+     빠진 두 장에서 건질 것은 HOW I PLAY 로 옮겼다 —
+     심층인터뷰(FGI) · 에스노그라피 → 롯데시네마 CHECK
+     역할 분담 · 일정 관리          → 롯데시네마 MATE
+
+   2026-11-18 바뀐 것 (사용자 지정)
+     네 장이 서로 다른 것을 담게 되어 `/ 001` 번호를 뺐다 — 차례가 있는 묶음이 아니다.
+     오른쪽 아래 체스 말 그래픽도 뺐다. 설명하는 바가 없어 글자 자리만 먹었다.
+
+   항목 형식
+     name  왼쪽 굵은 칸 (도구 이름 · 날짜)
+     use   오른쪽 설명 한 줄
+     note  그 아래 한 줄 더 (경력 설명처럼 문장이 필요할 때만)
    ══════════════════════════════════════════════════════════════ */
 const skills = [
   {
-    title: 'UX · UI RESEARCH',
+    title: 'TOOL',
     items: [
-      { name: '심층인터뷰(FGI) · 에스노그라피' },
-      { name: '사용성 테스트(UT) · 아이트래킹' },
-      { name: '트렌드 분석 · 벤치마킹' },
-      { name: '페르소나 · 시나리오 · 스토리보드' },
-      { name: '정보구조도(IA) · 화면설계' },
+      { name: 'Figma', use: '와이어프레임 · 프로토타입 제작, 문서 제작' },
+      { name: 'PowerPoint', use: '정보구조도 · 화면설계서 작성, 발표 장표 제작' },
+      { name: 'Excel', use: '사용성 평가 데이터 정리, 설문 결과 기초 분석' },
     ],
   },
   {
@@ -30,78 +42,45 @@ const skills = [
     ],
   },
   {
-    title: 'TOOL',
+    title: '교내활동',
     items: [
-      { name: 'Figma', use: '와이어프레임 · 프로토타입 제작, 문서 제작' },
-      { name: 'PowerPoint', use: '정보구조도 · 화면설계서 작성, 발표 장표 제작' },
-      { name: 'Excel', use: '사용성 평가 데이터 정리, 설문 결과 기초 분석' },
+      { name: '2026.09', use: 'AI 동아리 AIM · 바이브 코딩 웹 제작' },
+      { name: '2026.09', use: '2026 졸업작품 전시위원회 브랜딩팀' },
+      { name: '2026.07', use: '혁신지원사업 ESG RE:ACT 팀장 · AI 윤리 카드뉴스' },
+      { name: '2026.03', use: '기획 동아리 초안 · 학과 SNS 카드뉴스 제작' },
+      { name: '2025.09', use: '2025 졸업작품 전시회 전시팀' },
     ],
   },
   {
-    title: '협업 역량',
+    title: '경력사항',
     items: [
-      { name: '경청 · 의견 조율' },
-      { name: '역할 분담 · 일정 관리' },
-      { name: '근거 기반 의사결정' },
-      { name: '문서화 · 산출물 공유' },
+      {
+        name: '2025.03 – 2026.07',
+        use: '이마트 트레이더스 위례 · 고객 응대 및 행사 운영',
+        note: '다양한 문의와 구매 상황을 직접 응대하며 고객의 요구와 선택 기준 파악',
+      },
+      {
+        name: '2026.01 – 2026.03',
+        use: 'yugen 잠실점 · 매장 운영 및 고객 응대',
+        note: '고객의 요구와 불편을 직접 들으며 상황에 맞는 응대로 구매까지 연결',
+      },
     ],
   },
 ];
 
-/* 카드 오른쪽 아래 그래픽 — 시안(470:1813) 그대로, 체스 말이 지나가는 칸을 그린다.
-   칸마다 네모를 따로 그리면 맞닿은 변에 선이 두 번 겹쳐 그 자리만 진해진다.
-   그래서 칸을 '변'으로 풀어 놓고 같은 변은 한 번만 그린다. 선 굵기는 카드 테두리와 같은 1px. */
-const U = 55;                      /* 칸 한 변 */
-const HALF = 0.5;                  /* 선이 화소 한가운데 오도록 좌표를 반 칸 민다 (아래 설명) */
-
-const cellLines = (cells) => {
-  const seen = new Set();
-  const out = [];
-  /* vector-effect 는 물려받지 않는 성질이라 선마다 따로 적는다 — 크기가 줄어도 1px 을 지킨다 */
-  const add = (key, d) => { if (seen.has(key)) return; seen.add(key); out.push(`<path d="${d}" vector-effect="non-scaling-stroke"/>`); };
-  cells.forEach(([cx, cy]) => {
-    const x = cx * U + HALF, y = cy * U + HALF;
-    add('h' + x + ',' + y, `M${x} ${y}h${U}`);                 /* 윗변 */
-    add('h' + x + ',' + (y + U), `M${x} ${y + U}h${U}`);       /* 아랫변 */
-    add('v' + x + ',' + y, `M${x} ${y}v${U}`);                 /* 왼변 */
-    add('v' + (x + U) + ',' + y, `M${x + U} ${y}v${U}`);       /* 오른변 */
-  });
-  return out.join('');
-};
-
-/* 1px 선은 좌표에 그대로 그리면 화소 경계에 반씩 걸쳐 흐려진다. 그래서 좌표를 0.5 밀어
-   선이 화소 한가운데를 지나게 한다 (그만큼 viewBox 도 1 늘린다).
-   shape-rendering="crispEdges" 로도 또렷해지지만, 격자에 맞추다가 선이 통째로
-   사라지는 일이 있어 쓰지 않는다. */
-const skillArt = (cols, rows, cells) => {
-  const w = cols * U + 1, h = rows * U + 1;
-  return `<svg class="skill-card__art" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true" focusable="false">${cellLines(cells)}</svg>`;
-};
-
-const SKILL_ART = [
-  /* 리서치 — 비숍처럼 대각선으로 올라가는 세 칸 */
-  skillArt(3, 3, [[0, 2], [1, 1], [2, 0]]),
-  /* AI — 나이트의 L자 이동 */
-  skillArt(2, 3, [[0, 2], [0, 1], [1, 0]]),
-  /* 도구 — 룩처럼 상하좌우로 뻗는 십자 */
-  skillArt(3, 3, [[1, 0], [0, 1], [1, 1], [2, 1], [1, 2]]),
-  /* 협업 — 킹이 닿는 아홉 칸 */
-  skillArt(3, 3, [[0, 0], [1, 0], [2, 0], [0, 1], [1, 1], [2, 1], [0, 2], [1, 2], [2, 2]]),
-];
-
-/* 이름만 있는 항목과 `이름 — 사용 방법` 항목을 한 틀에서 그린다 */
-const skillItem = (item) => (item.use
-  ? `<li><b>${item.name}</b> — ${item.use}</li>`
-  : `<li>${item.name}</li>`);
+/* `이름 — 설명` 한 줄, 필요하면 그 아래 문장 한 줄 더 */
+/* HOW I PLAY 의 프로젝트 줄과 같은 틀 — 왼쪽 이름 칸, 오른쪽 설명 칸.
+   가운데 `—` 와 글머리 기호는 뺐다. 칸이 갈라져 있으니 둘 다 필요 없다.
+   (2026-11-18 사용자 지정) */
+const skillItem = (item) => `<li><b>${item.name}</b><span class="skill-card__use">${item.use}</span>${item.note ? `<span class="skill-card__note">${item.note}</span>` : ''}</li>`;
 
 const skillHost = document.querySelector('#skill-list');
 if (skillHost) {
-  skillHost.innerHTML = skills.map((skill, index) => `
+  skillHost.innerHTML = skills.map((skill) => `
   <article class="skill-card">
-    <p class="skill-card__no">/ ${String(index + 1).padStart(3, '0')}</p>
     <h3>${skill.title}</h3>
+    ${skill.sub ? `<p class="skill-card__sub">${skill.sub}</p>` : ''}
     <ul>${skill.items.map(skillItem).join('')}</ul>
-    ${SKILL_ART[index]}
   </article>
 `).join('');
 }

@@ -5,8 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="주시원 UX/UI · 서비스 기획자 포트폴리오">
   <title>CHECKMATE — SIWON JOO</title>
-  <link rel="stylesheet" href="styles.css?v=26">
-  <link rel="stylesheet" href="system.css?v=26">
+  <link rel="stylesheet" href="styles.css?v=68">
+  <link rel="stylesheet" href="system.css?v=68">
+  <link rel="stylesheet" href="main.css?v=68">
+  <link rel="stylesheet" href="tokens.css?v=68">
+  <link rel="stylesheet" href="motion.css?v=68">
+  <!-- 자바스크립트가 살아 있을 때만 나타나는 효과를 켠다 (죽으면 글이 그냥 보인다) -->
+  <script>(function(d){d.documentElement.classList.add('js-motion');setTimeout(function(){if(!window.__motion)d.documentElement.classList.remove('js-motion');},3000);})(document);</script>
 </head>
 <body>
   <a class="skip-link" href="#main">본문 바로가기</a>
@@ -16,20 +21,28 @@
     <nav class="gnb" aria-label="주요 메뉴">
       <a href="projects.html">PROJECTS</a>
       <a href="about.html">ABOUT</a>
-      <a href="주시원_이력서_자기소개서.pdf" download>RESUME ↗</a>
+      <a href="주시원_이력서.pdf" download>RESUME ↗</a>
     </nav>
   </header>
 
   <main id="main">
-    <!-- HERO — 첫 화면은 대표 문장과 진입 버튼만 둔다 -->
+    <!-- HERO — 왼쪽은 누구인가와 어떻게 일하는가, 오른쪽은 그 세 단계 -->
     <section class="hero">
-      <div class="hero__statement">
-        <h1>판단의 근거를 쌓고<br>결정적인 수를 두는 기획자, 주시원입니다.</h1>
+      <div class="hero__copy">
+        <p class="hero__role">주시원 · UX 서비스 기획자</p>
+        <h1>판단의 근거를 쌓고<br>결정적인 수를 두는 기획자 주시원입니다.</h1>
+        <p class="hero__intro">배경과 사용자, 요구사항을 직접 확인해 판을 읽습니다.<br>문제를 좁히고 검증을 거쳐, 결정적인 수로 끝냅니다.</p>
         <div class="hero__actions">
-          <a class="button" href="projects.html">프로젝트 보기 →</a>
-          <a class="button" href="about.html">소개 보기 →</a>
+          <a class="button" href="주시원_이력서.pdf" download>이력서 PDF ↗</a>
+          <a class="button" href="주시원_자기소개서.pdf" download>자기소개서 PDF ↗</a>
         </div>
       </div>
+      <!-- 이어 읽으면 한 문장이 된다 — 근거를 쌓고, 협업하며 판단하고, 끝까지 실행합니다 -->
+      <ol class="hero__steps">
+        <li><b>CHECK</b><span>근거를 쌓고</span></li>
+        <li><b>MATE</b><span>협업하며 판단하고</span></li>
+        <li><b>CHECKMATE</b><span>실행으로 완성합니다</span></li>
+      </ol>
     </section>
 
     <section class="projects" id="projects" aria-labelledby="projects-title">
@@ -40,34 +53,64 @@
           <p>결정적인 수를 만든 프로젝트</p>
         </div>
       </div>
-      <div id="project-list"></div>
+      <!-- 왼쪽 큰 칸 하나 + 오른쪽 목록 셋. 목록에 올리면 왼쪽이 바뀐다 — app.js 가 채운다 -->
+      <div class="work" id="work"></div>
     </section>
 
-    <!-- HOW I PLAY — 프로젝트를 본 뒤에 읽는 자리. 왼쪽 그래픽 · 오른쪽 세 단계 -->
+    <!-- HOW I PLAY — 왼쪽은 주장, 오른쪽은 그 주장을 뒷받침한 실제 작업 -->
     <section class="intro" aria-labelledby="intro-title">
-      <div class="intro__art" aria-hidden="true"><img src="images/how-i-play.svg?v=26" alt="" decoding="async"></div>
       <div class="intro__copy">
         <h2 class="section-name" id="intro-title">HOW I PLAY<span>내가 일하는 방식</span></h2>
         <div class="play">
           <article class="play__step">
-            <h3 class="play__chip">01 CHECK</h3>
-            <div class="play__text">
-              <p>가정에서 끝내지 않고 사용자와 조건을 직접 확인해 판단의 근거를 만듭니다. 프로젝트를 시작할 때는 요구사항을 확인한 뒤, 해당 분야에 대해 넓게 조사하며 문제들을 좁혀갑니다.</p>
-              <p>문제를 검증하기 위해 에스노그라피, 심층인터뷰, 사용성 테스트와 아이트래킹을 진행하여 확실한 수치와 근거로 우선순위를 도출합니다. 문제정의부터 화면설계서까지, 사용자의 관점과 운영자의 관점, 현재 산업의 흐름의 관점과 확실한 근거들을 기준으로 끝까지 확인합니다.</p>
+            <div class="play__head">
+              <p class="play__no">01</p>
+              <h3 class="play__name">CHECK</h3>
+              <p class="play__lead">근거를 쌓는다</p>
+              <p class="play__attitude">가정에서 끝내지 않고 사용자와 조건을<br class="lb">직접 확인해 판단의 근거를 만듭니다.</p>
+            </div>
+            <div class="play__proof">
+              <ul>
+                <li><a href="project-detail.html?project=korail-talk"><b>코레일톡</b><span>요구분석 · 데스크리서치 · 사용성평가(사용성테스트 · 아이트래킹) · 유저 정의</span><i>→</i></a></li>
+                <li><a href="project-detail.html?project=mould"><b>MOULD</b><span>요구분석 · SWOT 분석 · 3Cs · 데스크리서치 · 유저 정의 · 페르소나 분석 · 사용자 니즈 · 원츠 도출 · 유저저니맵</span><i>→</i></a></li>
+                <li><a href="project-detail.html?project=lotte-cinema"><b>롯데시네마</b><span>요구분석 · 데스크리서치 · 필드리서치 · 심층인터뷰(FGI) · 에스노그라피 · 사용성평가(사용성테스트 · 아이트래킹) · 유저 정의</span><i>→</i></a></li>
+                <li><a href="project-detail.html?project=dmd-graduation"><b>LET'S SYNC</b><span>SWOT 분석 · 3Cs · 트렌드 분석 · 사용자 설문 · 사용자 인터뷰 · 유저 정의 · 페르소나 분석 · 사용자 니즈 · 원츠 도출 · 유저저니맵</span><i>→</i></a></li>
+                <li><a href="project-detail.html?project=portfolio-site"><b>포트폴리오 사이트</b><span>데스크리서치 · 유저 정의 · 핵심가치</span><i>→</i></a></li>
+              </ul>
             </div>
           </article>
           <article class="play__step">
-            <h3 class="play__chip">02 MATE</h3>
-            <div class="play__text">
-              <p>상대의 말을 잘 경청하고 공감하는 것이 좋은 소통의 기본 자세라고 생각합니다. 다양한 직군, 다양한 성격의 사람들의 말을 잘 경청하고, 상대의 목적을 확실하게 이해한 뒤 저의 의견을 효과적으로 전달합니다.</p>
-              <p>함께 협업하는 사람의 의견의 목적을 이해하고 필요한 조건을 맞춰 더 설득력 있는 판단으로 만듭니다. 조건을 확인하고 현재 프로젝트에 더 좋은 방향으로 영향을 줄 수 있도록 상대의 의견에 날개를 달아줍니다.</p>
+            <div class="play__head">
+              <p class="play__no">02</p>
+              <h3 class="play__name">MATE</h3>
+              <p class="play__lead">협업하며 판단한다</p>
+              <p class="play__attitude">의견의 목적을 이해하고 필요한 조건을 맞춰<br class="lb">더 설득력 있는 판단으로 만듭니다.</p>
+            </div>
+            <div class="play__proof">
+              <ul>
+                <li><a href="project-detail.html?project=korail-talk"><b>코레일톡</b><span>경청 · 공감 커뮤니케이션</span><i>→</i></a></li>
+                <li><a href="project-detail.html?project=mould"><b>MOULD</b><span>경청 · 공감 커뮤니케이션</span><i>→</i></a></li>
+                <li><a href="project-detail.html?project=lotte-cinema"><b>롯데시네마</b><span>회의록 · 경청 · 공감 커뮤니케이션 · 역할 분담 · 일정 관리 · Decision Log</span><i>→</i></a></li>
+                <li><a href="project-detail.html?project=dmd-graduation"><b>LET'S SYNC</b><span>회의록 · 경청 · 공감 커뮤니케이션</span><i>→</i></a></li>
+                <li><a href="project-detail.html?project=portfolio-site"><b>포트폴리오 사이트</b><span>AI 협업 설계</span><i>→</i></a></li>
+              </ul>
             </div>
           </article>
           <article class="play__step">
-            <h3 class="play__chip">03 CHECKMATE!</h3>
-            <div class="play__text">
-              <p>문제와 근거를 확인하고, 협업하며 프로젝트를 Checkmate! 합니다. 역할을 어떻게 분배할지, 무엇을 문제로 선정할지, 우선순위를 어떻게 정할지, 쌓아온 근거를 기준으로 판단하며 수를 두고 판을 만듭니다.</p>
-              <p>저의 프로젝트는 꾸준하게 확인하고 건설적인 소통이 계속 반복되며 완성됩니다.</p>
+            <div class="play__head">
+              <p class="play__no">03</p>
+              <h3 class="play__name">CHECKMATE</h3>
+              <p class="play__lead">실행으로 완성시킨다</p>
+              <p class="play__attitude">쌓은 근거와 함께 내린 판단을 결과물과<br class="lb">실행 계획으로 끝까지 옮깁니다.</p>
+            </div>
+            <div class="play__proof">
+              <ul>
+                <li><a href="project-detail.html?project=korail-talk"><b>코레일톡</b><span>벤치마킹 · 포지셔닝 · 정보구조도 · 플로우차트 · 와이어프레임 · 스토리보드 · 프로토타이핑</span><i>→</i></a></li>
+                <li><a href="project-detail.html?project=mould"><b>MOULD</b><span>서비스 사용 시나리오 · 서비스 설계 · 영상 스토리보드</span><i>→</i></a></li>
+                <li><a href="project-detail.html?project=lotte-cinema"><b>롯데시네마</b><span>벤치마킹 · 요구사항 정의서 · 기능 정의서 · 정보구조도 · 레이블링 · 플로우차트 · 와이어프레임 · 스토리보드 · 프로토타이핑</span><i>→</i></a></li>
+                <li><a href="project-detail.html?project=dmd-graduation"><b>LET'S SYNC</b><span>정보구조도 · 플로우차트 · 와이어프레임 · 화면설계서 · 스토리보드 · SNS 운영</span><i>→</i></a></li>
+                <li><a href="project-detail.html?project=portfolio-site"><b>포트폴리오 사이트</b><span>벤치마킹 · 정보구조도 · 레이블링 · 와이어프레임 · 화면설계서 · 스토리보드 · 프로토타이핑</span><i>→</i></a></li>
+              </ul>
             </div>
           </article>
         </div>
@@ -97,10 +140,10 @@
           </div>
           <div>
             <dt>AWARDS</dt>
-            <dd><p>2026.10 커뮤니케이션 국제 어워드 디지털미디어디자인 부문 특별상 수상 [MOULD]</p></dd>
+            <dd><p>2026.11 졸업작품(캡스톤디자인) 최우수상 · 교내 [LET'S SYNC]</p><p>2026.10 커뮤니케이션 국제 어워드 디지털미디어디자인 부문 특별상 [MOULD]</p></dd>
           </div>
         </dl>
-        <!-- 역량 — 표에서 빼내 2×2 카드로. 내용은 app.js 가 채운다 -->
+        <!-- 역량 — 표에서 빼내 카드로. 내용은 skills.js 가 채운다 -->
         <div class="skill-cards" id="skill-list"></div>
       </div>
     </section>
@@ -125,7 +168,8 @@
       </div>
       <div class="footer__col">
         <p class="footer__label">DOCUMENT</p>
-        <a href="주시원_이력서_자기소개서.pdf" download>이력서 · 자기소개서 PDF ↗</a>
+        <a href="주시원_이력서.pdf" download>이력서 PDF ↗</a>
+        <a href="주시원_자기소개서.pdf" download>자기소개서 PDF ↗</a>
       </div>
     </div>
     <div class="footer__base">
@@ -134,8 +178,9 @@
     </div>
   </footer>
 
-  <script src="app.js?v=26"></script>
-  <script src="skills.js?v=26"></script>
-  <script src="system.js?v=26"></script>
+  <script src="app.js?v=68"></script>
+  <script src="skills.js?v=68"></script>
+  <script src="system.js?v=68"></script>
+  <script src="motion.js?v=68"></script>
 </body>
 </html>

@@ -193,7 +193,9 @@ const projects = [
 ];
 
 const params=new URLSearchParams(location.search);const id=params.get('project')||'korail-talk';const index=Math.max(0,projects.findIndex(project=>project.id===id));const project=projects[index];const previous=projects[(index-1+projects.length)%projects.length];const next=projects[(index+1)%projects.length];
-/* 커버 이미지가 있는 프로젝트 — 파일은 images/<id>-band.jpg */
+/* 커버 이미지가 있는 프로젝트 — 파일은 images/<id>-band.jpg
+   2026-11-18 (사용자 지정) 커버 칸은 18:7(1440x560) 이다.
+   띠 사진도 전부 18:7 로 다시 만들어서 한 군데도 잘리지 않는다. */
 const COVER=new Set(['lotte-cinema','korail-talk','mould','dmd-graduation']);
 if(COVER.has(project.id)){const c=document.querySelector('#detail-cover');c.className='detail-cover has-image';c.innerHTML=`<img src="images/${project.id}-band.jpg" alt="" decoding="async">`;}
 document.querySelector('#project-number').textContent=project.number;document.querySelector('#detail-title').textContent=project.title;document.querySelector('#detail-summary').textContent=project.summary;document.title=`${project.title} — SIWON JOO`;
