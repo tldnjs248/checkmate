@@ -11,6 +11,13 @@ const projects = [
     call:['좌석 자동배정','예약 승차권 조회'],
     role:'문헌 조사 · 아이트래킹 · 사용성 평가 분석 · 개선 범위 전환 제안',
     deliverable:'보고서 · 스토리보드',outputs:['report','storyboard'],
+    /* 2026-11-18 (사용자 지정) 본문을 팀 보고서 구조로 통째로 바꿨다.
+       내용은 case-korail.js, 생김새는 case.css, 조작은 case.js 가 맡는다.
+       여기 적는 것은 왼쪽 목차에 들어갈 여섯 절의 이름뿐이다.
+       아래 sections 는 쓰이지 않지만, 보고서 글이 아직 없던 때의
+       원고라서 지우지 않고 남겨 둔다. */
+    report:[['s1','프로젝트 개요'],['s2','문제정의'],['s3','개선안 설계'],
+            ['s4','사용성 검증 및 개선'],['s5','최종 산출물'],['s6','프로젝트 회고']],
     sections:[
       ['opening','OPENING','프로젝트 개요','single',[
         '코레일톡에서 흩어져 있던 예약 승차권 조회 기능을 한곳으로 모아, 예매 이후의 흐름을 다시 설계한 프로젝트입니다.',
@@ -230,10 +237,47 @@ const visual=(kind,imgs)=>{const g=imgs||[];return `<div class="section-visual">
   ?`<div class="visual-asymmetric">${slot('조사 · 분석 자료',g[0])}${slot('상세 이미지',g[1])}</div>`
   :`<div class="visual-wide">${slot('프로젝트 이미지 1',g[0])}${slot('프로젝트 이미지 2',g[1])}${slot('프로젝트 이미지 3',g[2])}</div>`
 }</div>`;};
-/* 본문 제목은 작은 영문 + 큰 한글, 본문 문단은 이미지 자리 위에 */
-document.querySelector('#detail-sections').innerHTML=project.sections.map((section,i)=>`<section class="case-section" id="${section[0]}"><div class="section-heading"><h2><em><b>${String(i+1).padStart(2,'0')}</b>${section[1]}</em>${section[2]}</h2><div class="section-body">${section[4].map(para=>`<p>${para}</p>`).join('')}</div></div>${visual(section[3],section[5])}</section>`).join('');
-/* 목차는 한글 이름만 (칸 폭이 210px) */
-document.querySelector('#section-nav').innerHTML=project.sections.map((section,i)=>`<a href="#${section[0]}" class="${i===0?'is-active':''}">${String(i+1).padStart(2,'0')}　${section[2]}</a>`).join('');
+/* ── 본문 ──────────────────────────────────────────────────────
+   두 가지 중 하나로 그린다.
+     보고서판 (project.report 가 있을 때 — 지금은 코레일톡 하나)
+       팀이 만든 보고서 페이지를 통째로 옮겨 넣는다. 파일이 커서
+       (본문 175KB · 생김새 73KB · 조작 33KB) 이 프로젝트일 때만 불러온다.
+     원고판 (나머지 셋)
+       아래 sections 를 제목 + 문단 + 이미지 자리로 편다.            */
+const headEl=document.querySelector('#detail-sections');
+const navEl=document.querySelector('#section-nav');
+const V=(document.querySelector('script[src^="project-detail.js"]')||{}).src||'';
+const ver=(V.split('?v=')[1]||'').split('&')[0]||'';
+const q=ver?'?v='+ver:'';
+
+const addCSS=(href)=>{const l=document.createElement('link');l.rel='stylesheet';l.href=href;document.head.appendChild(l);};
+const addJS=(src,then)=>{const s=document.createElement('script');s.src=src;s.onload=then||null;s.onerror=()=>{document.documentElement.classList.remove('rv-js');};document.head.appendChild(s);};
+
+const paintTOC=(rows)=>{navEl.innerHTML=rows.map(([anchor,name],i)=>`<a href="#${anchor}" class="${i===0?'is-active':''}">${String(i+1).padStart(2,'0')}　${name}</a>`).join('');};
+/* 목차 글자를 따라다니게 한다 — 보고서판은 .st, 원고판은 .case-section 이 절이다 */
+const spy=(selector)=>{const links=[...navEl.querySelectorAll('a')];
+  const watcher=new IntersectionObserver(rows=>{const top=rows.filter(r=>r.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];if(!top)return;
+    links.forEach(link=>link.classList.toggle('is-active',link.getAttribute('href')===`#${top.target.id}`));},{rootMargin:'-15% 0px -65% 0px',threshold:[0,.2,.5]});
+  document.querySelectorAll(selector).forEach(section=>watcher.observe(section));};
+
+if(project.report){
+  /* 숨기는 일을 CSS 가 먼저 하도록 표시부터 붙인다 — 글이 보였다 사라지지 않는다.
+     움직임을 줄이도록 설정한 사람에게는 붙이지 않는다(case.js 도 같은 규칙) */
+  if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('rv-js');
+  setTimeout(()=>{if(!window.__case)document.documentElement.classList.remove('rv-js');},3000);
+  addCSS('case.css'+q);
+  addJS('case-korail.js'+q,()=>{
+    headEl.className='detail-sections kc';
+    headEl.innerHTML=window.CASE_KORAIL||'';
+    paintTOC(project.report);
+    spy('.kc .st');
+    addJS('case.js'+q);
+  });
+}else{
+  headEl.innerHTML=project.sections.map((section,i)=>`<section class="case-section" id="${section[0]}"><div class="section-heading"><h2><em><b>${String(i+1).padStart(2,'0')}</b>${section[1]}</em>${section[2]}</h2><div class="section-body">${section[4].map(para=>`<p>${para}</p>`).join('')}</div></div>${visual(section[3],section[5])}</section>`).join('');
+  paintTOC(project.sections.map(section=>[section[0],section[2]]));
+  spy('.case-section');
+}
 /* 하단 다른 프로젝트 — 목록 페이지의 INDEX 행과 같은 형식 */
 document.querySelector('#other-projects-list').innerHTML=projects
   .filter(item=>item.id!==project.id)
@@ -247,4 +291,3 @@ document.querySelector('#other-projects-list').innerHTML=projects
       </a>
     </article>`).join('');
 const topButton=document.querySelector('#top-button');topButton.addEventListener('click',()=>scrollTo({top:0,behavior:'smooth'}));const updateTopButton=()=>topButton.classList.toggle('is-visible',scrollY>700);addEventListener('scroll',updateTopButton,{passive:true});updateTopButton();
-const navLinks=[...document.querySelectorAll('#section-nav a')];const observer=new IntersectionObserver(entries=>{const visible=entries.filter(entry=>entry.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];if(!visible)return;navLinks.forEach(link=>link.classList.toggle('is-active',link.getAttribute('href')===`#${visible.target.id}`));},{rootMargin:'-15% 0px -65% 0px',threshold:[0,.2,.5]});document.querySelectorAll('.case-section').forEach(section=>observer.observe(section));
