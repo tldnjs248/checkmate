@@ -488,3 +488,13 @@ ffmpeg -i 폰화면.png -vf "scale=-2:700:flags=lanczos,pad=1920:1080:(ow-iw)/2:
 ```
 
 한 줄에 4칸(좁은 화면 2칸). 눌러서 크게 볼 수 있다. 그림은 세로 비율 그대로 둔다.
+
+### 가로 그림 격자 — `shots wide` · `shots two`
+
+`shots` 에 `wide` 를 더하면 칸이 16:9 가 된다 (룸 렌더처럼 넓은 그림).
+`two` 를 더하면 한 줄에 두 칸이 된다 (화면이 길어 크게 보여야 할 때).
+
+```html
+<div class="shots wide">…</div>      <!-- 16:9 네 칸 -->
+<div class="shots two wide">…</div>  <!-- 16:9 두 칸 -->
+```

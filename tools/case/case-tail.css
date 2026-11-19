@@ -119,27 +119,31 @@
    움직임은 기존 .bars 와 같은 방식이다 — .rv 가 화면에 들어오면(.in) 자란다 */
 
 /* ── 가로 막대. 이름이 길거나 칸이 여섯을 넘을 때 쓴다 */
-.kc .hbs{display:grid;gap:10px;margin-top:var(--s-5)}
+.kc .hbs{display:grid;gap:12px;margin-top:var(--s-6);margin-bottom:var(--s-2)}
 .kc .tile .hbs{margin-top:var(--s-3);gap:8px}
 .kc .tile .hb{grid-template-columns:minmax(0,52px) minmax(0,1fr) minmax(0,auto);gap:var(--s-2)}
 .kc .hb{display:grid;grid-template-columns:minmax(0,140px) minmax(0,1fr) minmax(0,auto);align-items:center;gap:var(--s-3)}
 .kc .hb > b{font:var(--kt-footnote);letter-spacing:var(--kls-footnote);color:var(--label-2);font-weight:400;
   overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.kc .hb > i{display:block;height:14px;border-radius:var(--r-inner);background:var(--bg-3);
-  width:calc(var(--w) * 1%);transform-origin:0 50%;transition:transform 760ms var(--ease-out) calc(var(--j,0) * 60ms)}
-.kc .rv:not(.in) .hb > i{transform:scaleX(.02)}
+.kc .hb > i{position:relative;display:block;height:14px;width:100%;border-radius:var(--r-inner);
+  background:var(--bg-2);box-shadow:inset 0 0 0 1px var(--sep);overflow:hidden}
+.kc .hb > i::after{content:"";position:absolute;inset:0 auto 0 0;width:calc(var(--w) * 1%);
+  border-radius:var(--r-inner);background:var(--bg-3);
+  transform-origin:0 50%;transition:transform 760ms var(--ease-out) calc(var(--j,0) * 60ms)}
+.kc .rv:not(.in) .hb > i::after{transform:scaleX(.015)}
 .kc .hb > span{font:var(--kt-footnote);letter-spacing:var(--kls-footnote);color:var(--label-2);
   font-variant-numeric:tabular-nums;white-space:nowrap}
 .kc .hb.on > b,.kc .hb.on > span{color:var(--label);font-weight:600}
-.kc .hb.on > i{background:var(--kfill)}
-.kc .hb.dim > b,.kc .hb.dim > span{color:var(--label-3,var(--label-2));opacity:.65}
+.kc .hb.on > i::after{background:var(--kfill)}
+.kc .hb.dim > b,.kc .hb.dim > span{color:var(--label-3)}
 @media (max-width:760px){
   .kc .hb{grid-template-columns:minmax(0,1fr) minmax(0,auto);gap:var(--s-2) var(--s-3)}
   .kc .hb > i{grid-column:1 / -1;order:3}
 }
 
 /* ── 꺾은선. 해마다 어떻게 달라졌는지 보일 때 쓴다 */
-.kc .lnc{position:relative;height:186px;margin-top:var(--s-5)}
+.kc .lnc{position:relative;height:200px;margin-top:var(--s-6);margin-bottom:var(--s-2)}
+.kc .lnc::after{content:"";position:absolute;left:0;right:0;bottom:26px;height:1px;background:var(--sep)}
 .kc .lnc svg{position:absolute;inset:0;width:100%;height:100%}
 .kc .lnc .pl{fill:none;stroke:var(--kfill);stroke-width:2;vector-effect:non-scaling-stroke;
   stroke-linecap:round;stroke-linejoin:round;
@@ -151,8 +155,8 @@
 .kc .lnc-d b{position:absolute;left:50%;translate:-50% 0;top:calc(var(--y) - 30px);
   font:var(--kt-callout);letter-spacing:var(--kls-callout);color:var(--label);white-space:nowrap;
   transition:opacity 420ms var(--ease-out) calc(.3s + var(--j,0) * 90ms)}
-.kc .lnc-d i{position:absolute;left:50%;top:var(--y);width:9px;height:9px;border-radius:99px;
-  background:var(--kfill);translate:-50% -50%;
+.kc .lnc-d i{position:absolute;left:50%;top:var(--y);width:11px;height:11px;border-radius:99px;
+  background:var(--kfill);box-shadow:0 0 0 3px var(--paper);translate:-50% -50%;
   transition:scale 420ms var(--spring) calc(.3s + var(--j,0) * 90ms)}
 .kc .rv:not(.in) .lnc-d b{opacity:0}
 .kc .rv:not(.in) .lnc-d i{scale:0}
@@ -160,12 +164,18 @@
   text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
 
 /* ── 앱 화면 캡처 격자. 세로로 긴 그림은 가로 갤러리에 넣지 않는다 */
-.kc .shots{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--s-4);margin-top:var(--s-5)}
+.kc .shots{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--s-5);margin-top:var(--s-6)}
 .kc .shots > button{display:block;width:100%;padding:0;border:0;background:none;text-align:left;cursor:zoom-in}
 .kc .shots .sh-im{display:block;border-radius:var(--r-inner);overflow:hidden;
-  background:var(--surface-2);box-shadow:0 0 0 1px var(--line);aspect-ratio:170 / 300}
+  background:var(--surface-2);box-shadow:0 0 0 1px var(--line);aspect-ratio:170 / 300;
+  transition:transform 320ms var(--ease-out),box-shadow 320ms var(--ease-out)}
+.kc .shots > button:hover .sh-im{transform:translateY(-4px);box-shadow:0 0 0 1px var(--ink)}
 .kc .shots img{width:100%;height:100%;object-fit:cover;object-position:50% 0;display:block}
 .kc .shots .sh-c{display:block;margin-top:var(--s-3);font:var(--kt-caption);
   letter-spacing:var(--kls-caption);color:var(--label-2)}
 .kc .shots .sh-c b{display:block;color:var(--label);font-weight:600;margin-bottom:2px}
+/* 가로 그림 격자 — 룸 렌더처럼 넓은 그림을 네 칸으로 */
+.kc .shots.wide .sh-im{aspect-ratio:16 / 9}
+.kc .shots.two{grid-template-columns:repeat(2,minmax(0,1fr))}
 @media (max-width:980px){.kc .shots{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:620px){.kc .shots,.kc .shots.two{grid-template-columns:minmax(0,1fr)}}
