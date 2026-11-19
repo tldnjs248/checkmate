@@ -427,43 +427,98 @@ ffmpeg -i 폰화면.png -vf "scale=-2:700:flags=lanczos,pad=1920:1080:(ow-iw)/2:
 ## 22. 도표 — 장표에 있던 모양 그대로 다시 그린다
 
 장표의 도표를 **그림으로 붙이지 않는다.** 같은 모양으로 아래 부품을 써서 다시 그린다.
-원형 도표를 막대 하나로 바꾸는 식으로 모양을 바꾸지 않는다.
+원형 도표를 막대 하나로 바꾸는 식으로 **모양을 바꾸지 않는다.** 장표가 세로 막대면
+세로 막대로, 꺾은선이면 꺾은선으로 둔다 (2026-11-19 사용자 지정).
 
 | 장표의 도표 | 쓸 부품 |
 |---|---|
 | 원형 · 도넛 | 8번 `donut` |
-| 세로 막대 (3~6칸) | 7번 `bars` |
-| 가로 막대 · 이름이 길거나 7칸 이상 | `hbs` (아래) |
+| 세로 막대 (3~6칸) | `bars ax` (아래) |
+| 가로 막대 · 이름이 길거나 5칸 이상 | `gbs` (아래) |
+| 두 해를 견주고 늘고 준 정도를 말할 때 | `cb` (아래) |
 | 꺾은선 · 해마다 달라지는 값 | `lnc` (아래) |
 
-### 가로 막대 — `hbs` · `hb`
+### 회색은 `--kbar` 를 쓴다
+
+도표 막대에 `--bg-2`(#F8F8F8) · `--bg-3`(#E8E8E8) · `--sep`(#E5E5E5)을 쓰면
+흰 바탕에서 **막대가 보이지 않는다.** 2026-11-19 에 중간 회색 두 단을 더했다.
+
+| 토큰 | 값 | 쓰는 곳 |
+|---|---|---|
+| `--kbar` | `#C4C4C4` | 견주는 막대 · 도표의 기본 회색 |
+| `--kbar-2` | `#DADADA` | 한 단 옅게 — `dim` 칸 · 도넛 남은 조각 · 띠 바탕 |
+| `--kfill` | `#0A0A0A` | 말하려는 칸 (`on`) |
+
+### 가로 막대 — `gbs` · `gb`
+
+장표 05 쪽 모양이다. **눈금 바탕(트랙)을 깔지 않는다.** 막대만 있고 값은 막대 끝
+바로 오른쪽에 붙는다.
 
 ```html
-<div class="hbs rv">
-  <div class="hb on"><b>광음시네마</b><i style="--w:100"></i><span>25곳</span></div>
-  <div class="hb"><b>수퍼플렉스</b><i style="--w:44;--j:1"></i><span>11곳</span></div>
-  <div class="hb dim"><b>수퍼MX4D</b><i style="--w:8;--j:2"></i><span>2곳 · 범위 밖</span></div>
+<div class="gbs rv">
+  <div class="gb on"><b>광음시네마</b><p class="gb-b"><i style="--w:100"></i><span>25곳</span></p></div>
+  <div class="gb"><b>수퍼플렉스</b><p class="gb-b"><i style="--w:44;--j:1"></i><span>11곳</span></p></div>
+  <div class="gb dim"><b>수퍼MX4D</b><p class="gb-b"><i style="--w:8;--j:2"></i><span>2곳</span></p></div>
 </div>
 <p class="src">출처</p>
 ```
 
 - `--w` 는 가장 큰 값을 100 으로 둔 비율(숫자만, % 없이) · `--j` 는 차례
-- `on` 은 **말하려는 칸**에 붙인다 (검게 칠해지고 글자가 굵어진다). 마지막 칸이 자동으로
-  강조되는 7번 `bars` 와 달리, 강조할 자리를 직접 고를 수 있다
-- `dim` 은 참고로만 두는 칸 (글자를 눌러 둔다)
-- `rv` 는 `hbs` 에 붙인다 — 화면에 들어오면 막대가 자란다
+- `on` 은 **말하려는 칸**에 붙인다 (검게 칠해지고 글자가 굵어진다)
+- `dim` 은 참고로만 두는 칸 (막대가 한 단 옅어지고 글자를 눌러 둔다)
+- 값 글자가 길면 칸에 `style="--vw:104px"` 로 자리폭을 키운다 (기본 62px).
+  이 폭만큼 빼고 막대 길이를 잰다 — 안 키우면 긴 값이 오른쪽으로 삐져나온다
+- `rv` 는 `gbs` 에 붙인다 — 화면에 들어오면 막대가 자란다
+- **`hb` 라는 이름을 쓰지 말 것.** 코레일톡 쪽 As-is/To-be 막대가 이미 그 이름을
+  쓰고 있어서, 같은 이름으로 만들면 그 페이지의 막대가 깨진다
+
+### 세로 막대 — `bars ax`
+
+장표 04 쪽 모양이다. 7번 `bars` 에 `ax` 를 더하면 바닥선과 가로축 이름이 생긴다.
+
+```html
+<div class="bars ax rv" role="img" aria-label="…">
+  <div class="bar" style="--h:100"><b>4.37회</b><i></i><span>2019년</span></div>
+  <div class="bar" style="--h:56;--j:1"><b>2.44회</b><i></i><span>2023년</span></div>
+  <div class="bar on" style="--h:48;--j:2"><b>2.08회</b><i></i><span>2025년</span></div>
+</div>
+```
+
+- 차례는 값(`b`) → 막대(`i`) → 가로축 이름(`span`)
+- 마지막 칸은 자동으로 강조된다. 다른 칸을 강조하려면 그 칸에 `on`
+- 칸이 서넛뿐이면 폭을 540px 로 묶어 둔다 (이미 CSS 에 들어 있다).
+  안 묶으면 1100px 를 다 써서 띄엄띄엄해 보인다
+
+### 두 해 비교 띠 — `cb`
+
+장표 04 쪽 가운데 카드 모양이다. **띠 자체가 값의 크기**이고, 이름과 값은 띠 안에,
+늘고 준 정도는 오른쪽에 크게 붙는다. 타일 안에 넣는다.
+
+```html
+<div class="tile rv"><p class="tile-k">전체 관객수</p>
+  <div class="cb">
+    <div class="cb-rs">
+      <div class="cb-r" style="--w:100"><b>2024년</b><span>1억 2천만 명</span></div>
+      <div class="cb-r on" style="--w:88;--j:1"><b>2025년</b><span>1억 6백만 명</span></div>
+    </div>
+    <p class="cb-d"><b>13.8%</b><span>감소</span></p>
+  </div>
+</div>
+```
+
+- `--w` 는 띠의 가로 폭 비율 · `on` 은 올해(또는 말하려는 해) — 검게 칠해지고 글자가 희어진다
+- 띠가 너무 짧아지지 않게 가장 짧은 띠도 200px 는 된다
 
 ### 꺾은선 — `lnc`
 
 ```html
-<div class="lnc rv" role="img" aria-label="관람 횟수 2019년 4.37회, 2023년 2.44회, 2025년 2.08회">
+<div class="lnc rv" role="img" aria-label="관람 콘텐츠 유형 수 2022년 1개에서 2026년 6개로 증가">
   <svg viewBox="0 0 1000 200" preserveAspectRatio="none" aria-hidden="true">
-    <polyline class="pl" points="167,40 500,97 833,108"/>
+    <polyline class="pl" points="100,148 300,105 500,83 700,62 900,40"/>
   </svg>
   <div class="lnc-d">
-    <div style="--y:20%"><b>4.37회</b><i></i><span>2019년</span></div>
-    <div style="--y:48.7%;--j:1"><b>2.44회</b><i></i><span>2023년</span></div>
-    <div style="--y:54.1%;--j:2"><b>2.08회</b><i></i><span>2025년</span></div>
+    <div style="--y:74.2%"><b>1개</b><i></i><span>2022<em>롯시플</em></span></div>
+    <div style="--y:52.5%;--j:1"><b>3개</b><i></i><span>2023<em>스포츠 · 버튜버</em></span></div>
   </div>
 </div>
 ```
@@ -471,9 +526,44 @@ ffmpeg -i 폰화면.png -vf "scale=-2:700:flags=lanczos,pad=1920:1080:(ow-iw)/2:
 - 점 n 개의 x 자리는 `(i + 0.5) / n`. viewBox x = 그 비율 × 1000
 - y 는 위 20% ~ 아래 85% 로 잡는다 → `y% = 85 - (값 / 최댓값) × 65`. viewBox y = `y% × 2`
 - `--y` 와 polyline 의 y 가 **반드시 같아야** 점과 선이 맞는다
-- 아래 이름(`span`)은 짧게. 길면 좁은 화면에서 잘린다 — 설명은 `src` 로 내린다
+- 가로축 이름(`span`)은 짧게. 그 해에 무엇이 생겼는지 같은 곁들이는 말은 `em` 으로
+  한 줄 더 쓴다 — 좁은 화면(760px 아래)에서는 `em` 이 저절로 사라진다
 
-## 23. 앱 화면 캡처 — `shots`
+## 23. 벤치마킹 카드 — `bmk` · `bm`
+
+장표 15 · 16 쪽 모양이다. **화면 한 장과 그 화면에 대한 설명을 반드시 한 카드에
+묶는다.** 화면을 격자로 따로 모으고 설명을 목록으로 따로 두면, 보는 사람이
+몇 번째 화면이 몇 번째 설명인지 세어 봐야 한다 (2026-11-19 사용자 지적).
+
+```html
+<div class="bmk">
+  <article class="bm rv">
+    <button class="bm-im" type="button" data-lb aria-label="CGV · … 크게 보기">
+      <img src="images/…/bench_01.webp" width="680" height="1244" alt="CGV · …"
+           loading="lazy" decoding="async" draggable="false">
+    </button>
+    <div>
+      <p class="bm-r">R-01</p>
+      <p class="bm-s">CGV · 2026 앱 영화별 예매 화면</p>
+      <h4 class="bm-n">특별관 간 경험 차이를 같은 기준으로 비교</h4>
+      <dl class="bm-l">
+        <dt>제공하는 기능</dt><dd>포맷 필터 칩과 극장별 특별관 탭</dd>
+        <dt>개선 필요 부분</dt><dd>특별관 간 경험 차이를 같은 기준으로 비교하기 어려움</dd>
+        <dt class="ap">개선 적용 방향</dt><dd class="ap">화면 · 음향 · 움직임 · 좌석 · 추가요금을 한눈에 비교</dd>
+      </dl>
+    </div>
+  </article>
+</div>
+```
+
+- 줄 차례는 장표 그대로 — 요구사항 번호 → 출처 → 우리 목표 중심 제목 →
+  제공하는 기능 → 개선 필요 부분 → **개선 적용 방향**(`ap`, 마지막 줄만 굵게)
+- 카드는 한 줄에 하나다. 두 줄로 놓으면 글 칸이 220px 밖에 안 남아 줄이 깨진다
+- 그림에 `width` · `height` 를 **반드시 적는다.** 안 적으면 `loading="lazy"` 그림이
+  늦게 뜨면서 카드 높이가 뛴다
+- **`go` 라는 이름을 쓰지 말 것.** 바깥 링크 단추가 쓰는 이름이라 글이 검은 알약이 된다
+
+## 24. 앱 화면 캡처 — `shots`
 
 세로로 긴 캡처는 가로 갤러리(6번)에 넣지 않는다. 흰 바탕만 넓어지고 화면이 작아진다.
 

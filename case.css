@@ -61,9 +61,14 @@
   --kt-callout :600 var(--t-small)/1.5    var(--kfont);
   --kt-label   :600 var(--t-small)/1.45   var(--kfont);
   --kt-subhead :400 var(--t-small)/1.6    var(--kfont);
-  --kt-footnote:400 var(--t-label)/1.55   var(--kfont);
-  --kt-caption :600 var(--t-label)/1.4    var(--kfont);
-  --kt-caption2:600 var(--t-label)/1.3    var(--kfont);
+  /* 12 → 13 (2026-11-19 · 사용자 지정 "텍스트가 너무 작다").
+     이 페이지는 1101px 이상에서 html{zoom:.9} 가 걸려 있어 12px 가
+     실제로는 10.8px 로 나온다. 226군데가 그 단이라 페이지 절반이
+     작게 읽혔다. 13px 로 올리면 11.7px 가 된다. 13 은 경로 도해
+     칸(.nd)이 이미 쓰던 값이라 새 단을 만드는 것은 아니다 */
+  --kt-footnote:400 13px/1.55   var(--kfont);
+  --kt-caption :600 13px/1.4    var(--kfont);
+  --kt-caption2:600 13px/1.3    var(--kfont);
 
   /* 자간은 tokens.css 가 모든 글자에 -2% 를 걸어 두었다(사용자 지정).
      여기 값은 그 규칙과 같은 값으로만 적어 둔다 */
@@ -86,7 +91,7 @@
   /* ── 색 ── 회색은 --ink-3 하나, 바탕은 흰 · F8 · EF 세 단 */
   --bg:var(--paper);          /* 페이지 바탕 */
   --bg-2:var(--surface);      /* 띠 · 눌린 자리 */
-  --bg-3:var(--surface-2);    /* 카드 안 카드 */
+  --bg-3:#E8E8E8;             /* 카드 안 카드 · 칩 바탕 — 2026-11-19 EFEFEF 에서 올림 */
   --kcard:var(--surface);     /* 카드 바탕 — 가장 옅은 회색 (사용자 지정) */
   --label:var(--ink);         /* 제목 */
   --label-2:var(--ink-2);     /* 본문 */
@@ -99,6 +104,14 @@
   /* As-is / To-be 중 '개선 후' 쪽 바탕. 원본은 옅은 파랑(#EEF3FB)이었는데
      앱 화면이 아니라 설명용 칸이라 무채색 한 단 진한 회색으로 바꿨다 */
   --ab-tb:var(--surface-2);
+
+  /* ── 중간 회색 ── 2026-11-19 보탬 (사용자 지정)
+     회색 세 단(#F8F8F8 · #EFEFEF · #E5E5E5)은 모두 흰 바탕과 3~10%
+     차이라서, 도표 막대에 쓰면 막대가 아예 보이지 않았다.
+     장표 원본(04 · 05 쪽)의 막대 회색(#C8CDD6)과 같은 명도로
+     무채색 두 단을 더한다. 글자에는 쓰지 않는다 — 막대 · 띠 전용 */
+  --kbar:#C4C4C4;     /* 도표 막대 · 비교 대상 */
+  --kbar-2:#DADADA;   /* 한 단 옅은 막대 — 범위 밖 항목 */
 
   /* ── 그림자 없음 · 유리 없음 ── 카드는 회색 바탕으로만 구분한다 */
   --card-sh:0 0 #0000; --card-sh-hi:0 0 #0000;
@@ -896,45 +909,110 @@ html.rv-js .kc .rv:not(.in){opacity:1;filter:none;translate:none}}
   background:var(--kfill);
 }
 
-/* ══ 도표 부품 — 2026-11-19 보탬 ══════════════════════════
-   장표에 있던 도표를 그림으로 붙이지 않고 같은 모양으로 다시 그린다.
-   움직임은 기존 .bars 와 같은 방식이다 — .rv 가 화면에 들어오면(.in) 자란다 */
 
-/* ── 가로 막대. 이름이 길거나 칸이 여섯을 넘을 때 쓴다 */
-.kc .hbs{display:grid;gap:12px;margin-top:var(--s-6);margin-bottom:var(--s-2)}
-.kc .tile .hbs{margin-top:var(--s-3);gap:8px}
-.kc .tile .hb{grid-template-columns:minmax(0,52px) minmax(0,1fr) minmax(0,auto);gap:var(--s-2)}
-.kc .hb{display:grid;grid-template-columns:minmax(0,140px) minmax(0,1fr) minmax(0,auto);align-items:center;gap:var(--s-3)}
-.kc .hb > b{font:var(--kt-footnote);letter-spacing:var(--kls-footnote);color:var(--label-2);font-weight:400;
+/* ══ 도표 부품 ══════════════════════════════════════════════════
+   장표에 있던 도표를 그림으로 붙이지 않고 같은 모양으로 다시 그린다.
+
+   2026-11-19 다시 맞춤 (사용자 지정 — "최대한 장표 원본의 디자인을
+   살리는 방식"). 피그마 604:10972(04 쪽) · 604:11358(05 쪽) ·
+   604:12011 · 604:12109(15 · 16 쪽)를 다시 보고 고친 것 다섯.
+
+     1. 가로 막대에서 눈금 바탕을 없앴다. 원본에는 트랙이 없고
+        막대만 있으며, 값은 막대 끝 바로 오른쪽에 붙는다
+     2. 막대 회색을 --kbar(#C4C4C4)로 올렸다. 전에 쓰던 #EFEFEF 는
+        흰 바탕에서 막대가 보이지 않았다
+     3. 막대 굵기 14 → 22. 원본도 글자 높이만큼 두껍다
+     4. 1인당 관람 횟수는 원본이 세로 막대라서 꺾은선에서 되돌렸다
+     5. 두 해 비교(전체 관객수 · 특수상영 매출액)는 원본처럼
+        글자가 들어가는 채운 띠 + 오른쪽 증감 수치로 바꿨다
+
+   움직임은 기존 .bars 와 같다 — .rv 가 화면에 들어오면(.in) 자란다 */
+
+/* ── 가로 막대 (장표 05 쪽) ─────────────────────────────────────
+   칸 둘 — 이름 | 막대와 값.
+   --vw 는 값 글자가 쓸 자리폭이다. 값이 길면 칸에서 --vw 를 키운다 */
+.kc .gbs{--vw:62px;display:grid;gap:14px;margin-top:var(--s-6);margin-bottom:var(--s-2);max-width:840px}
+.kc .gb{display:grid;grid-template-columns:minmax(0,156px) minmax(0,1fr);align-items:center;gap:var(--s-3)}
+.kc .gb > b{font:var(--kt-subhead);letter-spacing:var(--kls-subhead);color:var(--label-2);
   overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.kc .hb > i{position:relative;display:block;height:14px;width:100%;border-radius:var(--r-inner);
-  background:var(--bg-2);box-shadow:inset 0 0 0 1px var(--sep);overflow:hidden}
-.kc .hb > i::after{content:"";position:absolute;inset:0 auto 0 0;width:calc(var(--w) * 1%);
-  border-radius:var(--r-inner);background:var(--bg-3);
+.kc .gb-b{min-width:0;white-space:nowrap}
+.kc .gb-b > i{display:inline-block;vertical-align:middle;height:22px;min-width:4px;
+  width:calc((100% - var(--vw) - 12px) * var(--w) / 100);
+  border-radius:var(--r-inner);background:var(--kbar);
   transform-origin:0 50%;transition:transform 760ms var(--ease-out) calc(var(--j,0) * 60ms)}
-.kc .rv:not(.in) .hb > i::after{transform:scaleX(.015)}
-.kc .hb > span{font:var(--kt-footnote);letter-spacing:var(--kls-footnote);color:var(--label-2);
-  font-variant-numeric:tabular-nums;white-space:nowrap}
-.kc .hb.on > b,.kc .hb.on > span{color:var(--label);font-weight:600}
-.kc .hb.on > i::after{background:var(--kfill)}
-.kc .hb.dim > b,.kc .hb.dim > span{color:var(--label-3)}
+.kc .rv:not(.in) .gb-b > i{transform:scaleX(.02)}
+.kc .gb-b > span{display:inline-block;vertical-align:middle;margin-left:12px;
+  font:var(--kt-subhead);letter-spacing:var(--kls-subhead);color:var(--label-2);
+  font-variant-numeric:tabular-nums}
+.kc .gb.on > b{color:var(--label);font-weight:600}
+.kc .gb.on .gb-b > span{color:var(--label);font-weight:600}
+.kc .gb.on .gb-b > i{background:var(--kfill)}
+.kc .gb.dim > b,.kc .gb.dim .gb-b > span{color:var(--label-3)}
+.kc .gb.dim .gb-b > i{background:var(--kbar-2)}
+.kc .tile .gbs{margin-top:var(--s-4);gap:12px;max-width:none}
+.kc .tile .gb{grid-template-columns:minmax(0,60px) minmax(0,1fr);gap:var(--s-2)}
 @media (max-width:760px){
-  .kc .hb{grid-template-columns:minmax(0,1fr) minmax(0,auto);gap:var(--s-2) var(--s-3)}
-  .kc .hb > i{grid-column:1 / -1;order:3}
+  .kc .gb{grid-template-columns:minmax(0,1fr);gap:4px}
+  .kc .gb > b{white-space:normal;overflow:visible}
 }
 
-/* ── 꺾은선. 해마다 어떻게 달라졌는지 보일 때 쓴다 */
-.kc .lnc{position:relative;height:200px;margin-top:var(--s-6);margin-bottom:var(--s-2)}
-.kc .lnc::after{content:"";position:absolute;left:0;right:0;bottom:26px;height:1px;background:var(--sep)}
+/* ── 세로 막대 (장표 04 쪽) ─────────────────────────────────────
+   .ax 를 붙이면 바닥선과 가로축 이름이 생긴다 */
+.kc .bars .bar i{background:var(--kbar)}
+.kc .bars .bar:last-child i,.kc .bars .bar.on i{background:var(--kfill)}
+.kc .bars .bar.on b{color:var(--label);font-weight:600}
+/* 칸이 서너 개뿐인 세로 막대가 1100px 를 다 쓰면 띄엄띄엄해 보인다.
+   원본 장표에서도 막대는 480px 폭 카드 안에 있었다 */
+.kc .bars.ax{position:relative;height:232px;padding-bottom:30px;margin-top:var(--s-6);gap:var(--s-6);max-width:540px}
+.kc .bars.ax::after{content:"";position:absolute;left:0;right:0;bottom:30px;height:1px;background:var(--sep)}
+.kc .bars.ax .bar{position:relative;gap:10px}
+.kc .bars.ax .bar i{max-width:76px;border-radius:var(--r-inner) var(--r-inner) 0 0}
+.kc .bars.ax .bar b{font:var(--kt-callout);letter-spacing:var(--kls-callout);color:var(--label-2)}
+.kc .bars.ax .bar span{position:absolute;left:0;right:0;bottom:-30px;line-height:30px;text-align:center;
+  font:var(--kt-caption);letter-spacing:var(--kls-caption);font-weight:400;color:var(--label-3)}
+
+/* ── 두 해 비교 띠 (장표 04 쪽 가운데 카드) ─────────────────────
+   띠 자체가 값의 크기다. 이름과 값은 띠 안에 들어가고,
+   늘고 준 정도는 오른쪽에 크게 붙는다 */
+.kc .cb{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;
+  column-gap:var(--s-5);margin-top:var(--s-5)}
+.kc .cb-rs{display:grid;gap:10px;min-width:0}
+.kc .cb-r{position:relative;display:flex;align-items:center;justify-content:space-between;
+  gap:var(--s-4);height:46px;padding:0 16px;width:calc(var(--w) * 1%);min-width:min(100%,200px)}
+.kc .cb-r::before{content:"";position:absolute;inset:0;border-radius:var(--r-inner);
+  background:var(--kbar-2);transform-origin:0 50%;
+  transition:transform 760ms var(--ease-out) calc(var(--j,0) * 80ms)}
+.kc .rv:not(.in) .cb-r::before{transform:scaleX(.02)}
+.kc .cb-r.on::before{background:var(--kfill)}
+.kc .cb-r > *{position:relative}
+.kc .cb-r > b,.kc .cb-r > span{font:var(--kt-callout);letter-spacing:var(--kls-callout);white-space:nowrap}
+.kc .cb-r > b{color:var(--label-2)}
+.kc .cb-r > span{color:var(--label);font-variant-numeric:tabular-nums}
+.kc .cb-r.on > b{color:color-mix(in srgb,var(--paper) 72%,transparent)}
+.kc .cb-r.on > span{color:var(--paper)}
+.kc .cb-d{white-space:nowrap}
+.kc .cb-d b{display:block;font:var(--kt-title1);letter-spacing:var(--kls-title1);font-variant-numeric:tabular-nums}
+.kc .cb-d span{display:block;margin-top:2px;font:var(--kt-caption);letter-spacing:var(--kls-caption);
+  font-weight:400;color:var(--label-3)}
+@media (max-width:620px){
+  .kc .cb{grid-template-columns:minmax(0,1fr);row-gap:var(--s-4)}
+  .kc .cb-r{min-width:min(100%,160px)}
+}
+
+/* ── 꺾은선 (장표 05 쪽) ────────────────────────────────────────
+   해마다 어떻게 달라졌는지 보일 때 쓴다. 해 아래 작은 글은
+   그해에 새로 생긴 것 — 원본 장표에 있던 이름을 그대로 둔다 */
+.kc .lnc{position:relative;height:216px;margin-top:var(--s-6);margin-bottom:var(--s-2)}
+.kc .lnc::after{content:"";position:absolute;left:0;right:0;bottom:44px;height:1px;background:var(--sep)}
 .kc .lnc svg{position:absolute;inset:0;width:100%;height:100%}
-.kc .lnc .pl{fill:none;stroke:var(--kfill);stroke-width:2;vector-effect:non-scaling-stroke;
+.kc .lnc .pl{fill:none;stroke:var(--kfill);stroke-width:2.5;vector-effect:non-scaling-stroke;
   stroke-linecap:round;stroke-linejoin:round;
   stroke-dasharray:1400;stroke-dashoffset:0;transition:stroke-dashoffset 1200ms var(--ease-out) .12s}
 .kc .rv:not(.in) .lnc .pl{stroke-dashoffset:1400}
 .kc .lnc-d{position:absolute;inset:0;display:flex}
 .kc .lnc-d > div{position:relative;flex:1;display:flex;flex-direction:column;
   align-items:center;justify-content:flex-end;min-width:0}
-.kc .lnc-d b{position:absolute;left:50%;translate:-50% 0;top:calc(var(--y) - 30px);
+.kc .lnc-d b{position:absolute;left:50%;translate:-50% 0;top:calc(var(--y) - 32px);
   font:var(--kt-callout);letter-spacing:var(--kls-callout);color:var(--label);white-space:nowrap;
   transition:opacity 420ms var(--ease-out) calc(.3s + var(--j,0) * 90ms)}
 .kc .lnc-d i{position:absolute;left:50%;top:var(--y);width:11px;height:11px;border-radius:99px;
@@ -942,22 +1020,66 @@ html.rv-js .kc .rv:not(.in){opacity:1;filter:none;translate:none}}
   transition:scale 420ms var(--spring) calc(.3s + var(--j,0) * 90ms)}
 .kc .rv:not(.in) .lnc-d b{opacity:0}
 .kc .rv:not(.in) .lnc-d i{scale:0}
-.kc .lnc-d span{font:var(--kt-caption);letter-spacing:var(--kls-caption);color:var(--label-2);
-  text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.kc .lnc-d span{font:var(--kt-caption);letter-spacing:var(--kls-caption);font-weight:400;
+  color:var(--label-2);text-align:center;white-space:nowrap;
+  overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.kc .lnc-d em{display:block;margin-top:3px;font-style:normal;
+  font:var(--kt-caption);letter-spacing:var(--kls-caption);font-weight:400;color:var(--label-3)}
+@media (max-width:760px){.kc .lnc-d em{display:none}}
+
+/* ── 벤치마킹 카드 (장표 15 · 16 쪽) ────────────────────────────
+   장표에서는 화면 한 장(170px)과 그 화면에 대한 설명 세 줄이
+   늘 한 카드였다. 화면과 설명이 1:1 로 붙어 있어야 어느 설명이
+   어느 화면 이야기인지 바로 보인다 — 같은 짜임으로 되살렸다.
+   줄 차례도 원본 그대로다 · 제공하는 기능 → 개선 필요 부분 →
+   개선 적용 방향(마지막 줄만 굵게) */
+.kc .bmk{display:grid;gap:var(--s-4);margin-top:var(--s-6)}
+.kc .bm{display:grid;grid-template-columns:176px minmax(0,1fr);gap:var(--s-7);align-items:start;
+  padding:var(--s-6);border-radius:var(--r-outer);background:var(--kcard)}
+.kc .bm-im{display:block;width:100%;padding:0;border:0;background:var(--bg-3);cursor:zoom-in;
+  line-height:0;border-radius:var(--r-inner);overflow:hidden;box-shadow:0 0 0 1px var(--line);
+  transition:transform 320ms var(--ease-out),box-shadow 320ms var(--ease-out)}
+.kc .bm-im:hover{transform:translateY(-3px);box-shadow:0 0 0 1px var(--ink)}
+.kc .bm-im img{display:block;width:100%;height:auto}
+.kc .bm-r{display:inline-flex;align-items:center;height:26px;padding:0 10px;
+  border-radius:var(--r-inner);background:var(--bg-3);
+  font:var(--kt-caption);letter-spacing:var(--kls-caption);color:var(--label-2)}
+.kc .bm-s{margin-top:var(--s-3);font:var(--kt-caption);letter-spacing:var(--kls-caption);
+  font-weight:400;color:var(--label-3)}
+.kc .bm-n{margin-top:var(--s-1);font:var(--kt-headline);letter-spacing:var(--kls-headline);text-wrap:balance}
+.kc .bm-l{display:grid;grid-template-columns:auto minmax(0,1fr);gap:var(--s-2) var(--s-4);margin-top:var(--s-5)}
+.kc .bm-l dt{font:var(--kt-subhead);letter-spacing:var(--kls-subhead);color:var(--label-3);white-space:nowrap}
+.kc .bm-l dd{font:var(--kt-subhead);letter-spacing:var(--kls-subhead);color:var(--label-2);text-wrap:pretty}
+.kc .bm-l .ap{color:var(--label);font-weight:600}  /* .go 는 바깥 링크 단추라 쓰면 안 된다 */
+
+@media (max-width:620px){
+  .kc .bm{grid-template-columns:minmax(0,1fr);gap:var(--s-5);padding:var(--s-5)}
+  .kc .bm-im{width:min(100%,200px)}
+  .kc .bm-l{grid-template-columns:minmax(0,1fr);gap:0}
+  .kc .bm-l dt{margin-top:var(--s-3)}
+  .kc .bm-l dd{margin-top:2px}
+}
 
 /* ── 앱 화면 캡처 격자. 세로로 긴 그림은 가로 갤러리에 넣지 않는다 */
 .kc .shots{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--s-5);margin-top:var(--s-6)}
 .kc .shots > button{display:block;width:100%;padding:0;border:0;background:none;text-align:left;cursor:zoom-in}
 .kc .shots .sh-im{display:block;border-radius:var(--r-inner);overflow:hidden;
-  background:var(--surface-2);box-shadow:0 0 0 1px var(--line);aspect-ratio:170 / 300;
+  background:var(--bg-3);box-shadow:0 0 0 1px var(--line);aspect-ratio:170 / 300;
   transition:transform 320ms var(--ease-out),box-shadow 320ms var(--ease-out)}
 .kc .shots > button:hover .sh-im{transform:translateY(-4px);box-shadow:0 0 0 1px var(--ink)}
 .kc .shots img{width:100%;height:100%;object-fit:cover;object-position:50% 0;display:block}
-.kc .shots .sh-c{display:block;margin-top:var(--s-3);font:var(--kt-caption);
-  letter-spacing:var(--kls-caption);color:var(--label-2)}
+.kc .shots .sh-c{display:block;margin-top:var(--s-3);font:var(--kt-subhead);
+  letter-spacing:var(--kls-subhead);color:var(--label-2)}
 .kc .shots .sh-c b{display:block;color:var(--label);font-weight:600;margin-bottom:2px}
 /* 가로 그림 격자 — 룸 렌더처럼 넓은 그림을 네 칸으로 */
 .kc .shots.wide .sh-im{aspect-ratio:16 / 9}
 .kc .shots.two{grid-template-columns:repeat(2,minmax(0,1fr))}
 @media (max-width:980px){.kc .shots{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:620px){.kc .shots,.kc .shots.two{grid-template-columns:minmax(0,1fr)}}
+
+/* ══ 2026-11-19 · 잘 안 보이던 회색 마저 올리기 ═══════════════════
+   도표 막대 말고도 흰 바탕에서 묻히던 자리 둘 */
+/* 도넛 남은 조각 — #F8F8F8 이라 36% 가 아예 안 보였다 */
+.kc .donut .tr{stroke:var(--kbar-2)}
+/* 비교 행 첫 칸 — 이름이 두 줄로 꺾여 번호와 어긋났다 */
+.kc .mp{grid-template-columns:236px minmax(0,1fr) 20px minmax(0,1fr)}
