@@ -423,3 +423,68 @@ ffmpeg -i 폰화면.png -vf "scale=-2:700:flags=lanczos,pad=1920:1080:(ow-iw)/2:
 ```
 
 `#i-out` 아이콘을 맨 위 아이콘 묶음에 같이 넣는다.
+
+## 22. 도표 — 장표에 있던 모양 그대로 다시 그린다
+
+장표의 도표를 **그림으로 붙이지 않는다.** 같은 모양으로 아래 부품을 써서 다시 그린다.
+원형 도표를 막대 하나로 바꾸는 식으로 모양을 바꾸지 않는다.
+
+| 장표의 도표 | 쓸 부품 |
+|---|---|
+| 원형 · 도넛 | 8번 `donut` |
+| 세로 막대 (3~6칸) | 7번 `bars` |
+| 가로 막대 · 이름이 길거나 7칸 이상 | `hbs` (아래) |
+| 꺾은선 · 해마다 달라지는 값 | `lnc` (아래) |
+
+### 가로 막대 — `hbs` · `hb`
+
+```html
+<div class="hbs rv">
+  <div class="hb on"><b>광음시네마</b><i style="--w:100"></i><span>25곳</span></div>
+  <div class="hb"><b>수퍼플렉스</b><i style="--w:44;--j:1"></i><span>11곳</span></div>
+  <div class="hb dim"><b>수퍼MX4D</b><i style="--w:8;--j:2"></i><span>2곳 · 범위 밖</span></div>
+</div>
+<p class="src">출처</p>
+```
+
+- `--w` 는 가장 큰 값을 100 으로 둔 비율(숫자만, % 없이) · `--j` 는 차례
+- `on` 은 **말하려는 칸**에 붙인다 (검게 칠해지고 글자가 굵어진다). 마지막 칸이 자동으로
+  강조되는 7번 `bars` 와 달리, 강조할 자리를 직접 고를 수 있다
+- `dim` 은 참고로만 두는 칸 (글자를 눌러 둔다)
+- `rv` 는 `hbs` 에 붙인다 — 화면에 들어오면 막대가 자란다
+
+### 꺾은선 — `lnc`
+
+```html
+<div class="lnc rv" role="img" aria-label="관람 횟수 2019년 4.37회, 2023년 2.44회, 2025년 2.08회">
+  <svg viewBox="0 0 1000 200" preserveAspectRatio="none" aria-hidden="true">
+    <polyline class="pl" points="167,40 500,97 833,108"/>
+  </svg>
+  <div class="lnc-d">
+    <div style="--y:20%"><b>4.37회</b><i></i><span>2019년</span></div>
+    <div style="--y:48.7%;--j:1"><b>2.44회</b><i></i><span>2023년</span></div>
+    <div style="--y:54.1%;--j:2"><b>2.08회</b><i></i><span>2025년</span></div>
+  </div>
+</div>
+```
+
+- 점 n 개의 x 자리는 `(i + 0.5) / n`. viewBox x = 그 비율 × 1000
+- y 는 위 20% ~ 아래 85% 로 잡는다 → `y% = 85 - (값 / 최댓값) × 65`. viewBox y = `y% × 2`
+- `--y` 와 polyline 의 y 가 **반드시 같아야** 점과 선이 맞는다
+- 아래 이름(`span`)은 짧게. 길면 좁은 화면에서 잘린다 — 설명은 `src` 로 내린다
+
+## 23. 앱 화면 캡처 — `shots`
+
+세로로 긴 캡처는 가로 갤러리(6번)에 넣지 않는다. 흰 바탕만 넓어지고 화면이 작아진다.
+
+```html
+<div class="shots">
+  <button class="rv" type="button" data-lb aria-label="CGV 영화별 예매 크게 보기">
+    <span class="sh-im"><img src="images/…/bench_01.webp" alt="CGV · 영화별 예매" loading="lazy" decoding="async" draggable="false"></span>
+    <span class="sh-c"><b>CGV</b>영화별 예매 · 포맷 필터 칩</span>
+  </button>
+  …
+</div>
+```
+
+한 줄에 4칸(좁은 화면 2칸). 눌러서 크게 볼 수 있다. 그림은 세로 비율 그대로 둔다.
