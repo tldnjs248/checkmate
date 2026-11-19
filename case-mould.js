@@ -27,7 +27,7 @@
      616:19603 웹 링크 + 영상 크게 삽입        → s5 영상 칸(.flm) + 웹사이트 단추
 
    그림   images/mould/ (webp 1920px) · 영상 images/mould.mp4
-   빈칸   브랜드 웹사이트 주소 — 아직 받지 못해 단추의 href 가 "#" 이다
+   링크   브랜드 웹사이트 https://busy-venus-155131.framer.app/ (사용자 제공 2026-11-19)
    ══════════════════════════════════════════════════════════════ */
 window.CASE_TOC = [["s1","프로젝트 개요"],["s2","문제 정의"],["s3","서비스 · 브랜드 설계"],["s4","영상 설계"],["s5","최종 산출물"]];
 window.CASE_PAGE = [
@@ -540,7 +540,7 @@ window.CASE_PAGE = [
   "    <p class=\"ey rv\">브랜드 웹사이트</p>",
   "    <h3 class=\"bh rv\">브랜드를 소개하는 한 장짜리 웹사이트를 만들었다</h3>",
   "    <p class=\"bl rv\">영상에서 보여 준 공간을 웹에서 다시 훑는다. <b>새로운 주거 경험 → 공간별 독립적 커스터마이징 → 공간 전체의 색과 질감 제어 → 태블릿 하나로 제어 → Break the MOULD 로</b> 이어지는 순서로 쌓고, 스크롤에 따라 장면이 바뀌게 했다.</p>",
-  "    <a class=\"go press\" href=\"#\" target=\"_blank\" rel=\"noopener\">브랜드 웹사이트 열기<svg class=\"i\"><use href=\"#i-out\"/></svg></a>",
+  "    <a class=\"go press\" href=\"https://busy-venus-155131.framer.app/\" target=\"_blank\" rel=\"noopener\">브랜드 웹사이트 열기<svg class=\"i\"><use href=\"#i-out\"/></svg></a>",
   "    <div class=\"hs\" data-lbg><div class=\"hs-sc\" tabindex=\"0\" aria-label=\"웹사이트 넘겨 보기\">",
   "      <button class=\"hs-it\" type=\"button\" data-lb><span class=\"hs-im\"><img src=\"images/mould/web_01.webp\" alt=\"웹사이트 · 메인과 브랜드 소개\" loading=\"lazy\" decoding=\"async\" draggable=\"false\"></span><span class=\"hs-c\"><b>01</b><span>웹사이트 · 메인과 브랜드 소개</span></span></button>",
   "      <button class=\"hs-it\" type=\"button\" data-lb><span class=\"hs-im\"><img src=\"images/mould/web_02.webp\" alt=\"웹사이트 · 제어 화면과 엔딩\" loading=\"lazy\" decoding=\"async\" draggable=\"false\"></span><span class=\"hs-c\"><b>02</b><span>웹사이트 · 제어 화면과 엔딩</span></span></button>",
