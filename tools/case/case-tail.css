@@ -94,3 +94,22 @@
   .kc .af,.kc .res{grid-template-columns:minmax(0,1fr);}
   .kc .hs-it{width:86vw;}
 }
+
+/* ── 영상 한 편을 크게 트는 칸 — 2026-11-19 보탬.
+      MOULD 최종 광고 영상을 상세 페이지 안에서 바로 보게 한다.
+      case.js 에는 영상 코드가 없어 브라우저 기본 재생기를 쓴다 */
+.kc .flm{
+  margin-top:var(--s-5);
+  border-radius:var(--r-outer);
+  overflow:hidden;
+  background:var(--kfill);
+  line-height:0;
+}
+.kc .flm video{
+  width:100%;
+  height:auto;
+  display:block;
+  aspect-ratio:16/9;
+  object-fit:cover;
+  background:var(--kfill);
+}

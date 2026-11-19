@@ -395,3 +395,31 @@ window.CASE_PAGE = [
 ffmpeg -i 폰화면.png -vf "scale=-2:700:flags=lanczos,pad=1920:1080:(ow-iw)/2:(oh-ih)/2:white" \
        -c:v libwebp -quality 88 -compression_level 6 out.webp
 ```
+
+## 20. 영상 한 편 크게 — `flm`
+
+완성 영상을 상세 페이지 안에서 바로 보게 하는 칸. **한 페이지에 하나만.**
+
+```html
+<div class="flm rv">
+  <video controls preload="metadata" playsinline poster="images/mould/film_poster.webp">
+    <source src="images/mould.mp4" type="video/mp4">
+  </video>
+</div>
+<p class="src">1920 × 1080 · MP4 · 24fps</p>
+```
+
+- 가로세로는 16:9 로 고정된다. 표지(`poster`)는 꼭 넣는다 — 없으면 까만 칸으로 보인다
+- 표지는 영상에서 한 장 뽑아 쓴다
+  `ffmpeg -ss 00:00:24 -i 영상.mp4 -frames:v 1 -vf scale=1280:-2 -c:v libwebp -quality 84 표지.webp`
+- `autoplay` 는 쓰지 않는다. 보는 사람이 눌러서 켠다
+
+## 21. 바깥으로 나가는 단추
+
+산출물 뷰어가 아니라 **다른 주소로 보내는 단추**는 `a.go` 로 쓴다. 생김새는 15번 `go` 와 같다.
+
+```html
+<a class="go press" href="https://…" target="_blank" rel="noopener">브랜드 웹사이트 열기<svg class="i"><use href="#i-out"/></svg></a>
+```
+
+`#i-out` 아이콘을 맨 위 아이콘 묶음에 같이 넣는다.

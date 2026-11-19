@@ -95,7 +95,7 @@ const projects = [
     type:'UX 개선',period:'2026.09 — 12',
     call:['결제 개선','특별관 탐색'],
     role:'일정 관리 · 사용성 평가 · 요구사항 정의 · 프로토타입 · 화면설계서',
-    deliverable:'보고서 · 스토리보드',outputs:['report','storyboard'],
+    deliverable:'제안서 · 스토리보드',outputs:['proposal','storyboard'],
     report:true,
     sections:[
       ['opening','OPENING','프로젝트 개요','single',[
