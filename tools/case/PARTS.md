@@ -623,3 +623,119 @@ ffmpeg -i 폰화면.png -vf "scale=-2:700:flags=lanczos,pad=1920:1080:(ow-iw)/2:
 <div class="shots wide">…</div>      <!-- 16:9 네 칸 -->
 <div class="shots two wide">…</div>  <!-- 16:9 두 칸 -->
 ```
+
+## 25. 벤치마킹 · 사례 목록 — `ab bq`
+
+**사례가 넷을 넘으면 카드로 쌓지 않는다.** 여덟 장을 세로로 쌓았더니 2743px 였고,
+화면이 작아 글 옆이 비었다 (2026-11-20 사용자 지적). 코레일톡 '개선 전후'가 쓰는
+`ab` 를 그대로 쓴다 — 왼쪽은 목록, 오른쪽은 고른 화면 한 장. 700px 으로 줄었다.
+
+```html
+<div class="ab bq box rv">
+  <div class="ab-nav">
+    <button class="ab-up" type="button" aria-label="이전 사례"><svg …></button>
+    <button class="ab-dn" type="button" aria-label="다음 사례"><svg …></button>
+  </div>
+  <div class="ab-ls">
+    <div class="ab-it on">
+      <button class="ab-b" type="button" aria-expanded="true" aria-controls="bq-sc0">
+        <span class="pl" aria-hidden="true"><svg …></span>
+        <i class="rq">R-01</i>CGV · 특별관 비교 기준
+      </button>
+      <div class="ab-d" tabindex="-1">
+        <p class="bq-rq"><b>R-01</b>CGV · 2026 앱 영화별 예매 화면</p>
+        <p class="ab-dh">특별관 간 경험 차이를 같은 기준으로 비교</p>
+        <p class="ab-dl"><span class="lab">제공하는 기능</span>포맷 필터 칩과 극장별 특별관 탭</p>
+        <p class="ab-dl"><span class="lab">개선 필요 부분</span>…</p>
+        <p class="ab-dl ap"><span class="lab">개선 적용 방향</span>…</p>
+      </div>
+    </div>
+    …
+  </div>
+  <div class="ab-st">
+    <div class="ab-sc on" id="bq-sc0" data-n="1">
+      <div class="ab-g a"><button class="bq-im" type="button" data-lb aria-label="… 크게 보기">
+        <img src="…" width="680" height="1244" alt="…" loading="lazy" decoding="async" draggable="false">
+      </button></div>
+    </div>
+    …
+  </div>
+</div>
+```
+
+- `ab-it` 의 차례와 `ab-sc` 의 차례가 **반드시 같아야** 목록과 화면이 맞는다
+- `aria-controls` 와 `id` 를 짝지어 둔다. 코레일톡이 `ab-sc0` 을 쓰므로 `bq-sc0` 으로
+- 목록 단추 글은 **한 줄에 들어가게** 짧게 (브랜드 + 가져올 것). 긴 제목은 `ab-dh` 에
+- 자바스크립트는 `case.js` 가 `.ab` 를 모두 집어 알아서 붙인다. 따로 쓸 것이 없다
+- `data-lb` 는 보이는 화면만 눌리지만, 크게 보기 안에서는 여덟 장을 모두 넘길 수 있다
+
+## 26. 참고 사이트 방식 — `xs` · `bb` · `lyr`
+
+MOULD 는 브랜드 사이트(busy-venus-155131.framer.app)를 기준으로 삼는다.
+**글을 줄이고 그림과 도해를 자주 쓴다** (2026-11-20 사용자 지정).
+
+### 펼침 띠 — `xs`
+
+한 장이 열려 있고, 손을 올린 장이 열린다. 자바스크립트 없이 `flex-grow` 로만 움직인다.
+
+```html
+<div class="xs rv">
+  <button class="xs-it" type="button" data-lb aria-label="하늘 테마 크게 보기">
+    <img src="…" alt="하늘 · 구름 위에 떠 있는 듯한 공간" loading="lazy" decoding="async" draggable="false">
+    <span class="xs-c"><b>하늘</b><span>구름 위에 떠 있는 듯한 공간</span></span>
+  </button>
+  … 3~5장
+</div>
+```
+
+- 처음에는 **첫 장**이 열려 있다. 열린 장만 설명(`span`)이 보인다
+- 760px 아래에서는 세로로 쌓이고 설명이 모두 보인다
+- 그림은 세로로 길게 잘리므로 **가운데에 중요한 것이 오는 그림**을 쓴다
+
+### 꽉 찬 그림 띠 — `bb`
+
+절을 열 때 글 대신 그림 한 장을 크게 깐다. 1101px 이상에서 글 칸보다 넓게 나간다.
+
+```html
+<figure class="bb rv">
+  <img src="…" width="1600" height="756" alt="…" loading="lazy" decoding="async" draggable="false">
+  <figcaption class="bb-c"><b>같은 거실, 다른 하루</b><span>오전에는 업무 공간, 저녁에는 …</span></figcaption>
+</figure>
+```
+
+- **띠의 제목이 바로 아래 `bh` 와 같으면 안 된다.** 같은 말이 두 번 보인다
+- 그림이 없으면 완성 영상에서 뽑는다 — `ffmpeg -ss <시각> -i 영상 -frames:v 1`
+- 절 머리(`st-h`) 와 첫 `bk2` 사이에 둔다
+
+### 겹 도해 — `lyr`
+
+여러 겹이 하나로 묶인다는 것을 글 대신 계단으로 보인다.
+
+```html
+<div class="lyr rv">
+  <div class="lyr-st">
+    <i style="--i:0"><b>색</b><span>벽 · 바닥 · 가구의 색감</span></i>
+    <i style="--i:1"><b>빛</b><span>밝기와 웜 · 쿨</span></i>
+    <i style="--i:2"><b>영상</b><span>벽면과 천장에 흐르는 장면</span></i>
+    <i style="--i:3"><b>소리</b><span>공간을 채우는 소리</span></i>
+  </div>
+  <i class="lyr-ar" aria-hidden="true"><svg viewBox="0 0 28 10"><path d="M1 5H26M22 1.5 25.5 5 22 8.5"/></svg></i>
+  <p class="lyr-out"><b>테마 하나</b><span>버튼 한 번에 네 가지가 함께 바뀐다</span></p>
+</div>
+```
+
+- `--i` 가 계단의 칸 수이자 나타나는 차례다. 겹은 서넛이 알맞다
+
+## 27. 쫀득한 움직임
+
+`--spring` 이 `--ease-out` 과 같은 곡선이라 어디에도 튕김이 없었다 (2026-11-20 지적).
+
+| 토큰 | 값 | 쓰는 곳 |
+|---|---|---|
+| `--spring` | `cubic-bezier(.34,1.28,.52,1)` | 살짝 지나쳤다 돌아옴 — 막대 · 나타남 · 누름 |
+| `--spring-s` | `cubic-bezier(.34,1.56,.64,1)` | 더 튕김 — 작은 단추 |
+| `--ease-exp` | `cubic-bezier(.16,1,.3,1)` | 길게 미끄러짐 — 펼침 띠 · 그림 확대 |
+
+- 나타날 때 `scale .986 → 1` 이 함께 걸린다
+- 카드(`tile` · `mp`)는 손을 올리면 3px 떠오르고, 갤러리 그림은 1.04배로 커진다
+- `prefers-reduced-motion` 이면 모든 움직임을 끈다 — 이 규칙은 꼭 남겨 둘 것

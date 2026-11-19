@@ -1124,3 +1124,160 @@ html.rv-js .kc .rv:not(.in){opacity:1;filter:none;translate:none}}
 }
 /* 도넛도 카드 안에서는 남는 높이 가운데에 선다 */
 .kc .cr-i .dn-row{flex:1;align-items:center;margin-top:var(--s-5)}
+
+/* ══ 2026-11-20 ══════════════════════════════════════════════════
+   1) 벤치마킹을 코레일톡 개선 전후(ab)와 같은 방식으로
+   2) 쫀득한 움직임 — 튕기는 곡선으로 바꾸고 손이 닿는 곳마다 반응
+   3) 펼침 띠(xs) · 꽉 찬 그림 띠(bb) — 참고 사이트의 방식
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── 1. 벤치마킹 — `ab bq` ─────────────────────────────────────
+   카드 여덟 장을 세로로 쌓으니 2743px 였다. 코레일톡처럼 왼쪽은
+   목록, 오른쪽은 고른 화면 한 장으로 바꾼다 (2026-11-20 사용자 지정) */
+.kc .ab.bq{grid-template-columns:36px 348px minmax(0,1fr);align-items:start}
+.kc .bq .ab-ls{gap:10px}
+.kc .bq .ab-b{min-height:48px;gap:10px;padding:6px 22px 6px 12px}
+.kc .bq .ab-b .rq{flex:none;display:inline-flex;align-items:center;height:21px;padding:0 8px;
+  border-radius:var(--r-outer);background:var(--bg-3);
+  font:var(--kt-caption);letter-spacing:var(--kls-caption);color:var(--label-2)}
+.kc .bq .ab-d{padding:var(--s-5) var(--s-6) var(--s-6)}
+.kc .bq-rq{display:flex;align-items:center;gap:8px;
+  font:var(--kt-caption);letter-spacing:var(--kls-caption);color:var(--label-3)}
+.kc .bq-rq b{display:inline-flex;align-items:center;height:21px;padding:0 8px;
+  border-radius:var(--r-outer);background:var(--bg-3);color:var(--label-2);font-weight:600}
+.kc .bq .ab-dh{margin-top:var(--s-3);font:var(--kt-headline);letter-spacing:var(--kls-headline);color:var(--label)}
+.kc .bq .ab-dl{margin-top:var(--s-4)}
+.kc .bq .ab-dl .lab{display:block;margin-bottom:2px;color:var(--label-3);font-weight:400}
+.kc .bq .ab-dl.ap{color:var(--label);font-weight:600}
+.kc .bq .ab-dl.ap .lab{color:var(--label-2);font-weight:400}
+.kc .bq .ab-g{padding:var(--s-6);align-items:center}
+.kc .bq-im{display:block;width:min(320px,100%);padding:0;border:0;background:none;cursor:zoom-in;line-height:0;
+  border-radius:var(--r-inner);overflow:hidden;box-shadow:0 0 0 1px var(--line),0 18px 40px -18px rgba(0,0,0,.3);
+  transition:transform 560ms var(--spring),box-shadow 320ms var(--ease-out)}
+.kc .bq-im img{display:block;width:100%;height:auto}
+@media (hover:hover){.kc .bq-im:hover{transform:translateY(-6px) scale(1.015)}}
+.kc .bq-im:active{transform:scale(.985);transition-duration:var(--d1)}
+@media (max-width:900px){
+  .kc .ab.bq{grid-template-columns:36px minmax(0,1fr);row-gap:var(--s-5)}
+  .kc .bq .ab-st{grid-column:1/-1}
+  .kc .bq .ab-g{justify-content:center}
+}
+
+/* ── 2. 쫀득 ──────────────────────────────────────────────────
+   --spring 이 --ease-out 과 같은 곡선이라 어디에도 튕김이 없었다.
+   조금 지나쳤다 돌아오는 곡선으로 바꾼다 (2026-11-20 사용자 지정) */
+.kc{
+  --spring:cubic-bezier(.34,1.28,.52,1);     /* 살짝 지나쳤다 돌아옴 */
+  --spring-s:cubic-bezier(.34,1.56,.64,1);   /* 더 튕김 — 작은 것 */
+  --ease-exp:cubic-bezier(.16,1,.3,1);       /* 길게 미끄러짐 */
+}
+/* 나타날 때 살짝 커지며 올라온다 */
+html.rv-js .kc .rv:not(.in){scale:.986}
+html.rv-js .kc .rv.in{scale:1;
+  transition:opacity var(--d3) var(--ease-out),filter var(--d3) var(--ease-out),
+    translate 620ms var(--spring),scale 620ms var(--spring),
+    transform var(--d4) var(--ease-out),box-shadow var(--d2) var(--ease-out)}
+/* 손이 닿는 것들 */
+@media (hover:hover){
+  .kc .tile,.kc .cr-i,.kc .mp,.kc .proc li{transition:transform 520ms var(--spring),box-shadow 320ms var(--ease-out)}
+  .kc .tile:hover,.kc .mp:hover{transform:translateY(-3px)}
+  .kc .ab-b:hover{background:var(--bg-3)}
+  .kc .hs-it:hover .hs-im img,.kc .shots button:hover .sh-im img{transform:scale(1.04)}
+}
+.kc .ab-b{border-radius:28px;transition:background-color var(--d2) var(--ease-out),transform 420ms var(--spring)}
+.kc .ab-b:active{transform:scale(.978)}
+.kc .ab-nav button{transition:opacity var(--d2) var(--ease-out),transform 420ms var(--spring-s),background-color var(--d2) var(--ease-out)}
+@media (hover:hover){.kc .ab-nav button:not(:disabled):hover{transform:scale(1.12);background:var(--bg-3)}}
+.kc .ab-nav button:not(:disabled):active{transform:scale(.9)}
+.kc .hs-im img,.kc .sh-im img{transition:transform 680ms var(--ease-exp)}
+/* 도표도 조금 지나쳤다 자리를 잡는다 */
+.kc .gb-b > i{transition:transform 820ms var(--spring) calc(var(--j,0) * 70ms)}
+.kc .cb-r::before{transition:transform 820ms var(--spring) calc(var(--j,0) * 90ms)}
+@media (prefers-reduced-motion:reduce){
+  .kc *{animation-duration:.01ms!important;transition-duration:.01ms!important}
+}
+
+/* ── 3. 펼침 띠 — `xs` ────────────────────────────────────────
+   참고 사이트처럼, 한 장이 열려 있고 손을 올린 장이 열린다.
+   자바스크립트 없이 flex-grow 만으로 움직인다 */
+.kc .xs{display:flex;gap:10px;margin-top:var(--s-6);
+  height:clamp(300px,34vw,480px)}
+.kc .xs-it{position:relative;flex:1 1 0;min-width:0;padding:0;border:0;background:var(--bg-2);
+  border-radius:var(--r-outer);overflow:hidden;cursor:pointer;
+  transition:flex-grow 680ms var(--ease-exp)}
+.kc .xs-it img{display:block;width:100%;height:100%;object-fit:cover;
+  transition:transform 900ms var(--ease-exp)}
+.kc .xs-it:first-child{flex-grow:2.8}
+@media (hover:hover){
+  .kc .xs:hover .xs-it{flex-grow:1}
+  .kc .xs .xs-it:hover{flex-grow:2.8}
+  .kc .xs .xs-it:hover img{transform:scale(1.04)}
+}
+.kc .xs .xs-it:focus-visible{flex-grow:2.8;outline:2px solid var(--label);outline-offset:3px}
+.kc .xs-c{position:absolute;left:0;right:0;bottom:0;padding:22px 24px;text-align:left;
+  background:linear-gradient(to top,rgba(0,0,0,.76),rgba(0,0,0,.28) 56%,rgba(0,0,0,0));
+  color:#fff;pointer-events:none}
+.kc .xs-c b{display:block;font:var(--kt-headline);letter-spacing:var(--kls-headline);white-space:nowrap}
+.kc .xs-c span{display:block;margin-top:3px;white-space:nowrap;
+  font:var(--kt-subhead);letter-spacing:var(--kls-subhead);color:rgba(255,255,255,.78);
+  opacity:0;translate:0 8px;transition:opacity 420ms var(--ease-out),translate 560ms var(--spring)}
+.kc .xs-it:first-child .xs-c span{opacity:1;translate:0 0}
+@media (hover:hover){
+  .kc .xs:hover .xs-it .xs-c span{opacity:0;translate:0 8px}
+  .kc .xs .xs-it:hover .xs-c span{opacity:1;translate:0 0}
+}
+.kc .xs .xs-it:focus-visible .xs-c span{opacity:1;translate:0 0}
+@media (max-width:760px){
+  .kc .xs{flex-direction:column;height:auto;gap:var(--s-4)}
+  .kc .xs-it,.kc .xs-it:first-child{flex:none;height:230px}
+  .kc .xs-c span{opacity:1;translate:0 0;white-space:normal}
+}
+
+/* ── 4. 꽉 찬 그림 띠 — `bb` ──────────────────────────────────
+   참고 사이트처럼 글 사이에 그림 한 장을 크게 넣어 숨을 돌린다 */
+.kc .bb{position:relative;margin-top:var(--s-7);border-radius:var(--r-outer);overflow:hidden;
+  background:var(--bg-2);line-height:0}
+@media (min-width:1101px){
+  .kc .bb{width:min(1260px,calc(var(--vw,100vw) - 96px));
+    margin-left:calc(50% - min(630px,var(--vw,100vw) / 2 - 48px))}
+}
+.kc .bb > img{display:block;width:100%;height:clamp(260px,32vw,440px);object-fit:cover;
+  transition:transform 1200ms var(--ease-exp)}
+html.rv-js .kc .bb.rv:not(.in) > img{transform:scale(1.06)}
+.kc .bb-c{position:absolute;left:0;right:0;bottom:0;padding:28px 32px;line-height:1.4;
+  background:linear-gradient(to top,rgba(0,0,0,.7),rgba(0,0,0,0));color:#fff}
+.kc .bb-c b{display:block;font:var(--kt-title1);letter-spacing:var(--kls-title1);text-wrap:balance}
+.kc .bb-c span{display:block;margin-top:6px;font:var(--kt-subhead);letter-spacing:var(--kls-subhead);
+  color:rgba(255,255,255,.8);text-wrap:pretty}
+@media (max-width:620px){.kc .bb-c{padding:20px}}
+
+/* ── 5. 겹 도해 — `lyr` ───────────────────────────────────────
+   테마 하나가 색 · 빛 · 영상 · 소리 네 겹으로 되어 있다는 것을
+   글 대신 그림으로 보인다 (2026-11-20 사용자 지정) */
+.kc .lyr{display:grid;grid-template-columns:minmax(0,1fr) 28px minmax(0,268px);
+  align-items:center;gap:var(--s-5);margin-top:var(--s-6)}
+.kc .lyr-st{display:grid;gap:8px;min-width:0}
+.kc .lyr-st > i{display:grid;grid-template-columns:62px minmax(0,1fr);align-items:center;
+  gap:var(--s-4);padding:15px 20px;font-style:normal;
+  margin-left:calc(var(--i,0) * 24px);
+  border-radius:var(--r-outer);background:var(--kcard);
+  box-shadow:0 0 0 1px var(--line),0 14px 28px -20px rgba(0,0,0,.5)}
+html.rv-js .kc .rv:not(.in) .lyr-st > i{translate:-20px 0;opacity:0}
+html.rv-js .kc .rv.in .lyr-st > i{translate:0 0;opacity:1;
+  transition:translate 780ms var(--spring) calc(var(--i,0) * 90ms + 80ms),
+    opacity 560ms var(--ease-out) calc(var(--i,0) * 90ms + 80ms)}
+.kc .lyr-st > i b{font:var(--kt-headline);letter-spacing:var(--kls-headline)}
+.kc .lyr-st > i span{font:var(--kt-subhead);letter-spacing:var(--kls-subhead);color:var(--label-2)}
+.kc .lyr-ar{display:grid;place-items:center;font-style:normal}
+.kc .lyr-ar svg{width:28px;height:10px;fill:none;stroke:var(--label-3);stroke-width:1.5;
+  stroke-linecap:round;stroke-linejoin:round}
+.kc .lyr-out{padding:var(--s-6);border-radius:var(--r-outer);
+  background:var(--kfill);color:var(--kon-fill);text-wrap:balance}
+.kc .lyr-out b{display:block;font:var(--kt-title1);letter-spacing:var(--kls-title1)}
+.kc .lyr-out span{display:block;margin-top:6px;font:var(--kt-subhead);letter-spacing:var(--kls-subhead);
+  color:color-mix(in srgb,var(--kon-fill) 74%,transparent)}
+@media (max-width:760px){
+  .kc .lyr{grid-template-columns:minmax(0,1fr);gap:var(--s-4)}
+  .kc .lyr-st > i{margin-left:calc(var(--i,0) * 10px);grid-template-columns:52px minmax(0,1fr);padding:13px 16px}
+  .kc .lyr-ar{transform:rotate(90deg)}
+}
