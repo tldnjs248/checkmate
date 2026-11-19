@@ -2,7 +2,7 @@
    코레일톡 보고서 페이지 → 주시원 디자인 시스템 변환기 (2026-11-18)
 
    쓰는 법   node tools/case/build.js  [원본 index.html 경로]
-   만드는 것 case.css · case.js · case-korail.js (저장소 뿌리에)
+   만드는 것 case.css · case.js · case-korail-talk.js (저장소 뿌리에)
 
    원본은 팀이 만든 보고서 페이지 한 장(index.html)이다. 이 변환기가
      1. CSS 705 규칙의 선택자를 전부 `.kc` 아래로 가두고
@@ -248,6 +248,10 @@ if (lb) { tail = lb[0]; html = html.replace(lb[0], ''); }
 
 const body = (sprite + '\n' + html.trim() + '\n' + tail.trim() + '\n' + SDV).trim();
 
+/* 목차 — 절 머리에서 앵커와 이름을 그대로 읽는다. 상세 페이지가 이것으로 왼쪽 목차를 그린다 */
+const toc = [...body.matchAll(/<section class="st" id="([^"]+)"[\s\S]*?<h2 class="st-n">([^<]+)<\/h2>/g)].map((m) => [m[1], m[2]]);
+console.log('목차', toc.length + '절 ·', toc.map((t) => t[1]).join(' · '));
+
 const lines = body.split(/\r?\n/).map((l) => JSON.stringify(l)).join(',\n');
 const DOC = `/* ══════════════════════════════════════════════════════════════
    코레일톡 보고서 페이지 — 내용 (2026-11-18)
@@ -264,9 +268,10 @@ const DOC = `/* ═════════════════════�
    아직 비어 있는 곳: 06 프로젝트 회고 세 칸 ([빈칸] 표시 · 사용자가 따로 보내기로 함)
    ══════════════════════════════════════════════════════════════ */
 ${dat}
-window.CASE_KORAIL = [
+window.CASE_TOC = ${JSON.stringify(toc)};
+window.CASE_PAGE = [
 ${lines}
 ].join("\\n");
 `;
-fs.writeFileSync(path.join(OUT, 'case-korail.js'), DOC);
-console.log('case-korail.js', (DOC.length / 1024).toFixed(0) + 'KB ·', body.split('\n').length, '줄');
+fs.writeFileSync(path.join(OUT, 'case-korail-talk.js'), DOC);
+console.log('case-korail-talk.js', (DOC.length / 1024).toFixed(0) + 'KB ·', body.split('\n').length, '줄');

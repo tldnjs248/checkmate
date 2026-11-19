@@ -11,13 +11,12 @@ const projects = [
     call:['좌석 자동배정','예약 승차권 조회'],
     role:'문헌 조사 · 아이트래킹 · 사용성 평가 분석 · 개선 범위 전환 제안',
     deliverable:'보고서 · 스토리보드',outputs:['report','storyboard'],
-    /* 2026-11-18 (사용자 지정) 본문을 팀 보고서 구조로 통째로 바꿨다.
-       내용은 case-korail.js, 생김새는 case.css, 조작은 case.js 가 맡는다.
-       여기 적는 것은 왼쪽 목차에 들어갈 여섯 절의 이름뿐이다.
+    /* 2026-11-18 (사용자 지정) 본문을 보고서 구조로 통째로 바꿨다.
+       내용은 case-korail-talk.js, 생김새는 case.css, 조작은 case.js 가 맡는다.
+       목차도 그 파일이 들고 온다(window.CASE_TOC).
        아래 sections 는 쓰이지 않지만, 보고서 글이 아직 없던 때의
        원고라서 지우지 않고 남겨 둔다. */
-    report:[['s1','프로젝트 개요'],['s2','문제정의'],['s3','개선안 설계'],
-            ['s4','사용성 검증 및 개선'],['s5','최종 산출물'],['s6','프로젝트 회고']],
+    report:true,
     sections:[
       ['opening','OPENING','프로젝트 개요','single',[
         '코레일톡에서 흩어져 있던 예약 승차권 조회 기능을 한곳으로 모아, 예매 이후의 흐름을 다시 설계한 프로젝트입니다.',
@@ -56,7 +55,9 @@ const projects = [
     type:'서비스 기획 · 브랜드 / 경험',period:'2026.03 — 07',
     call:['화려한 기술','적용 가능성 · 운영 지속성'],
     role:'팀장 · 사용자 조사 · 서비스 구조 설계 · 공간 경험 · 영상 시나리오',
-    deliverable:'제안서',outputs:['proposal'],
+    deliverable:'기획서',outputs:['plan'],
+    /* 2026-11-18 본문을 보고서 구조로 — 내용과 목차는 case-mould.js 가 들고 온다 */
+    report:true,
     sections:[
       ['opening','OPENING','프로젝트 개요','wide',[
         '인테리어를 바꾸지 않고 상황에 따라 공간의 분위기를 바꾸는 주거 서비스입니다. 팀장으로 조사부터 서비스 구조와 영상 시나리오까지 맡았습니다.',
@@ -81,8 +82,8 @@ const projects = [
         '영상의 완성도와 연출은 영상 디자이너가 맡았습니다. 저는 어떤 장면을 어떤 순서로 보여줄지를 정했습니다.',
         '공간에서 겪을 경험과 영상이 말하는 것이 어긋나지 않도록 함께 맞췄습니다.',
       ]],
-      ['checkmate','CHECKMATE','제안 결과','wide',[
-        '공간 · 태블릿 · 영상이 하나로 이어지는 서비스 제안을 완성했습니다.',
+      ['checkmate','CHECKMATE','기획 결과','wide',[
+        '공간 · 태블릿 · 영상이 하나로 이어지는 서비스 기획을 완성했습니다.',
         '커뮤니케이션 국제 어워드 디지털미디어디자인 부문 특별상을 받았습니다.',
       ]],
     ]
@@ -94,7 +95,8 @@ const projects = [
     type:'UX 개선',period:'2026.09 — 12',
     call:['결제 개선','특별관 탐색'],
     role:'일정 관리 · 사용성 평가 · 요구사항 정의 · 프로토타입 · 화면설계서',
-    deliverable:'제안서 · 스토리보드',outputs:['proposal','storyboard'],
+    deliverable:'보고서 · 스토리보드',outputs:['report','storyboard'],
+    report:true,
     sections:[
       ['opening','OPENING','프로젝트 개요','single',[
         '특별관을 고르는 일이 왜 어려운지 확인하고, 영화를 찾는 일부터 예매까지를 하나의 흐름으로 다시 설계한 프로젝트입니다.',
@@ -239,11 +241,15 @@ const visual=(kind,imgs)=>{const g=imgs||[];return `<div class="section-visual">
 }</div>`;};
 /* ── 본문 ──────────────────────────────────────────────────────
    두 가지 중 하나로 그린다.
-     보고서판 (project.report 가 있을 때 — 지금은 코레일톡 하나)
-       팀이 만든 보고서 페이지를 통째로 옮겨 넣는다. 파일이 커서
-       (본문 175KB · 생김새 73KB · 조작 33KB) 이 프로젝트일 때만 불러온다.
-     원고판 (나머지 셋)
-       아래 sections 를 제목 + 문단 + 이미지 자리로 편다.            */
+     보고서판 (project.report 가 true 일 때)
+       같은 이름의 본문 파일 case-<id>.js 를 불러 통째로 넣는다.
+       그 파일이 내놓는 것 두 가지
+         window.CASE_PAGE  본문 마크업 한 덩이
+         window.CASE_TOC   [[앵커, 절 이름], …] — 왼쪽 목차가 이것을 쓴다
+       본문 · 생김새 · 조작 세 파일이 커서 이 프로젝트일 때만 불러온다.
+     원고판
+       아래 sections 를 제목 + 문단 + 이미지 자리로 편다.
+   부품과 규칙은 tools/case/PARTS.md · AGENT.md 에 적어 두었다.      */
 const headEl=document.querySelector('#detail-sections');
 const navEl=document.querySelector('#section-nav');
 const V=(document.querySelector('script[src^="project-detail.js"]')||{}).src||'';
@@ -266,10 +272,11 @@ if(project.report){
   if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('rv-js');
   setTimeout(()=>{if(!window.__case)document.documentElement.classList.remove('rv-js');},3000);
   addCSS('case.css'+q);
-  addJS('case-korail.js'+q,()=>{
+  addJS('case-'+project.id+'.js'+q,()=>{
     headEl.className='detail-sections kc';
-    headEl.innerHTML=window.CASE_KORAIL||'';
-    paintTOC(project.report);
+    headEl.innerHTML=window.CASE_PAGE||'';
+    /* 목차는 본문 파일이 들고 온다. 없으면 절에서 직접 읽어 만든다 */
+    paintTOC(window.CASE_TOC||[...headEl.querySelectorAll('.st')].map(s=>[s.id,(s.querySelector('.st-n')||{}).textContent||s.id]));
     spy('.kc .st');
     addJS('case.js'+q);
   });
