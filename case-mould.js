@@ -78,7 +78,7 @@ window.CASE_PAGE = [
   "    <dl class=\"kv\">",
   "      <dt>기간</dt><dd>2026.03 — 07</dd>",
   "      <dt>내 역할</dt><dd>팀장 · 사용자 조사 · 서비스 구조 설계 · 공간 경험 · 영상 시나리오</dd>",
-  "      <dt>팀</dt><dd>주시원 · 한정민 · 정서영 · 양윤지</dd>",
+  "      <dt>팀</dt><dd>주시원 · 홍준상 · 권민재</dd>",
   "    </dl>",
   "    <dl class=\"meth\">",
   "      <dt>문제 정의</dt><dd class=\"chips\"><span>데스크리서치</span><span>트렌드 분석</span><span>사례 조사</span><span>페르소나</span></dd>",
