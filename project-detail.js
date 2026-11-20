@@ -213,7 +213,10 @@ document.querySelector('#project-number').textContent=project.number;document.qu
 const DOC={
   'korail-talk':[['보고서 보기','docs/코레일톡_예약관리_개선보고서.pdf']],
   'mould':[['기획서 보기','docs/MOULD_공간경험_서비스기획서.pdf']],
-  'lotte-cinema':[['기획서 보기','docs/롯데시네마_특별관탐색_개선기획서.pdf']]
+  'lotte-cinema':[['기획서 보기','docs/롯데시네마_특별관탐색_개선기획서.pdf']],
+  /* 2026-11-21 LET'S SYNC — 원본이 65MB · 74MB 라 쪽마다 그림으로 다시 그려 줄였다 */
+  'dmd-graduation':[['기획서 보기','docs/LETSSYNC_졸업전시브랜딩_기획서.pdf'],
+                    ['화면설계서 보기','docs/LETSSYNC_졸업전시웹_화면설계서.pdf']]
 };
 const docs=DOC[project.id]||[];
 document.querySelector('#project-docs').innerHTML=docs
