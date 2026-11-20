@@ -510,3 +510,15 @@ html.rv-js .kc .rv.in .lyr-st > i{translate:0 0;opacity:1;
 .kc .bl{max-width:900px}
 /* 경로 도해 칸은 13px 고정이었다 */
 .kc .nd{font-size:var(--t-label)}
+
+/* ══ 2026-11-21 · 줄바꿈 다듬기 ══════════════════════════════════
+   글자가 커지면서 마지막 줄에 한두 낱말만 남는 자리가 생겼다.
+   짧은 글은 balance 로 줄을 고르게 나눈다 (긴 본문은 pretty 그대로) */
+.kc .tile-t,.kc .tile-b,.kc .mp-p,.kc .src,.kc .kv dd,.kc .meth dt,
+.kc .ab-dl,.kc .ab-dh,.kc .bq-rq,.kc .cbg-k,.kc .xs-c span,.kc .bb-c span,
+.kc .lyr-st span,.kc .res-k,.kc .res-s,.kc .tile-k,.kc .gb > b,.kc .bm-l dd,
+.kc .crit-q,.kc .find li,.kc .quote{text-wrap:balance}
+/* 칩 묶음은 글이 아니라 조각이라 가운데로 몰리면 안 된다 */
+.kc .chips{text-wrap:wrap}
+/* 본문도 — 두세 줄짜리가 많아 마지막 줄에 예닐곱 자만 남는 일이 잦았다 */
+.kc .bl{text-wrap:balance}
