@@ -1317,3 +1317,33 @@ html.rv-js .kc .rv.in .lyr-st > i{translate:0 0;opacity:1;
 .kc .chips{text-wrap:wrap}
 /* 본문도 — 두세 줄짜리가 많아 마지막 줄에 예닐곱 자만 남는 일이 잦았다 */
 .kc .bl{text-wrap:balance}
+
+/* ══ 2026-11-21 · 그림 한 장이 말하게 — `shot` ════════════════════
+   애플 제품 쪽을 보면 한 절에 생각 하나, 그림이 크게 먼저 오고
+   글은 짧게 아래에 붙는다. 장표의 도해 · 목업을 그렇게 넣는다 */
+.kc .shot{position:relative;margin-top:var(--s-6);border-radius:var(--r-outer);
+  overflow:hidden;background:var(--bg-2);line-height:0}
+.kc .shot > img{display:block;width:100%;height:auto;
+  transition:transform 900ms var(--ease-exp)}
+html.rv-js .kc .shot.rv:not(.in) > img{transform:scale(1.03)}
+.kc .shot-b{display:block;width:100%;padding:0;border:0;background:none;cursor:zoom-in;line-height:0}
+.kc .shot-b img{display:block;width:100%;height:auto}
+@media (hover:hover){.kc .shot-b:hover img{transform:scale(1.015)}}
+.kc .shot + .src{margin-top:var(--s-3)}
+/* 카드 줄 안의 그림 — 기술 세 가지처럼 */
+.kc .cr-i .cr-im{display:block;width:100%;margin-top:var(--s-5);padding:0;border:0;
+  background:var(--bg-3);cursor:zoom-in;line-height:0;border-radius:var(--r-inner);overflow:hidden;
+  transition:transform 520ms var(--spring)}
+.kc .cr-i .cr-im img{display:block;width:100%;height:auto;aspect-ratio:68/29;object-fit:cover}
+@media (hover:hover){.kc .cr-i .cr-im:hover{transform:translateY(-3px)}}
+.kc .cr-l{display:grid;grid-template-columns:auto minmax(0,1fr);gap:var(--s-2) var(--s-4);margin-top:var(--s-5)}
+.kc .cr-l dt{font:var(--kt-subhead);letter-spacing:var(--kls-subhead);color:var(--label-3);white-space:nowrap}
+.kc .cr-l dd{font:var(--kt-subhead);letter-spacing:var(--kls-subhead);color:var(--label-2);text-wrap:pretty}
+.kc .cr-l .on{color:var(--label);font-weight:600}
+@media (max-width:620px){.kc .cr-l{grid-template-columns:minmax(0,1fr);gap:0}
+  .kc .cr-l dt{margin-top:var(--s-3)}}
+
+/* ── 단추 글자는 한 단 작게 (2026-11-21 사용자 지정) ── */
+.kc .go,.kc .pd,.kc .ab-b,.kc .hs-ctl button,.kc .lb-ui button,.kc .back{font-size:var(--t-small)}
+.kc .ab-b{font-weight:600}
+.kc .chips span,.kc .st-m span{font-size:var(--t-label)}
