@@ -592,7 +592,8 @@ body, .about-hero, .numbered-section, .contact, .site-header { background: #fff;
        히어로 높이   100vh 그대로 두면 화면보다 10% 짧아진다
        헤더 좌우     본문이 1920 에서 멈출 때 헤더만 창 끝에 붙어 어긋난다 */
 @media (min-width: 1101px) {
-  html { zoom: .9; }
-  .brand-mark { left: max(var(--gutter), calc((100vw / .9 - 1920px) / 2 + 60px)); }
-  .gnb { right: max(var(--gutter), calc((100vw / .9 - 1920px) / 2 + 60px)); }
+  /* 2026-11-20 zoom 걷어냄 — 글자가 10% 작게 나와 폰트 위계를 다시 짰다 */
+  /* html { zoom: .9; } */
+  .brand-mark { left: max(var(--gutter), calc((100vw - 1920px) / 2 + 60px)); }
+  .gnb { right: max(var(--gutter), calc((100vw - 1920px) / 2 + 60px)); }
 }

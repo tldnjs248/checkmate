@@ -598,7 +598,7 @@ strong, b { font-weight: var(--fw-strong); }
   background: #fff;
   display: block;
   border-top: 1px solid #111;
-  font-size: 16px;
+  font-size: var(--t-small);
   text-align: left;
 }
 .footer__top {
@@ -612,7 +612,7 @@ strong, b { font-weight: var(--fw-strong); }
 .footer__col { display: flex; flex-direction: column; align-items: flex-start; gap: 11px; }
 .footer__label {
   margin-bottom: 3px;
-  font-size: 16px;
+  font-size: var(--t-small);
   font-weight: 600;
   letter-spacing: .06em;
   color: #8a8a8a;
@@ -773,7 +773,7 @@ strong, b { font-weight: var(--fw-strong); }
 .brand-mark b { font-size: 18px; font-weight: 700; letter-spacing: .02em; color: #111; }
 .brand-mark span {
   position: static; width: auto; height: auto; overflow: visible; clip: auto;
-  font-size: 16px; font-weight: 500; letter-spacing: -.01em; color: #707070;
+  font-size: var(--t-small); font-weight: 500; letter-spacing: -.01em; color: #707070;
 }
 
 /* 2. 버튼 — 한 모습으로 */
@@ -786,7 +786,7 @@ strong, b { font-weight: var(--fw-strong); }
   border: 1px solid #111;
   background: #111;
   color: #fff;
-  font-size: 16px;
+  font-size: var(--t-small);
   font-weight: 500;
   letter-spacing: -.01em;
   transition: background .18s ease, color .18s ease;
@@ -835,10 +835,11 @@ strong, b { font-weight: var(--fw-strong); }
        히어로 높이   100vh 그대로 두면 화면보다 10% 짧아진다
        헤더 좌우     본문이 1920 에서 멈출 때 헤더만 창 끝에 붙어 어긋난다 */
 @media (min-width: 1101px) {
-  html { zoom: .9; }
-  .hero { height: calc(100vh / .9); height: calc(100svh / .9); min-height: calc(640px / .9); }
-  .brand-mark { left: max(60px, calc((100vw / .9 - 1920px) / 2 + 60px)); }
-  .gnb { right: max(59px, calc((100vw / .9 - 1920px) / 2 + 59px)); }
+  /* 2026-11-20 zoom 걷어냄 — 글자가 10% 작게 나와 폰트 위계를 다시 짰다 */
+  /* html { zoom: .9; } */
+  .hero { height: calc(100vh); height: calc(100svh); min-height: calc(640px); }
+  .brand-mark { left: max(60px, calc((100vw - 1920px) / 2 + 60px)); }
+  .gnb { right: max(59px, calc((100vw - 1920px) / 2 + 59px)); }
 }
 
 /* ── 상세 펼침 영역 다듬기 (2026-11-12 사용자 지정) ──
@@ -846,7 +847,7 @@ strong, b { font-weight: var(--fw-strong); }
    · 아래 라벨(담당 범위 · 확인한 문제 …)이 위 라벨과 같은 16px 이었다 → 14px, 위 여백도 4→2
    메인 ABOUT 표는 앞서 이 행과 같은 간격으로 맞춰 둔 곳이라 함께 줄인다. */
 .project__details > div { padding: 13px 0; }
-.project__details dt span { font-size: 14px; margin-top: 2px; }
+.project__details dt span { font-size: var(--t-label); margin-top: 2px; }
 .about__facts > div { padding: 13px 0; }
 
 @media (max-width: 760px) {

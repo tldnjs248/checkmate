@@ -208,12 +208,18 @@ const params=new URLSearchParams(location.search);const id=params.get('project')
 const COVER=new Set(['lotte-cinema','korail-talk','mould','dmd-graduation']);
 if(COVER.has(project.id)){const c=document.querySelector('#detail-cover');c.className='detail-cover has-image';c.innerHTML=`<img src="images/${project.id}-band.jpg" alt="" decoding="async">`;}
 document.querySelector('#project-number').textContent=project.number;document.querySelector('#detail-title').textContent=project.title;document.querySelector('#detail-summary').textContent=project.summary;document.title=`${project.title} — SIWON JOO`;
-/* 산출물 — 종류마다 따로 연다. 실제 파일이 생기면 DOC_HREF 의 주소만 채운다 */
-const DOC_LABEL={report:'보고서 전문 보기',proposal:'제안서 보기',plan:'기획서 보기',storyboard:'스토리보드 보기'};
-const DOC_HREF={report:'#',proposal:'#',plan:'#',storyboard:'#'};
-document.querySelector('#project-docs').innerHTML=(project.outputs||[])
-  .map(key=>`<a class="report-button" href="${DOC_HREF[key]}" target="_blank" rel="noopener">${DOC_LABEL[key]} <i aria-hidden="true">↗</i></a>`)
+/* 산출물 — 2026-11-20 프로젝트마다 실제 파일을 붙였다 (docs/).
+   파일이 없는 종류는 단추를 아예 그리지 않는다. 눌러도 아무 일 없는 단추는 두지 않는다. */
+const DOC={
+  'korail-talk':[['보고서 보기','docs/코레일톡_예약관리_개선보고서.pdf']],
+  'mould':[['기획서 보기','docs/MOULD_공간경험_서비스기획서.pdf']],
+  'lotte-cinema':[['기획서 보기','docs/롯데시네마_특별관탐색_개선기획서.pdf']]
+};
+const docs=DOC[project.id]||[];
+document.querySelector('#project-docs').innerHTML=docs
+  .map(([label,href])=>`<a class="report-button" href="${href}" target="_blank" rel="noopener">${label} <i aria-hidden="true">↗</i></a>`)
   .join('');
+if(!docs.length)document.querySelector('#project-docs').hidden=true;
 /* 핵심 판단 — 근거로 방향을 바꾼 프로젝트에만 노출한다 */
 document.querySelector('#project-facts').innerHTML=`<div><dt>프로젝트 유형</dt><dd>${project.type}</dd></div><div><dt>기간</dt><dd>${project.period}</dd></div>${project.call?`<div class="fact-call"><dt>핵심 판단</dt><dd><span class="call-from">${project.call[0]}</span><span class="call-arrow" aria-hidden="true">→</span><span class="call-to">${project.call[1]}</span></dd></div>`:''}<div><dt>담당 범위</dt><dd>${project.role}</dd></div><div><dt>산출물</dt><dd>${project.deliverable}</dd></div>`;
 /* 이미지 자리 — 더미 글자가 보이지 않는 세 가지만 쓴다 */
