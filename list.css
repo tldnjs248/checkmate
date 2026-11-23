@@ -134,3 +134,14 @@
   transition:background-color var(--t-fast) linear;
 }
 .project-card:hover .project-card__tags span{background:var(--line);}
+
+
+/* ── 6. 카드 아래 묶음은 바닥에 세운다 (2026-11-24 사용자 지정) ────
+   설명이 두 줄인 카드와 네 줄인 카드가 섞이면 칩 · 기간 줄의 높이가 달라
+   줄이 들쭉날쭉했다. 카드 높이는 어차피 격자가 맞춰 주므로, 남는 자리를
+   설명 아래에 몰아 주고 칩 줄을 칸 바닥에 세운다.
+   구조가 .project-card > __link > (__thumb + __body) 라 세로 흐름을 세 겹에 건다. */
+.project-card{display:flex;flex-direction:column;}
+.project-card__link{flex:1;display:flex;flex-direction:column;}
+.project-card__body{flex:1;display:flex;flex-direction:column;}
+.project-card__tags{margin-top:auto;padding-top:var(--s3);}

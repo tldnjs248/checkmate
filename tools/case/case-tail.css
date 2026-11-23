@@ -1109,3 +1109,48 @@ html.rv-js .kc .chk.rv.in > *{opacity:1;translate:0 0;scale:1;
 .kc .maps.row .mp{grid-template-columns:minmax(0,1fr);align-content:start;gap:var(--s-3)}
 .kc .maps.row .mp-a{transform:rotate(90deg)}
 @media (max-width:1100px){.kc .maps.row{grid-template-columns:minmax(0,1fr)}}
+
+/* ══ §36. 기획 과제 세 칸 — 안쪽 간격과 줄 맞추기 (2026-11-24 사용자 지정) ══
+   잰 결과 세 칸이 서로 어긋나 있지는 않았다. 어긋나 보인 까닭은 두 가지였다.
+     1 번호 뱃지(24)+사이(8) 때문에 제목 글자만 32 오른쪽에서 시작하는데
+       아래 본문은 칸 끝에서 시작해, 한 칸 안에 왼쪽 선이 둘이 됐다.
+     2 제목↔본문, 본문↔화살표, 화살표↔아래글 사이가 전부 12 로 같아
+       무엇이 한 덩어리인지 읽히지 않았다.
+   번호만 왼쪽에 걸고(매달린 번호) 나머지 글은 모두 제목 선에 맞춘다.
+   ⚠ .mp 바탕 규칙에 align-items:center 가 있다. 가로 흐름에서는 세로 가운데지만
+     세로 흐름(flex column)으로 바꾸면 가로 가운데가 된다 — 반드시 start 로 되돌린다.  */
+.kc .maps.row .mp{display:flex;flex-direction:column;align-items:flex-start;
+  gap:var(--s-3);padding:var(--s-5)}
+.kc .maps.row .mp-h{align-items:center;gap:var(--s-2)}
+.kc .maps.row .mp-p,.kc .maps.row .mp-g{align-self:stretch;margin-left:32px}
+.kc .maps.row .mp-a{margin:auto 0 var(--s-2) 32px}
+
+/* 네 줄(제목 · 본문 · 화살표 · 아래글)을 세 칸이 나눠 쓰면 화살표가 같은 높이에 서서
+   가로선처럼 읽힌다. subgrid 를 못 쓰는 브라우저는 위 규칙대로 바닥 정렬로 선다. */
+@supports (grid-template-rows:subgrid){
+  .kc .maps.row{grid-template-rows:auto auto auto auto}
+  .kc .maps.row .mp{display:grid;grid-template-rows:subgrid;grid-row:span 4;
+    align-items:start;justify-items:start}
+  .kc .maps.row .mp-a{margin:0 0 0 32px}
+}
+
+@media (max-width:620px){
+  .kc .maps.row .mp-p,.kc .maps.row .mp-g{margin-left:0}
+  .kc .maps.row .mp-a{margin:var(--s-2) 0}
+}
+
+/* ══ §37. 좁은 화면 · 목차 옆에서 밖으로 나가던 두 곳 (2026-11-24) ══
+   전부터 있던 것인데 이번에 폭 아홉 가지로 재 보고 찾았다.
+     1 .net  aspect-ratio:16/7 에 min-height:280 이 같이 걸려 폭이 640 으로 **고정**됐다.
+             390 화면에서 274 가 밖으로 나갔다. 좁은 화면에서는 비율을 세워 준다.
+     2 .bb   띠 사진을 화면 가운데에 맞추려고 뷰포트 기준으로 밀었는데, 상세 페이지는
+             왼쪽에 목차가 있어 글 칸이 화면 가운데가 아니다. 1280~1440 에서
+             오른쪽이 31~74 밖으로 나가 잘렸다. 이제 글 칸 기준으로 양쪽 같은 만큼만 넓힌다.
+             32 로 잡은 까닭 — 1280 에서 글 칸 오른쪽에 남는 자리가 40 뿐이다.      */
+.kc{--bb-x:32px}
+@media (min-width:1101px){
+  .kc .bb{width:auto;margin-left:calc(var(--bb-x) * -1);margin-right:calc(var(--bb-x) * -1)}
+}
+@media (max-width:760px){
+  .kc .net{min-height:0;aspect-ratio:4/3}
+}

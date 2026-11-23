@@ -57,10 +57,10 @@
   --kt-title2  :600 var(--t-title)/1.4    var(--kfont);
   --kt-title3  :600 var(--t-title)/1.4    var(--kfont);
   --kt-headline:600 var(--t-body)/1.5     var(--kfont);
-  --kt-body    :400 var(--t-body)/1.75    var(--kfont);
+  --kt-body    :400 var(--t-body)/1.82    var(--kfont);
   --kt-callout :600 var(--t-small)/1.5    var(--kfont);
   --kt-label   :600 var(--t-small)/1.45   var(--kfont);
-  --kt-subhead :400 var(--t-small)/1.6    var(--kfont);
+  --kt-subhead :400 var(--t-small)/1.68   var(--kfont);
   /* 12 → 13 (2026-11-19 · 사용자 지정 "텍스트가 너무 작다").
      이 페이지는 1101px 이상에서 html{zoom:.9} 가 걸려 있어 12px 가
      실제로는 10.8px 로 나온다. 226군데가 그 단이라 페이지 절반이
