@@ -292,3 +292,45 @@ strong,b{font-weight:600;}
    위 네 줄(직군 · 생년월일 · 지역 · 이메일)과 같은 모양이 된다.
    수상 두 건은 각각 한 줄이므로 사이 여백만 한 단 줄인다. */
 .profile__facts dd em{margin-top:var(--s2);}
+
+/* ══ 줄바꿈 — 2026-11-23 (사용자 지정) ══════════════════════════════
+   "텍스트가 애매하게 한 글자 두 글자만 혼자 남지 않게.
+    어떤 배율로 보든, 어떤 해상도로 보든 깨져 보이지 않게"
+
+   <br> 을 손으로 박으면 그 폭에서만 맞고 다른 폭·배율에서 도리어 깨진다.
+   글자 수가 아니라 규칙으로 막는다. 네 가지가 같이 움직인다.
+
+     1 keep-all   한글 낱말 가운데서 끊지 않는다. 빈칸에서만 끊는다
+                  → '결정적인 수를 만든 프로젝 / 트' 가 없어진다
+     2 balance    제목은 줄 길이를 고르게 나눈다
+                  → '결정적인 수를 만든 / 프로젝트' 로 저절로 갈린다
+     3 pretty     본문은 마지막 줄에 낱말 하나만 남기지 않는다
+     4 break-word 끊을 자리가 없는 긴 영문 · 주소만 예외로 아무 데서나 끊는다
+
+   모두 :where() 로 감쌌다 — 가중치가 0 이라 이미 있는 규칙을 절대 덮지 않는다.
+   (about.css 의 .copy-status{word-break:break-all} 같은 것이 그대로 이긴다) */
+
+:where(h1,h2,h3,h4,h5,h6,p,li,dt,dd,th,td,figcaption,blockquote,
+       summary,label,legend,caption,a,span,b,strong,em,small,button){
+  word-break:keep-all;
+  overflow-wrap:break-word;
+}
+
+/* 제목 — 줄을 고르게 나눈다 */
+:where(h1,h2,h3,h4,h5,h6,
+       .section-head__title p,.intro .section-name span,.page-intro h1 span,
+       .playstyle__title,.profile__slogan,.project-card h2,.project-row__name,
+       .section-heading h2,.other-projects__head h2,.skill-card h3,
+       .project__copy h2,.project__copy h3,.work__item-line){
+  text-wrap:balance;
+}
+
+/* 본문 — 마지막 줄에 낱말 하나만 남지 않게 */
+:where(p,li,dd,figcaption,blockquote,.project__desc,.work__desc,
+       .skill-card__body,.play__attitude,.detail-intro__lead){
+  text-wrap:pretty;
+}
+
+/* 푸터 이름표는 낱말 하나가 칸을 꽉 채운다 — 여유 0% 라 배율이 조금만 달라져도
+   잘린다. 끊기지 않게 못 박는다. (2026-11-23) */
+.footer__label{white-space:nowrap}

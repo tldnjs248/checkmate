@@ -387,3 +387,29 @@ body, .other-projects, .site-header, .project-index { background: #fff; }
   /* 붙박이 목차 높이도 100vh 기준이라 같이 되돌린다 */
   .project-index { max-height: calc(100vh - 150px); }
 }
+
+
+/* ══ 좁은 화면 되살리기 — 2026-11-23 (자동 생성 · scratchpad/mqfix.js) ══
+   아래 값들은 이미 이 파일 위쪽 @media 안에 적혀 있었지만, 그보다 뒤에 온
+   조건 없는 규칙과 가중치가 같아 좁은 화면에서도 밀려 있었다.
+   값은 그대로 옮기기만 했다. 새 값은 없다.
+   scratchpad/mqchk.js 로 검사한다 — 규칙을 새로 쓸 때마다 돌린다. */
+@media(max-width:760px){
+  body{font-size:15px}
+  .top-button{width:64px;height:44px}
+  .back-link{position:static}
+  .detail-cover{font-size:12px}
+  .detail-intro h1{line-height:1.3}
+  .project-facts>div{min-height:48px}
+  .project-index a{min-height:0;padding:14px 0;font-size:13px}
+  .case-section{min-height:0}
+  .section-heading span{font-size:13px}
+  .visual-wide{height:56vw}
+  .text-evidence article{min-height:0;padding:20px}
+  .text-evidence h3{margin-bottom:14px;font-size:18px}
+  .text-evidence p{font-size:14px}
+  .process-list div{gap:8px 12px;min-height:0;padding:18px 0}
+  .process-list strong{font-size:17px}
+  .process-list p{font-size:14px}
+  .report-button{width:auto;height:auto}
+}

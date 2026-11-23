@@ -597,3 +597,32 @@ body, .about-hero, .numbered-section, .contact, .site-header { background: #fff;
   .brand-mark { left: max(var(--gutter), calc((100vw - 1920px) / 2 + 60px)); }
   .gnb { right: max(var(--gutter), calc((100vw - 1920px) / 2 + 60px)); }
 }
+
+
+/* ══ 좁은 화면 되살리기 — 2026-11-23 (자동 생성 · scratchpad/mqfix.js) ══
+   아래 값들은 이미 이 파일 위쪽 @media 안에 적혀 있었지만, 그보다 뒤에 온
+   조건 없는 규칙과 가중치가 같아 좁은 화면에서도 밀려 있었다.
+   값은 그대로 옮기기만 했다. 새 값은 없다.
+   scratchpad/mqchk.js 로 검사한다 — 규칙을 새로 쓸 때마다 돌린다. */
+@media(max-width:720px){
+  .profile-docs{position:static;margin-top:24px}
+}
+@media(max-width:760px){
+  body{font-size:15px}
+  .about-hero{min-height:0}
+  .profile-docs{position:static;gap:8px;margin-top:20px}
+  .profile-photo{font-size:13px}
+  .introduction{min-height:0}
+  .work-style{min-height:0}
+  .credentials{min-height:0}
+  .skills{min-height:0}
+  .contact{min-height:0}
+  .style-list article{min-height:0}
+  .credential-list article{min-height:0}
+  .credential-list article>span{font-size:12px}
+  .copy-status{font-size:14px}
+  .skill-toggle>span{font-size:13px}
+}
+@media(max-width:1100px){
+  .skill-card__art{width:130px;height:120px}
+}

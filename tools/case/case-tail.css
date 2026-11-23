@@ -552,3 +552,160 @@ html.rv-js .kc .shot.rv:not(.in) > img{transform:scale(1.03)}
 .kc .go,.kc .pd,.kc .ab-b,.kc .hs-ctl button,.kc .lb-ui button,.kc .back{font-size:var(--t-small)}
 .kc .ab-b{font-weight:600}
 .kc .chips span,.kc .st-m span{font-size:var(--t-label)}
+
+/* ══ §29 도표 위계 — 2026-11-23 (사용자 지정) ════════════════════════
+   "수치에 대한 본문(제일 중요) = 수치 = 데이터 시각화 > 도표에 대한 본문 > 출처"
+   도표가 들어가는 모든 영역에 똑같이 건다.
+
+   고치기 전에 잰 값 — 위계가 뒤집혀 있었다
+     출처 20px(글꼴 선언이 없어 본문을 물려받음) = 수치 20px > 설명 17 > 제목 15
+   고친 뒤
+     1단  제목 24 · 수치 32~44 · 시각화(카드 높이의 절반 이상)
+     2단  설명 17 · 회색2
+     3단  출처 15 · 회색3 · 카드 바닥에 윗선을 긋고 붙인다           */
+
+/* ── 1단 · 수치에 대한 본문 ── */
+.kc .cr-t{font:600 var(--t-title)/1.34 var(--kfont);letter-spacing:-.03em;color:var(--label)}
+
+/* ── 2단 · 도표에 대한 본문 ── */
+.kc .cr-d{margin-top:var(--s-3);font:400 var(--t-small)/1.62 var(--kfont);
+  letter-spacing:-.018em;color:var(--label-2);text-wrap:pretty}
+
+/* ── 3단 · 출처 ── */
+.kc .cr-i > .src{margin-top:auto;padding-top:var(--s-5);
+  font:400 var(--t-label)/1.5 var(--kfont);letter-spacing:-.012em;color:var(--label-3)}
+.kc .fig .cr-i > .src{box-shadow:inset 0 1px 0 var(--sep)}
+
+/* 통계 카드 줄 — 장표처럼 가운데 정렬, 시각화가 남는 높이를 다 가져간다 */
+.kc .cr.fig .cr-i{align-items:center;text-align:center}
+.kc .fig .cr-v{display:grid;place-items:center;width:100%;flex:1;
+  min-height:248px;margin:var(--s-6) 0 var(--s-5)}
+
+/* ── 도넛 (장표 04 · 계속해서 선택받는 경험소비) ──────────────────
+   칩을 도넛 상자의 %로 놓는다 — 상자가 줄어도 같은 자리에 같은 비율로 붙는다 */
+.kc .dn2{position:relative;width:min(252px,100%);aspect-ratio:1}
+.kc .dn2 .donut{width:100%;height:100%}
+.kc .dn2 .donut circle{stroke-width:19}
+.kc .dn2 .donut b{font:700 var(--t-head)/1 var(--kfont);letter-spacing:-.04em}
+.kc .dn-c{position:absolute;z-index:2;width:48%;padding:9px 12px;
+  border-radius:14px;background:var(--bg);box-shadow:0 0 0 1px var(--sep),var(--card-sh);
+  font:400 var(--t-label)/1.42 var(--kfont);letter-spacing:-.015em;
+  color:var(--label-2);text-align:left;text-wrap:pretty}
+.kc .dn-c b{font-weight:600;color:var(--label)}
+.kc .dn-c.hi{top:2%;left:58%}
+.kc .dn-c.lo{bottom:8%;right:58%}
+html.rv-js .kc .rv:not(.in) .dn-c{opacity:0;translate:0 8px}
+html.rv-js .kc .rv.in .dn-c{opacity:1;translate:0 0;
+  transition:opacity var(--d3) var(--ease-out) .5s,translate 620ms var(--spring) .5s}
+
+/* ── 알약 막대 (장표 04 · 집에서 경험을 원하는 Z세대) ────────────── */
+.kc .pbs{display:grid;gap:14px;justify-items:center;width:100%}
+.kc .pb{display:grid;place-items:center;width:calc(var(--w) * 1%);min-width:0;
+  height:60px;padding:0 16px;border-radius:99px;background:var(--bg-3);
+  font:400 var(--t-small)/1.3 var(--kfont);letter-spacing:-.018em;color:var(--label-2);
+  white-space:nowrap;transform-origin:50% 50%;
+  transition:transform 760ms var(--ease-out) calc(var(--j,0) * 80ms)}
+.kc .pb b{font-weight:600;color:var(--label)}
+.kc .pb.on{background:linear-gradient(90deg,#8E8E8E,#1D1D1D);color:#fff}
+.kc .pb.on b{color:#fff;font-weight:700}
+html.rv-js .kc .rv:not(.in) .pb{transform:scaleX(.04)}
+
+/* ── 픽토그램 (장표 04 · 집에서 즐거움을 느끼기 어렵다) ───────────
+   장표의 사람 그림을 SVG 로 다시 그렸다 — 어느 배율에서도 또렷하다 */
+.kc .pic{display:grid;gap:var(--s-5);width:100%}
+.kc .pic-r{display:grid;grid-template-columns:auto minmax(0,1fr);
+  align-items:center;gap:var(--s-5);text-align:left}
+.kc .pic-f{display:flex;gap:5px;color:var(--kfill)}
+.kc .pic-r.lo .pic-f{color:var(--kbar)}
+.kc .pic-p{display:block;width:26px;height:44px;flex:none;fill:currentColor;
+  transform-origin:50% 100%;
+  transition:transform 620ms var(--spring) calc(var(--i,0) * 70ms)}
+html.rv-js .kc .rv:not(.in) .pic-p{transform:scale(.4);opacity:0}
+.kc .pic-l span{display:block;font:400 var(--t-label)/1.5 var(--kfont);
+  letter-spacing:-.015em;color:var(--label-3);text-wrap:pretty}
+.kc .pic-l b{display:block;margin-top:2px;
+  font:700 var(--t-sub)/1.15 var(--kfont);letter-spacing:-.04em;color:var(--label)}
+.kc .pic-r.lo .pic-l b{color:var(--label-3)}
+
+@media (max-width:1100px){
+  .kc .cr.fig{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .kc .cr.fig .cr-i:last-child{grid-column:1/-1}
+}
+@media (max-width:760px){
+  .kc .cr.fig{grid-template-columns:minmax(0,1fr)}
+  .kc .fig .cr-v{min-height:0}
+  .kc .pic-p{width:22px;height:37px}
+  .kc .pb{height:54px;white-space:normal;text-align:center}
+}
+
+/* 도표 안 수치는 1단 — 이름표보다 한 단 크고 굵게 (§29) */
+.kc .pb b{font:700 var(--t-body)/1.2 var(--kfont);letter-spacing:-.03em}
+.kc .cr-i .gb-b > span{font:600 var(--t-body)/1.3 var(--kfont);letter-spacing:-.03em;color:var(--label-2)}
+.kc .cr-i .gb.on .gb-b > span{font-weight:700;color:var(--label)}
+.kc .cr-i .gb.dim .gb-b > span{color:var(--label-3)}
+
+/* ══ §30 좁은 화면 되살리기 — 2026-11-23 ═══════════════════════════
+   case.css 는 [머리 → 부품 → 꼬리] 를 이어 붙인다. 꼬리에서 조건 없이 쓴 규칙은
+   앞쪽 @media 규칙과 가중치가 같고 뒤에 있어 **좁은 화면에서도 이긴다.**
+   .ab.bq 때 한 번 겪었는데 또 났다. 아래 넷이 조용히 죽어 있었다.
+
+     .mp    860px 아래에서 한 칸으로 내려가야 하는데 네 칸을 유지했다
+            → 560px 에서 글 칸이 72px 이 되어 한 낱말씩 끊겼다. 외톨이가 아니라 붕괴였다
+     .nd    760px 아래 글자 크기
+     .st-h  760px 아래 왼쪽 정렬
+     .st-m  760px 아래 왼쪽 정렬
+
+   scratchpad/mqchk.js 로 전수 검사한다 — 새 꼬리 규칙을 쓸 때마다 돌린다. */
+@media (max-width:860px){
+  .kc .mp{grid-template-columns:minmax(0,1fr);gap:var(--s-2)}
+}
+@media (max-width:760px){
+  .kc .nd{font-size:var(--t-label)}
+  .kc .st-h{text-align:left}
+  .kc .st-m{justify-content:flex-start}
+}
+
+/* ══ §31 글 칸이 눌리지 않게 — 2026-11-23 (사용자 지정) ═════════════
+   "어떤 배율로 보든, 어떤 해상도로 보든 깨져 보이지 않게"
+
+   낱말 가운데서 끊긴 자리를 쫓아가 보니 줄바꿈 규칙 문제가 아니라
+   **칸이 너무 좁아서** 였다. keep-all 을 걸어도 낱말 하나가 칸보다 넓으면
+   브라우저는 그 낱말을 자른다. 실측값 —
+
+     t4   1280px 에서 네 칸을 유지 → 글 칸 135px → '청년 1인 / 가구' 로 잘림
+          (1920 에서도 194px 밖에 안 된다)
+     t3   900px 아래에서 세 칸을 유지 → 글 칸 156px
+     cr-3 1400px 아래에서 세 칸을 유지 → '벽면 · 천장 · 가구 / · 창문'
+
+   한글은 17px 기준 열 글자는 들어가야 읽힌다 = 글 칸 170px 이 최소선이다.
+   칸 수를 먼저 줄이고, 그래도 좁으면 카드 안 여백을 줄여 글에 자리를 준다. */
+@media (max-width:1400px){
+  .kc .t4{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .kc .cr-3{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .kc .cr-3 > :last-child:nth-child(odd){grid-column:1/-1}
+}
+@media (max-width:900px){
+  .kc .t3{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:1100px){
+  .kc .tile{padding:var(--s-5)}
+  .kc .cr-i{padding:var(--s-5)}
+}
+@media (max-width:760px){
+  .kc .t3,.kc .t4,.kc .cr-3{grid-template-columns:minmax(0,1fr)}
+}
+
+/* ── §29 손질 — 찍어 보고 고친 것 (2026-11-23) ──────────────────
+   1 알약 막대: display:grid 라 글과 <b> 가 각각 한 칸을 차지해 수치가 아래로
+     떨어졌다. 장표처럼 한 줄로 두려면 가로 flex 여야 한다
+   2 도넛 이름표: 48% 는 좁아 네 줄이 됐다. 장표는 두 줄이다
+   3 출처 윗선: 출처가 한 줄인 카드와 두 줄인 카드의 선 높이가 어긋났다
+   4 픽토그램: 카드가 한 줄을 다 쓸 때 왼쪽에 쏠렸다 */
+.kc .pb{display:flex;align-items:center;justify-content:center;gap:.45em}
+.kc .dn-c{width:56%}
+.kc .dn-c.hi{top:2%;left:54%}
+.kc .dn-c.lo{bottom:8%;right:54%}
+/* 출처 칸은 테두리 상자 기준이라 윗여백까지 더해야 두 줄 높이가 된다 */
+.kc .fig .cr-i > .src{min-height:calc(2 * 1.5em + var(--s-5))}
+.kc .pic{width:min(420px,100%);margin:0 auto}
+.kc .pbs{width:min(420px,100%);margin:0 auto}
