@@ -54,25 +54,30 @@
 /* 프로젝트 머리말만 예외 — app.js 가 왼쪽 탭 안으로 옮긴다.
    칸 안으로 들어왔으니 좌우 여백은 칸이 갖고, 아래 32 로 탭과 가른다.
    (2026-11-18 사용자 지정) */
-.work .section-head { padding: 0 0 var(--s5); }
+.work .section-head { padding: 0 0 var(--s4); }
 
 /* ── 2. 프로젝트 — 왼쪽 탭 고정 · 오른쪽 흐름 ──────────────────── */
 .work {
   padding: 56px 60px var(--s7);   /* 2026-11-24 86 → 56. 머리말 + 탭 세 칸이 한 화면에 들어와야 한다 */
   display: grid;
-  grid-template-columns: minmax(0, 581fr) minmax(0, 1195fr);
+  grid-template-columns: minmax(470px, 581fr) minmax(0, 1195fr);
   column-gap: var(--s5);
   align-items: start;
 }
 
 /* 왼쪽 탭 — 머리말(80) 아래 32 에 붙어 따라온다 */
-.work__nav { position: sticky; top: 112px; }
-.work__list { margin: 0; padding: 0; list-style: none; display: grid; gap: var(--s3); }
+.work__nav { position: sticky; top: 96px; }
+/* 화면이 낮으면 머리말은 흘려보내고 탭 세 칸만 붙인다 — 머리말까지 붙여 두면
+   768·720 짜리 노트북에서 셋째 칸이 잘린다. 머리말+탭이 들어가는 높이(627)보다
+   낮을 때만 푼다 — 들어가는 화면에서는 2026-11-18 에 정한 대로 같이 붙어 있는다.
+   --head-h 는 app.js 가 잰 머리말 높이다. */
+@media (max-height: 660px) { .work__nav { top: calc(96px - var(--head-h, 0px)); } }
+.work__list { margin: 0; padding: 0; list-style: none; display: grid; gap: var(--s2); }
 .work__trigger {
   display: grid;
   gap: var(--s1);
   width: 100%;
-  padding: var(--s4);
+  padding: var(--s3) var(--s4);
   text-align: left;
   cursor: pointer;
   border: 1px solid transparent;
@@ -233,17 +238,6 @@
 /* 누를 수 있는 것은 이 줄뿐이다 — 글자가 진해지고, 그 줄의 구분선이 같이 진해진다 */
 .play__proof a:hover b, .play__proof a:hover span, .play__proof a:hover i,
 .play__proof a:focus-visible b, .play__proof a:focus-visible span, .play__proof a:focus-visible i { color: var(--ink); }
-
-/* ── 1600 아래 — 탭을 가로 한 줄로 편다 (2026-11-24 사용자 지정) ──
-   세로로 쌓으면 글이 두 줄씩 접혀 세 칸 합이 900 을 넘는다. 머리말까지 더하면
-   노트북 화면(보임 높이 700~800)에서 셋째 칸이 잘린다. 가로로 펴면 한 줄 높이로 끝난다.
-   ※ 이 묶음은 아래 1100 · 760 보다 **앞에** 둔다 — 같은 가중치라 뒤에 온 넓은 쪽이 이긴다 */
-@media (max-width: 1600px) {
-  .work { grid-template-columns: minmax(0, 1fr); gap: var(--s5); padding-top: var(--s6); }
-  .work__nav { position: static; }
-  .work__list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .work__flow { padding-top: 0; }
-}
 
 /* ── 좁은 화면 — 두 칸을 한 칸으로 접는다 ───────────────────── */
 @media (max-width: 1100px) {
