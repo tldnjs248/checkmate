@@ -216,15 +216,18 @@ document.querySelector('#project-number').textContent=project.number;document.qu
    파일이 없는 종류는 단추를 아예 그리지 않는다. 눌러도 아무 일 없는 단추는 두지 않는다. */
 const DOC={
   'korail-talk':[['보고서 보기','docs/코레일톡_예약관리_개선보고서.pdf']],
-  'mould':[['기획서 보기','docs/MOULD_공간경험_서비스기획서.pdf']],
+  /* 2026-11-23 웹 쇼잉 — 실제로 돌아가는 사이트라 문서 단추와 테두리로 구분한다 */
+  'mould':[['기획서 보기','docs/MOULD_공간경험_서비스기획서.pdf'],
+           ['웹 쇼잉 보러가기','https://busy-venus-155131.framer.app/','live']],
   'lotte-cinema':[['기획서 보기','docs/롯데시네마_특별관탐색_개선기획서.pdf']],
   /* 2026-11-21 LET'S SYNC — 원본이 65MB · 74MB 라 쪽마다 그림으로 다시 그려 줄였다 */
   'dmd-graduation':[['기획서 보기','docs/LETSSYNC_졸업전시브랜딩_기획서.pdf'],
-                    ['화면설계서 보기','docs/LETSSYNC_졸업전시웹_화면설계서.pdf']]
+                    ['화면설계서 보기','docs/LETSSYNC_졸업전시웹_화면설계서.pdf'],
+                    ['웹 쇼잉 보러가기','https://www.digital-media.kr/degreeshow/2026/','live']]
 };
 const docs=DOC[project.id]||[];
 document.querySelector('#project-docs').innerHTML=docs
-  .map(([label,href])=>`<a class="report-button" href="${href}" target="_blank" rel="noopener">${label} <i aria-hidden="true">↗</i></a>`)
+  .map(([label,href,kind])=>`<a class="report-button${kind?' '+kind:''}" href="${href}" target="_blank" rel="noopener">${label} <i aria-hidden="true">↗</i></a>`)
   .join('');
 if(!docs.length)document.querySelector('#project-docs').hidden=true;
 /* 핵심 판단 — 근거로 방향을 바꾼 프로젝트에만 노출한다 */

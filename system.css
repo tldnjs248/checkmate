@@ -470,6 +470,9 @@ a:focus-visible,button:focus-visible,select:focus-visible{
   font-size:14px;font-weight:600;letter-spacing:-.01em;}
 .report-button i{padding-left:6px;}
 .report-button:hover,.report-button:focus-visible{background:var(--paper);color:var(--ink);}
+/* 웹 쇼잉 단추 — 문서(PDF)와 실제로 돌아가는 사이트를 한눈에 가른다 (2026-11-23) */
+.report-button.live{background:var(--paper);color:var(--ink);}
+.report-button.live:hover,.report-button.live:focus-visible{background:var(--ink);color:#fff;}
 
 /* ── 3-2. 정보표 — 네 단을 기보 칸으로 되돌린다 ── */
 .project-facts{display:block;max-width:none;border-top:1px solid var(--line);}
