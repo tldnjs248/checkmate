@@ -334,3 +334,33 @@ strong,b{font-weight:600;}
 /* 푸터 이름표는 낱말 하나가 칸을 꽉 채운다 — 여유 0% 라 배율이 조금만 달라져도
    잘린다. 끊기지 않게 못 박는다. (2026-11-23) */
 .footer__label{white-space:nowrap}
+
+/* ══ 단추 글자 — 2026-11-23 (사용자 지정) ═══════════════════════════
+   "버튼 안에 텍스트 크기 살짝 줄여서 빠져나가는 거 없도록"
+
+   재 보니 20px 글자에 너비가 160px 으로 못 박혀 있어, '자기소개서 PDF ↗' 가
+   두 줄이 되고 화살표가 단추 밖으로 나갔다. 두 가지를 같이 고친다.
+     1 글자를 한 단 내린다  20(--t-body) → 17(--t-small)
+     2 너비를 내용에 맞춘다. 160 은 이제 최소값이고, 글이 길면 단추가 늘어난다
+       nowrap 을 걸어 어떤 배율에서도 두 줄이 되지 않게 못 박는다 */
+.button,.profile-docs a,.contact-copy a,.contact-copy button,.report-button{
+  font-size:var(--t-small);
+  white-space:nowrap;
+}
+.button,.profile-docs a,.report-button{
+  width:auto;
+  min-width:160px;
+  padding-left:20px;
+  padding-right:20px;
+  justify-content:center;
+}
+/* 좁은 화면에서는 예전처럼 한 줄을 다 쓴다 */
+@media (max-width:760px){
+  .button,.profile-docs a{width:100%;min-width:0}
+}
+
+/* 소개 옆단의 두 단추는 사진 폭(420)에 맞춰 반반으로 나눴는데, 1100px 아래에서
+   칸이 160px 까지 좁아져 '자기소개서 PDF 보기 ↗'(148px)가 빠져나갔다.
+   칸이 170 아래로 내려가면 한 줄로 내려오게 둔다 — 넓을 때는 그대로 반반이다 */
+.profile__side .profile-docs{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
+.profile__side .profile-docs a{min-width:0}
