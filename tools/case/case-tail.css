@@ -709,3 +709,115 @@ html.rv-js .kc .rv:not(.in) .pic-p{transform:scale(.4);opacity:0}
 .kc .fig .cr-i > .src{min-height:calc(2 * 1.5em + var(--s-5))}
 .kc .pic{width:min(420px,100%);margin:0 auto}
 .kc .pbs{width:min(420px,100%);margin:0 auto}
+
+/* ══ §32 사례 카드 (cs) — 장표 05 그대로 · 2026-11-23 ═══════════════
+   피그마 616:18247 의 박스 셋. 사진이 먼저, 그 아래 제목 · 브랜드 · 본문. */
+.kc .cr.cs .cr-i{align-items:stretch;text-align:left;padding:var(--s-5)}
+.kc .cs .cr-im{order:-1;margin:0 0 var(--s-5)}
+.kc .cs .cr-im img{aspect-ratio:16/9}
+.kc .cs .cr-t{font:600 var(--t-title)/1.34 var(--kfont);letter-spacing:-.03em}
+.kc .cs .cr-br{display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--s-2);margin-top:var(--s-2);
+  font:400 var(--t-small)/1.4 var(--kfont);letter-spacing:-.018em;color:var(--label-3)}
+.kc .cs .cr-br b{font-weight:600;color:var(--label)}
+.kc .cs .cr-d{margin-top:var(--s-4)}
+
+/* ══ §33 페르소나 여정 (pj) — 장표 09 · 10 그대로 · 2026-11-23 ══════
+   사용자 지정: "영상 시청 관점 빼고 서비스 사용 시점만".
+   그래서 장표 아래쪽 '영상 시청 관점' 네 칸은 옮기지 않았다.
+
+   왼쪽 신원 카드 | 오른쪽 서비스 이용 여정(PAIN·NEEDS 셋 + 단계 표).
+   표는 여섯 칸이라 좁은 화면에서는 가로로 민다 — 글자를 줄이지 않는다. */
+.kc .pj{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);
+  gap:var(--s-6);margin-top:var(--s-6);align-items:start}
+.kc .pj + .pj{margin-top:var(--s-7)}
+
+/* 왼쪽 — 누구인가 */
+.kc .pj-id{padding:var(--s-6);border-radius:var(--r-outer);background:var(--kcard)}
+.kc .pj-hd{display:grid;grid-template-columns:auto minmax(0,1fr);gap:var(--s-4);align-items:center}
+.kc .pj-av{display:grid;place-items:center;width:62px;height:62px;border-radius:18px;
+  background:var(--bg-3);font:700 var(--t-sub)/1 var(--kfont);letter-spacing:-.04em;color:var(--label)}
+.kc .pj-nm{font:600 var(--t-title)/1.3 var(--kfont);letter-spacing:-.03em}
+.kc .pj-mt{margin-top:4px;font:400 var(--t-label)/1.5 var(--kfont);
+  letter-spacing:-.012em;color:var(--label-3)}
+.kc .pj-k{margin-top:var(--s-6);font:400 var(--t-label)/1.4 var(--kfont);color:var(--label-3)}
+.kc .pj-ty{margin-top:var(--s-2);padding-bottom:var(--s-5);box-shadow:inset 0 -1px 0 var(--sep);
+  font:600 var(--t-title)/1.34 var(--kfont);letter-spacing:-.03em;text-wrap:balance}
+.kc .pj-id h4{margin:var(--s-5) 0 0;font:600 var(--t-small)/1.4 var(--kfont);
+  letter-spacing:.02em;color:var(--label)}
+.kc .pj-id h4 + p,.kc .pj-id h4 + ul{margin-top:var(--s-2)}
+.kc .pj-id p{font:400 var(--t-small)/1.6 var(--kfont);letter-spacing:-.018em;color:var(--label-2)}
+.kc .pj-id ul{margin:0;padding:0;list-style:none}
+.kc .pj-id li{display:grid;grid-template-columns:10px minmax(0,1fr);gap:var(--s-2);
+  font:400 var(--t-small)/1.6 var(--kfont);letter-spacing:-.018em;color:var(--label-2)}
+.kc .pj-id li::before{content:"·";color:var(--label-3)}
+.kc .pj-id > .src{margin-top:var(--s-5)}
+
+/* 오른쪽 머리 — 서비스 이용 여정 */
+.kc .pj-h{display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--s-3)}
+.kc .pj-h b{font:600 var(--t-title)/1.3 var(--kfont);letter-spacing:-.03em}
+.kc .pj-h span{font:400 var(--t-label)/1.4 var(--kfont);color:var(--label-3)}
+
+/* PAIN → NEEDS 셋 */
+.kc .pj-pn{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s-4);margin-top:var(--s-4)}
+.kc .pj-c{display:grid;grid-template-columns:auto minmax(0,1fr);gap:var(--s-2) var(--s-4);
+  padding:var(--s-5);border-radius:var(--r-outer);background:var(--kcard)}
+.kc .pj-c dt{font:600 var(--t-label)/1.5 var(--kfont);letter-spacing:.04em;color:var(--label-3)}
+.kc .pj-c dd{margin:0;font:400 var(--t-small)/1.5 var(--kfont);letter-spacing:-.018em;color:var(--label-2)}
+.kc .pj-c dd.on{color:var(--label);font-weight:600}
+
+/* 단계 표 */
+.kc .pj-w{margin-top:var(--s-4);overflow-x:auto;border-radius:var(--r-outer);background:var(--kcard)}
+.kc .pj-t{display:grid;grid-template-columns:92px repeat(5,minmax(132px,1fr));min-width:760px}
+.kc .pj-t > b,.kc .pj-t > span{padding:var(--s-4) var(--s-3);min-width:0}
+.kc .pj-t > b{font:400 var(--t-label)/1.5 var(--kfont);color:var(--label-3)}
+.kc .pj-t > span{font:400 var(--t-small)/1.5 var(--kfont);letter-spacing:-.018em;color:var(--label-2)}
+.kc .pj-t .hd{box-shadow:inset 0 -1px 0 var(--sep)}
+.kc .pj-t .hd span,.kc .pj-t > span.stg{font-weight:600;color:var(--label)}
+.kc .pj-t > span.stg i{margin-right:6px;font-style:normal;font-weight:400;color:var(--label-3)}
+.kc .pj-t .sol{background:var(--bg-3)}
+.kc .pj-t .sol span{color:var(--label);font-weight:500}
+
+/* 감정 꺾은선 — 선만 SVG 로 늘이고, 점은 HTML 이라 찌그러지지 않는다 */
+.kc .pj-em{grid-column:2/-1;position:relative;height:104px;margin:var(--s-3) 0}
+.kc .pj-ln{position:absolute;inset:26px 0 18px;width:100%;height:calc(100% - 44px);overflow:visible}
+.kc .pj-ln polyline{fill:none;stroke:var(--label-3);stroke-width:1.4;
+  vector-effect:non-scaling-stroke;stroke-linejoin:round}
+.kc .pj-em i{position:absolute;top:calc(26px + (100% - 44px) * var(--y) / 100);left:calc(var(--x) * 1%);
+  translate:-50% -50%;width:9px;height:9px;border-radius:99px;background:var(--label);
+  transition:scale 520ms var(--spring) calc(var(--j,0) * 90ms)}
+.kc .pj-em i b{position:absolute;left:50%;bottom:14px;translate:-50% 0;white-space:nowrap;
+  font:400 var(--t-label)/1.3 var(--kfont);color:var(--label-2)}
+html.rv-js .kc .rv:not(.in) .pj-em i{scale:0}
+html.rv-js .kc .rv:not(.in) .pj-ln{opacity:0}
+.kc .pj-ln{transition:opacity 620ms var(--ease-out) .2s}
+
+@media (max-width:1100px){
+  .kc .pj{grid-template-columns:minmax(0,1fr);gap:var(--s-5)}
+  .kc .pj-id{padding:var(--s-5)}
+}
+@media (max-width:760px){
+  .kc .pj-pn{grid-template-columns:minmax(0,1fr)}
+}
+
+/* §33 손질 — 찍어 보고 (2026-11-23)
+   1 메타가 이름 옆 좁은 칸에서 석 줄이 됐다. 장표처럼 아래로 내려 두 줄로 둔다
+   2 PAIN 글이 길어 카드마다 NEEDS 높이가 어긋났다. 장표는 줄이 맞는다 */
+.kc .pj-hd{grid-template-columns:auto minmax(0,1fr);align-items:center}
+.kc .pj-id > .pj-mt{margin-top:var(--s-4)}
+.kc .pj-c dd{min-height:calc(2 * 1.5em)}
+
+/* PAIN · NEEDS 는 칸이 좁아 '… / 기기' 처럼 두 글자가 혼자 남았다.
+   줄 길이를 고르게 나눠 외톨이를 없앤다 (§31) */
+.kc .pj-c dd{text-wrap:balance}
+
+/* 1280px 에서 PAIN 글 칸이 74px 까지 눌렸다 (300 신원칸 + 세 카드 + 이름표칸).
+   신원 카드를 먼저 위로 내리고, 그래도 좁으면 PAIN · NEEDS 이름표를 윗줄로 올린다 (§31) */
+@media (max-width:1400px){
+  .kc .pj{grid-template-columns:minmax(0,1fr);gap:var(--s-5)}
+  .kc .pj-id{padding:var(--s-5)}
+}
+@media (max-width:1100px){
+  .kc .pj-c{grid-template-columns:minmax(0,1fr);gap:2px var(--s-4)}
+  .kc .pj-c dd{min-height:0}
+  .kc .pj-c dd + dt{margin-top:var(--s-3)}
+}
