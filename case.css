@@ -1616,3 +1616,232 @@ html.rv-js .kc .rv:not(.in) .pj-ln{opacity:0}
   .kc .pj-c dd{min-height:0}
   .kc .pj-c dd + dt{margin-top:var(--s-3)}
 }
+
+/* ══ §34 LET'S SYNC — 2026-11-23 (사용자 지정) ══════════════════════
+   피그마 4kYiTuHsZC6c04jtvl23ea · 584:51 「전체 기획안」 31장.
+   장표 옆 개선사항 메모 아홉 개를 따랐다 — 핵심은 하나다.
+   **장표를 사진으로 붙이지 않는다.** 칸 · 선 · 점 · 축은 전부 HTML·SVG 로 다시 그리고
+   사진 요소만 원본으로 뜯어 쓴다.
+
+   색 — 이 프로젝트만 브랜드 마젠타(#FD00A0)를 포인트로 쓴다 (사용자 지정).
+   장표에서처럼 제목 한 낱말 · 강조 수치 · 포지셔닝 맵의 LET'S SYNC 버블 정도다.
+   다른 상세 페이지는 그대로 무채색이다 — 아래 부품에서만 var(--pink) 를 부른다. */
+.kc{--pink:#FD00A0;--pink-2:rgba(253,0,160,.08);--pink-3:rgba(253,0,160,.34)}
+.kc .pk-w{color:var(--pink)}
+
+/* ── 점·선 네트워크 (장표 3.2 Title · 개선사항 "디자인 요소 뜯어서 html로") ──
+   113명을 113개의 점으로. 점이 서로를 당기는 것이 SYNC 다 */
+.kc .net{position:relative;margin-top:var(--s-6);border-radius:var(--r-outer);
+  overflow:hidden;background:var(--kcard);aspect-ratio:16/7;min-height:280px}
+.kc .net svg{position:absolute;inset:0;width:100%;height:100%}
+.kc .net .ln{stroke:var(--line);stroke-width:.6;fill:none;opacity:.5}
+.kc .net .dt{fill:var(--label-3)}
+.kc .net .dt.on{fill:var(--pink)}
+html.rv-js .kc .rv:not(.in) .net .ln{opacity:0}
+html.rv-js .kc .rv.in .net .ln{opacity:.5;transition:opacity 1200ms var(--ease-out) .25s}
+html.rv-js .kc .rv:not(.in) .net .dt{opacity:0;transform:scale(.3);transform-origin:center;transform-box:fill-box}
+html.rv-js .kc .rv.in .net .dt{opacity:1;transform:scale(1);
+  transition:opacity 520ms var(--ease-out) calc(var(--i,0) * 9ms),
+             transform 680ms var(--spring) calc(var(--i,0) * 9ms)}
+.kc .net-c{position:absolute;left:var(--s-6);bottom:var(--s-6);right:var(--s-6);z-index:2}
+.kc .net-t{font:700 var(--t-head)/1 var(--kfont);letter-spacing:-.045em;color:var(--pink)}
+.kc .net-d{margin-top:var(--s-4);max-width:720px;
+  font:400 var(--t-body)/1.7 var(--kfont);letter-spacing:-.02em;color:var(--label)}
+.kc .net-s{margin-top:var(--s-2);font:400 var(--t-small)/1.6 var(--kfont);color:var(--label-3)}
+
+/* ── 엇갈림 격자 (장표 1.4 Research Summary 두 장) ─────────────────
+   개선사항 "네모 칸들 다 그려서 html로 넣기. 사진 요소 다 그대로 사용".
+   사진 칸과 글 칸이 바둑판으로 엇갈린다 — 장표와 같은 배치 */
+.kc .chk{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:0;margin-top:var(--s-6);border-radius:var(--r-outer);overflow:hidden}
+.kc .chk-im{position:relative;margin:0;aspect-ratio:1;overflow:hidden;background:var(--bg-2)}
+.kc .chk-im img{display:block;width:100%;height:100%;object-fit:cover;
+  transition:transform 900ms var(--ease-exp)}
+@media (hover:hover){.kc .chk-im:hover img{transform:scale(1.05)}}
+.kc .chk-c{display:flex;flex-direction:column;justify-content:flex-end;
+  padding:var(--s-6);aspect-ratio:1;background:var(--bg)}
+.kc .chk-k{font:400 var(--t-label)/1.4 var(--kfont);letter-spacing:.02em;color:var(--label-3)}
+.kc .chk-k em{display:block;font-style:normal;color:var(--pink)}
+.kc .chk-t{margin-top:auto;font:600 var(--t-sub)/1.3 var(--kfont);
+  letter-spacing:-.035em;text-wrap:balance}
+.kc .chk-d{margin-top:var(--s-4);font:400 var(--t-small)/1.6 var(--kfont);
+  letter-spacing:-.018em;color:var(--label-2);text-wrap:pretty}
+html.rv-js .kc .rv:not(.in) .chk-im img{transform:scale(1.07)}
+@media (max-width:1100px){
+  .kc .chk{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .kc .chk-c{padding:var(--s-5);aspect-ratio:auto;min-height:260px}
+}
+@media (max-width:620px){
+  .kc .chk{grid-template-columns:minmax(0,1fr)}
+  .kc .chk-c{min-height:0}
+}
+
+/* ── 사분면 · 세 칸 (장표 2.1 3C · 2.5 SWOT) ────────────────────── */
+.kc .quad{display:grid;gap:var(--s-4);margin-top:var(--s-6)}
+.kc .quad-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.kc .quad-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.kc .qd{padding:var(--s-6);border-radius:var(--r-outer);background:var(--kcard)}
+.kc .qd-h{display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--s-3);
+  padding-bottom:var(--s-4);box-shadow:inset 0 -1px 0 var(--sep)}
+.kc .qd-h b{font:600 var(--t-small)/1.3 var(--kfont);letter-spacing:.06em;color:var(--label)}
+.kc .qd-h span{font:400 var(--t-label)/1.3 var(--kfont);color:var(--label-3)}
+.kc .qd dl{display:grid;grid-template-columns:auto minmax(0,1fr);
+  gap:var(--s-3) var(--s-4);margin:var(--s-5) 0 0}
+.kc .qd dt{font:600 var(--t-small)/1.5 var(--kfont);letter-spacing:-.018em;
+  color:var(--label);white-space:nowrap}
+.kc .qd dd{margin:0;font:400 var(--t-small)/1.6 var(--kfont);
+  letter-spacing:-.018em;color:var(--label-2);text-wrap:pretty}
+.kc .qd ul{margin:var(--s-5) 0 0;padding:0;list-style:none;display:grid;gap:var(--s-3)}
+.kc .qd li{font:400 var(--t-small)/1.6 var(--kfont);letter-spacing:-.018em;color:var(--label-2)}
+.kc .qd-i{margin-top:var(--s-5);padding-top:var(--s-5);box-shadow:inset 0 1px 0 var(--sep)}
+.kc .qd-i b{display:block;font:600 var(--t-small)/1.4 var(--kfont);
+  letter-spacing:.04em;color:var(--pink)}
+.kc .qd-i span{display:block;margin-top:var(--s-2);
+  font:400 var(--t-small)/1.6 var(--kfont);color:var(--label);text-wrap:pretty}
+@media (hover:hover){
+  .kc .qd{transition:transform 520ms var(--spring),box-shadow 320ms var(--ease-out)}
+  .kc .qd:hover{transform:translateY(-3px)}
+}
+@media (max-width:1100px){.kc .quad-3{grid-template-columns:minmax(0,1fr)}
+  .kc .quad-2{grid-template-columns:minmax(0,1fr)}.kc .qd{padding:var(--s-5)}}
+
+/* ── 포지셔닝 맵 (장표 2.4 · 개선사항 "하나하나 요소들 뜯어서 html로 구성") ──
+   왼쪽 벤치마킹 카드 넷 | 오른쪽 축 + 동심원 + 버블. 전부 SVG 다.
+   카드에 올리면 짝이 되는 버블이 커진다 — 1:1 로 맞춰 읽게 */
+.kc .pmap{display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);
+  gap:var(--s-6);margin-top:var(--s-6);align-items:start}
+.kc .pm-ls{display:grid;gap:var(--s-4)}
+.kc .pm-b{display:block;width:100%;padding:var(--s-5);border:0;text-align:left;
+  border-radius:var(--r-outer);background:var(--kcard);cursor:pointer;
+  transition:transform 520ms var(--spring),box-shadow 320ms var(--ease-out)}
+.kc .pm-b b{display:block;font:600 var(--t-title)/1.3 var(--kfont);letter-spacing:-.03em}
+.kc .pm-b i{display:block;margin-top:2px;font-style:normal;
+  font:400 var(--t-label)/1.4 var(--kfont);color:var(--label-3)}
+.kc .pm-b span{display:block;margin-top:var(--s-3);
+  font:400 var(--t-small)/1.6 var(--kfont);letter-spacing:-.018em;
+  color:var(--label-2);text-wrap:pretty}
+.kc .pm-b.on,.kc .pm-b:hover{box-shadow:0 0 0 1.5px var(--pink-3),var(--card-sh-hi);transform:translateY(-3px)}
+.kc .pm-b.me b{color:var(--pink)}
+
+.kc .pm-g{position:relative;border-radius:var(--r-outer);background:var(--kcard);
+  padding:var(--s-6);aspect-ratio:16/11}
+.kc .pm-g svg{width:100%;height:100%;overflow:visible}
+.kc .pm-g .ax{stroke:var(--sep);stroke-width:1}
+.kc .pm-g .rg{fill:none;stroke:var(--sep);stroke-width:1;stroke-dasharray:3 4}
+.kc .pm-g .bb{fill:var(--bg-3);transition:r 560ms var(--spring),fill 320ms var(--ease-out)}
+.kc .pm-g .bb.me{fill:none;stroke:var(--pink);stroke-width:1.6}
+.kc .pm-g g.on .bb{fill:var(--label-3)}
+.kc .pm-g g.on .bb.me{fill:var(--pink-2)}
+.kc .pm-g text{font:600 10px/1 var(--kfont);fill:var(--label-2);text-anchor:middle}
+.kc .pm-g g.me text{fill:var(--pink)}
+.kc .pm-l{position:absolute;font:400 var(--t-label)/1.3 var(--kfont);color:var(--label-3)}
+.kc .pm-l.t{top:var(--s-4);left:var(--s-6)}
+.kc .pm-l.b{bottom:var(--s-4);right:var(--s-6)}
+.kc .pm-l.l{left:var(--s-6);top:50%;translate:0 -50%}
+.kc .pm-l.r{right:var(--s-6);top:50%;translate:0 -50%;text-align:right}
+.kc .pm-ax{position:absolute;top:var(--s-4);right:var(--s-6);text-align:right;
+  font:400 var(--t-label)/1.5 var(--kfont);color:var(--label-3)}
+html.rv-js .kc .rv:not(.in) .pm-g .bb{r:0}
+@media (max-width:1100px){
+  .kc .pmap{grid-template-columns:minmax(0,1fr)}
+  .kc .pm-g{padding:var(--s-5);aspect-ratio:1}
+}
+
+/* ── 컨셉 맵 (장표 Concept Map) ──────────────────────────────────
+   How · What · Core · Do · Show 다섯 칸 × 세 줄. Core 는 세 줄에 걸친 한 칸 */
+.kc .cmap{margin-top:var(--s-6);overflow-x:auto}
+.kc .cm{display:grid;grid-template-columns:minmax(230px,1.15fr) minmax(150px,.75fr)
+  minmax(190px,1fr) minmax(240px,1.25fr) minmax(230px,1.2fr);
+  min-width:960px;column-gap:var(--s-5)}
+.kc .cm-h{padding-bottom:var(--s-3);box-shadow:inset 0 -1px 0 var(--label)}
+.kc .cm-h b{font:600 var(--t-small)/1.3 var(--kfont);letter-spacing:-.01em}
+.kc .cm-h span{margin-left:var(--s-2);font:400 var(--t-label)/1.3 var(--kfont);color:var(--label-3)}
+.kc .cm-r{padding:var(--s-6) 0;box-shadow:inset 0 -1px 0 var(--sep)}
+.kc .cm-r:last-child{box-shadow:none}
+.kc .cm-no{font:400 var(--t-title)/1.2 var(--kfont);color:var(--label-3)}
+.kc .cm-t{margin-top:2px;font:600 var(--t-title)/1.3 var(--kfont);letter-spacing:-.03em}
+.kc .cm-d{margin-top:var(--s-3);font:400 var(--t-small)/1.6 var(--kfont);
+  letter-spacing:-.018em;color:var(--label-2);text-wrap:pretty}
+.kc .cm-v{font:600 var(--t-sub)/1.2 var(--kfont);letter-spacing:-.04em}
+.kc .cm-v span{display:block;margin-top:4px;font:400 var(--t-label)/1.4 var(--kfont);
+  letter-spacing:0;color:var(--label-3)}
+.kc .cm ul{margin:0;padding:0;list-style:none;display:grid;gap:6px}
+.kc .cm li{display:grid;grid-template-columns:10px minmax(0,1fr);gap:var(--s-2);
+  font:400 var(--t-small)/1.55 var(--kfont);letter-spacing:-.018em;color:var(--label-2)}
+.kc .cm li::before{content:"·";color:var(--label-3)}
+.kc .cm li.hd{display:block;margin-bottom:2px;font-weight:600;color:var(--label)}
+.kc .cm li.hd::before{content:none}
+.kc .cm-core{grid-column:3;grid-row:2/5;display:grid;place-items:center;text-align:center;
+  padding:var(--s-6) var(--s-5);margin:var(--s-6) 0;
+  border-radius:var(--r-outer);background:var(--pink-2)}
+.kc .cm-core b{display:block;font:700 var(--t-sub)/1.1 var(--kfont);
+  letter-spacing:-.04em;color:var(--pink)}
+.kc .cm-core span{display:block;margin-top:var(--s-4);
+  font:600 var(--t-body)/1.4 var(--kfont);letter-spacing:-.03em;color:var(--label)}
+.kc .cm-core em{display:block;margin-top:4px;font-style:normal;
+  font:400 var(--t-small)/1.4 var(--kfont);color:var(--label-2)}
+
+/* ── 전시 도면 + 핀 (장표 4.1.2 · 개선사항 "네모 칸 다 그려서 html") ──
+   도면만 그림으로 쓰고, 번호 핀과 설명 카드는 HTML 이다.
+   카드에 올리면 도면 위의 짝 핀이 커진다 */
+.kc .plan{margin-top:var(--s-6)}
+.kc .plan-im{position:relative;border-radius:var(--r-outer);overflow:hidden;background:#2E2E2E}
+.kc .plan-im img{display:block;width:100%;height:auto}
+.kc .plan-p{position:absolute;left:calc(var(--x) * 1%);top:calc(var(--y) * 1%);
+  translate:-50% -50%;display:grid;place-items:center;
+  width:30px;height:30px;border-radius:99px;background:var(--pink);
+  font:700 var(--t-label)/1 var(--kfont);color:#fff;
+  box-shadow:0 0 0 0 var(--pink-3);
+  transition:scale 520ms var(--spring),box-shadow 420ms var(--ease-out)}
+.kc .plan-p.on{scale:1.28;box-shadow:0 0 0 10px var(--pink-3)}
+.kc .plan-ls{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:var(--s-4);margin-top:var(--s-5)}
+.kc .plan-c{display:grid;grid-template-columns:28px minmax(0,1fr);gap:var(--s-2) var(--s-4);
+  align-content:start;padding:var(--s-5);border:0;text-align:left;
+  border-radius:var(--r-outer);background:var(--kcard);cursor:pointer;
+  transition:transform 520ms var(--spring),box-shadow 320ms var(--ease-out)}
+.kc .plan-c > i{display:grid;place-items:center;width:28px;height:28px;border-radius:99px;
+  background:var(--label);font-style:normal;
+  font:700 var(--t-label)/1 var(--kfont);color:var(--bg)}
+.kc .plan-c.pk > i{background:var(--pink)}
+.kc .plan-c b{align-self:center;font:600 var(--t-title)/1.3 var(--kfont);letter-spacing:-.03em}
+.kc .plan-c span{grid-column:2;font:400 var(--t-small)/1.6 var(--kfont);
+  letter-spacing:-.018em;color:var(--label-2);text-wrap:pretty}
+.kc .plan-c.on,.kc .plan-c:hover{transform:translateY(-3px);
+  box-shadow:0 0 0 1.5px var(--pink-3),var(--card-sh-hi)}
+@media (max-width:1100px){
+  .kc .plan-ls{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .kc .plan-p{width:24px;height:24px}
+}
+@media (max-width:760px){
+  .kc .plan-ls{grid-template-columns:minmax(0,1fr)}
+  .kc .plan-im{overflow-x:auto}
+  .kc .plan-im img{min-width:760px}
+}
+
+/* 네트워크 위의 글이 점과 겹쳐 읽기 어려웠다 — 글 뒤에만 옅은 가림막을 둔다 (§34) */
+.kc .net::after{content:"";position:absolute;left:0;right:0;bottom:0;height:62%;z-index:1;
+  background:linear-gradient(to top,var(--kcard) 24%,rgba(248,248,248,.86) 52%,transparent)}
+
+/* §34 손질 — 찍어 보고 (2026-11-23)
+   1 Core 칸의 세 줄이 칸 높이만큼 벌어졌다. 장표는 가운데 모여 있다
+   2 LET'S SYNC 버블의 글이 동그라미 밖으로 나갔다
+   3 컨셉 맵 마지막 줄 아래에 선이 남았다 */
+.kc .cm-core{display:flex;flex-direction:column;justify-content:center;gap:var(--s-5)}
+.kc .cm-core > *{margin-top:0}
+.kc .pm-g g.me text{font-size:8.4px}
+.kc .cm > .cm-r:nth-last-child(-n+4){box-shadow:none}
+
+/* 엇갈림 격자가 1400px 아래에서도 네 칸이라 글 칸이 215px 까지 좁아졌다.
+   28px 글자로 일곱 자면 '…설계하는 / 경험' 처럼 끊긴다 — 두 칸으로 먼저 내린다 (§31) */
+@media (max-width:1400px){
+  .kc .chk{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .kc .chk-c{padding:var(--s-5);aspect-ratio:auto;min-height:260px}
+}
+
+/* 위 1400px 규칙이 앞서 쓴 620px 규칙(한 칸)을 덮었다 — 좁은 쪽을 다시 세운다.
+   @media 끼리도 뒤에 온 것이 이긴다. mqchk.js 가 이 경우도 잡도록 넓혔다 (§30) */
+@media (max-width:620px){
+  .kc .chk{grid-template-columns:minmax(0,1fr)}
+  .kc .chk-c{min-height:0}
+}

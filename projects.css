@@ -647,3 +647,12 @@ body, .page-intro, .project-grid-section, .site-header { background: #fff; }
   .page-intro__copy{bottom:auto;width:auto}
   .page-intro__copy p{font-size:22px}
 }
+
+/* ══ 좁은 화면 되살리기 2 — 2026-11-23 ═══════════════════════════════
+   760px 규칙이 뒤쪽 1100 · 1200px 규칙에 먹혀 있었다. 휴대폰 값을 다시 세운다.
+   값은 그대로 옮기기만 했다 — scratchpad/mqchk.js 참고 */
+@media (max-width: 760px) {
+  .page-intro { height: auto; }
+  .page-intro h1 { font-size: 38px; }
+  .page-intro__copy p { font-size: 18px; }
+}

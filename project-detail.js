@@ -130,6 +130,10 @@ const projects = [
   },
   {
     id:'dmd-graduation',number:'04',
+    /* 2026-11-23 보고서판으로 — 내용과 목차는 case-dmd-graduation.js 가 들고 온다.
+       아래 sections 는 보고서판에서 쓰이지 않지만, case 파일을 못 불러왔을 때의
+       대비책으로 남겨 둔다 (addJS 의 onerror 가 rv-js 를 걷어낸다) */
+    report:true,
     title:"Delight Insight 2026 | LET'S SYNC 브랜딩",
     summary:'주제를 회의실에서 정하지 않고 졸업생에게 물어, 전시 현장과 웹을 잇는 관람 경험으로 옮겼습니다.',
     type:'브랜드 / 경험',period:'2026.09 — 12',

@@ -261,6 +261,48 @@ if(V&&SD.length){var pg=$('.sdv-pg',V),im=$('img',pg),rail=$('.sdv-rail',V),cnt=
     pg.addEventListener('pointercancel',function(){on2=false})})()}
 })();
 
+(function(){
+  var q=function(sel,root){return [].slice.call((root||document).querySelectorAll(sel))};
+
+  /* ── 점·선 네트워크 ── */
+  q('[data-net] svg').forEach(function(svg){
+    var W=1200,H=525,N=113,seed=20261122;
+    function rnd(){seed=(seed*1664525+1013904223)%4294967296;return seed/4294967296}
+    var pts=[],i,j;
+    for(i=0;i<N;i++)pts.push({x:rnd()*W,y:rnd()*H,r:1.6+rnd()*3.4});
+    var ns='http://www.w3.org/2000/svg';
+    var gl=document.createElementNS(ns,"g"),gd=document.createElementNS(ns,"g");
+    /* 가까운 점끼리만 잇는다 — 당겨지는 관계만 보이게 */
+    for(i=0;i<N;i++)for(j=i+1;j<N;j++){
+      var dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y,d=Math.sqrt(dx*dx+dy*dy);
+      if(d>138)continue;
+      var ln=document.createElementNS(ns,"line");ln.setAttribute("class","ln");
+      ln.setAttribute("x1",pts[i].x.toFixed(1));ln.setAttribute("y1",pts[i].y.toFixed(1));
+      ln.setAttribute("x2",pts[j].x.toFixed(1));ln.setAttribute("y2",pts[j].y.toFixed(1));
+      gl.appendChild(ln)}
+    for(i=0;i<N;i++){
+      var c=document.createElementNS(ns,"circle");
+      c.setAttribute("class",i%9===0?"dt on":"dt");
+      c.setAttribute("cx",pts[i].x.toFixed(1));c.setAttribute("cy",pts[i].y.toFixed(1));
+      c.setAttribute("r",pts[i].r.toFixed(1));c.style.setProperty("--i",i%26);
+      gd.appendChild(c)}
+    svg.appendChild(gl);svg.appendChild(gd)});
+
+  /* ── 짝지어 올리기 (포지셔닝 맵 · 전시 도면) ── */
+  function pair(rootSel,aSel,aKey,bSel,bKey){
+    q(rootSel).forEach(function(root){
+      var A=q(aSel,root),B=q(bSel,root);
+      function mark(k){
+        A.forEach(function(e){e.classList.toggle("on",!!k&&e.dataset[aKey]===k)});
+        B.forEach(function(e){e.classList.toggle("on",!!k&&e.dataset[bKey]===k)})}
+      A.forEach(function(e){
+        ["mouseenter","focus"].forEach(function(t){e.addEventListener(t,function(){mark(e.dataset[aKey])})});
+        ["mouseleave","blur"].forEach(function(t){e.addEventListener(t,function(){mark(null)})});
+        e.addEventListener("click",function(){mark(e.classList.contains("on")?null:e.dataset[aKey])})})})}
+  pair("[data-pmap]",".pm-b","pm","[data-pmb]","pmb");
+  pair("[data-plan]",".plan-c","pc",".plan-p","pin");
+})();
+
 }catch(err){
   /* 어딘가 멈췄다 — 숨겨 둔 글을 전부 드러내고 조용히 끝낸다 */
   var de=document.documentElement;
