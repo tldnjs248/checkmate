@@ -111,14 +111,14 @@
   }
   readK();
 
-  /* 판 높이 — 머리말이 차지한 높이를 실제로 재서 창 안에 딱 맞춘다.
-     css 의 clamp() 는 머리말 길이를 모르니 늘 조금 모자라거나 넘친다. */
+  /* 판 높이 — 머리말이 차지한 높이를 실제로 재서 창 바닥에 딱 붙인다.
+     css 의 calc() 는 머리말 길이를 모르니 늘 조금 모자라거나 넘친다.
+     아래를 비워 두지 않는다 — 머리말 아래는 전부 판이다 (2026-11-25 사용자 지정). */
   function fitHeight() {
     if (window.innerWidth <= 900) { view.style.height = ''; return; }
     var y = 0, el = view;
     while (el) { y += el.offsetTop; el = el.offsetParent; }
-    var h = window.innerHeight - y - 24;
-    view.style.height = Math.max(440, Math.min(940, h)) + 'px';
+    view.style.height = Math.max(440, window.innerHeight - y) + 'px';
   }
   fitHeight();
 
