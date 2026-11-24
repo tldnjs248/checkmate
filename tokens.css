@@ -372,3 +372,54 @@ strong,b{font-weight:600;}
    칸이 170 아래로 내려가면 한 줄로 내려오게 둔다 — 넓을 때는 그대로 반반이다 */
 .profile__side .profile-docs{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
 .profile__side .profile-docs a{min-width:0}
+
+
+/* ══ 좌우 여백 · 머리띠 하나로 (2026-11-24 사용자 지정) ════════════════
+   메인에서 PROJECTS 로 넘어가면 머리띠가 80 → 72px 로 내려앉고 글자도
+   한 단 작아졌다. 재 보니 어긋난 곳이 셋이었다.
+     1 projects.css 에만 html{zoom:.9} 가 남아 있었다 → 거기서 걷어냈다
+     2 좌우 여백 기준이 두 가지였다
+         메인 · 목록        60px 고정
+         상세 · 소개 · 보드  --gutter (28~60, 화면 폭 따라)
+       1920 에서만 같고 1440 에서 15px · 1280 에서 20px 어긋났다
+     3 메뉴 사이가 좁아지는 폭이 1400 · 1200 · 1100 으로 제각각이었다
+
+   이 파일은 다섯 쪽 모두에서 맨 뒤에 실린다. 그래서 여기서 한 번에 맞춘다 —
+   쪽마다 바탕 css 를 따로 고치면 다음에 또 어긋난다.
+
+   · 본문과 머리띠가 같은 값을 써야 상표가 첫 글자와 한 선에 선다.
+     그래서 여백을 머리띠만 고치지 않고 쪽 끝에 닿는 칸까지 같이 맞춘다.
+   · 720px 아래 머리띠는 바탕 css 가 !important 로 20px 을 잡고 있고
+     그 값은 네 쪽이 이미 똑같다. 건드리지 않으려고 721px 위에서만 돈다. */
+/* 가장 좁을 때 20 — 20 은 좁은 화면 머리띠가 쓰던 값이다. 28 로 두면
+   머리띠(20)와 본문(28)이 휴대폰에서 어긋난다. 넓을 때(60)는 그대로다 */
+:root{ --gutter:clamp(20px,3.125vw,60px); }
+
+/* 쪽 끝에 닿는 칸 — 왼쪽 · 오른쪽만 바꾸고 위아래 여백은 그대로 둔다.
+   앞의 다섯은 메인, 다음 셋은 목록, 그다음 둘은 소개, 마지막 둘은 공통 바닥글이다.
+   (상세 · 보드의 칸은 이미 --gutter 를 쓰고 있어 값이 바뀌지 않는다) */
+.hero,.intro,.section-head,.work,.about__body,
+.page-intro,.project-tools,.project-grid-section,
+.about-hero,.numbered-section,
+.footer__top,.footer__base{
+  padding-left:var(--gutter);
+  padding-right:var(--gutter);
+}
+
+@media (min-width:721px){
+  .site-header .brand-mark{ left:max(var(--gutter),calc((100vw - 1920px) / 2 + 60px)); }
+  .site-header .gnb{
+    right:max(var(--gutter),calc((100vw - 1920px) / 2 + 60px));
+    /* 단을 두지 않고 폭에 따라 이어서 줄인다 — 1920 에서 38, 1100 에서 29 */
+    gap:clamp(20px,2.6vw,38px);
+  }
+}
+
+/* 760px 아래는 바탕 css 넷이 모두 20px 을 !important 로 잡고 있어 여기서만 푼다.
+   푸는 이유는 하나다 — 본문도 같은 --gutter 를 쓰므로 둘이 늘 같은 선에 선다.
+   이렇게 해서 320px 부터 1920px 까지 어느 폭에서든 다섯 쪽의 상표 · 차림표가
+   같은 자리에 서고, 그 쪽 첫 글자와도 한 선에 선다. */
+@media (max-width:760px){
+  .site-header .brand-mark{ left:var(--gutter)!important; }
+  .site-header .gnb{ right:var(--gutter)!important; }
+}

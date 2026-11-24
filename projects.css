@@ -613,9 +613,12 @@ body, .page-intro, .project-grid-section, .site-header { background: #fff; }
        히어로 높이   100vh 그대로 두면 화면보다 10% 짧아진다
        헤더 좌우     본문이 1920 에서 멈출 때 헤더만 창 끝에 붙어 어긋난다 */
 @media (min-width: 1101px) {
-  html { zoom: .9; }
-  .brand-mark { left: max(60px, calc((100vw / .9 - 1920px) / 2 + 60px)); }
-  .gnb { right: max(59px, calc((100vw / .9 - 1920px) / 2 + 59px)); }
+  /* 2026-11-24 zoom 걷어냄 (사용자 지정) — 다른 네 쪽은 11-20 에 걷었는데
+     이 쪽만 남아 머리띠가 80 이 아니라 72px(80×0.9) 로 나왔다.
+     글자도 전부 0.9 배였다. 줄이기 전 화면을 되돌리던 보정(/.9)도 같이 뺀다. */
+  /* html { zoom: .9; } */
+  .brand-mark { left: max(60px, calc((100vw - 1920px) / 2 + 60px)); }
+  .gnb { right: max(59px, calc((100vw - 1920px) / 2 + 59px)); }
 }
 
 
