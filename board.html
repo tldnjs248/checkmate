@@ -5,11 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="주시원 MY BOARD — 체스 말의 이동 범위로 읽는 역량">
   <title>MY BOARD — SIWON JOO</title>
-  <link rel="stylesheet" href="detail.css?v=93">
-  <link rel="stylesheet" href="system.css?v=93">
-  <link rel="stylesheet" href="board.css?v=93">
-  <link rel="stylesheet" href="tokens.css?v=93">
-  <link rel="stylesheet" href="motion.css?v=93">
+  <link rel="stylesheet" href="detail.css?v=94">
+  <link rel="stylesheet" href="system.css?v=94">
+  <link rel="stylesheet" href="board.css?v=94">
+  <link rel="stylesheet" href="tokens.css?v=94">
+  <link rel="stylesheet" href="motion.css?v=94">
   <!-- 자바스크립트가 살아 있을 때만 나타나는 효과를 켠다 (죽으면 글이 그냥 보인다) -->
   <script>(function(d){d.documentElement.classList.add('js-motion');setTimeout(function(){if(!window.__motion)d.documentElement.classList.remove('js-motion');},3000);})(document);</script>
 </head>
@@ -34,7 +34,7 @@
       </div>
       <div class="bd-intro__copy">
         <p class="bd-lead">체스 말이 움직이는 모양 그대로 제 역량을 놓았습니다.</p>
-        <p class="bd-note">말에 올리면 그 말이 갈 수 있는 칸에 색이 찹니다. 판은 끌어서 둘러볼 수 있습니다.</p>
+        <p class="bd-note">사진에 올리면 그 칸에 색이 찹니다. 마우스를 가장자리로 옮기면 판이 그쪽으로 움직입니다.</p>
       </div>
       <!-- 말로 바로 가기 — 판 위에 띄우면 사진과 설명을 가려서 머리말 줄에 둔다 -->
       <div class="bd-intro__go">
@@ -43,13 +43,13 @@
           <button type="button" data-go="piece-knight"><span aria-hidden="true">&#9816;</span>KNIGHT</button>
           <button type="button" data-go="piece-bishop"><span aria-hidden="true">&#9815;</span>BISHOP</button>
         </div>
-        <p class="bd-hint">끌어서 둘러보세요</p>
+        <p class="bd-hint">마우스를 움직여 둘러보세요</p>
       </div>
     </section>
 
     <!-- 판 — 안쪽이 2880×1800 캔버스고, 창만큼만 보인다 -->
     <section class="bd-stage" aria-label="역량 체스판">
-      <div class="bd-view" id="bd-view" tabindex="0" role="group" aria-label="끌어서 둘러보는 판 (방향키로도 움직입니다)">
+      <div class="bd-view" id="bd-view" tabindex="0" role="group" aria-label="마우스를 움직여 둘러보는 판 (끌거나 방향키로도 움직입니다)">
         <!-- 낮은 화면에서는 판 전체를 비율대로 줄인다 — 줄 바꿈이 그대로라 글이 깨지지 않는다 -->
         <div class="bd-sizer">
         <div class="bd-canvas" id="bd-canvas">
@@ -192,7 +192,7 @@
     </div>
   </footer>
 
-  <script src="board.js?v=93"></script>
-  <script src="motion.js?v=93"></script>
+  <script src="board.js?v=94"></script>
+  <script src="motion.js?v=94"></script>
 </body>
 </html>

@@ -157,8 +157,10 @@
   display:block;object-fit:cover;object-position:center;
   filter:grayscale(1) contrast(1.03);
   clip-path:inset(0 0 0 0);
+  /* 칸 하나씩 올려 보는 것이 기본이라 기다림 없이 바로 찬다.
+     차례를 두고 차오르는 것은 '말로 바로 가기' 로 묶음을 통째로 고를 때뿐이다. */
   transition:clip-path .62s cubic-bezier(.22,1,.36,1);
-  transition-delay:calc(var(--d,0) * 95ms);
+  transition-delay:0s;
 }
 /* 어떤 날, 어떤 자리인지 — 묶음 아래 한 줄로 둔다.
    피그마에서는 사진 위에 얹혀 있었지만 칸이 좁아 글이 서너 줄로 접혔다.
@@ -197,10 +199,19 @@
   font-size:12px;line-height:1.55;color:var(--ink-3);
 }
 
-/* ── 올렸을 때 — 갈 수 있는 칸부터 색이 찬다 ───────────────────────── */
-.bd-piece:hover .bd-t img,
-.bd-piece:focus-within .bd-t img,
-.bd-piece.is-on .bd-t img{clip-path:inset(0 0 100% 0)}
+/* ── 올렸을 때 — 올린 칸 하나에만 색이 찬다 (2026-11-25 사용자 지정) ──
+   전에는 말 한 묶음에 올리면 그 묶음 사진이 한꺼번에 찼다.
+   지금은 사진 한 칸이 곧 한 번의 올림이다 — 보고 싶은 칸만 색이 돈다. */
+.bd-t:hover img,
+.bd-t.is-on img{clip-path:inset(0 0 100% 0)}
+
+/* 다만 '말로 바로 가기' 로 고른 말은 묶음이 통째로 찬다.
+   쥐가 없어도 단추만으로 다 볼 수 있어야 해서 이 길은 남겨 둔다.
+   이때만 --d 차례대로 — 가까운 칸부터 번져 간다. */
+.bd-piece.is-on .bd-t img{
+  clip-path:inset(0 0 100% 0);
+  transition-delay:calc(var(--d,0) * 95ms);
+}
 
 .bd-piece:hover .bd-mini i.mv::after,
 .bd-piece:focus-within .bd-mini i.mv::after,
@@ -344,8 +355,8 @@
   .bd-t img{
     clip-path:none;transition:opacity .2s ease;transition-delay:0s;
   }
-  .bd-piece:hover .bd-t img,
-  .bd-piece:focus-within .bd-t img,
-  .bd-piece.is-on .bd-t img{clip-path:none;opacity:0}
+  .bd-t:hover img,
+  .bd-t.is-on img,
+  .bd-piece.is-on .bd-t img{clip-path:none;opacity:0;transition-delay:0s}
   .bd-mini i.mv::after{transition-delay:0s}
 }

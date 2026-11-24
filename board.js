@@ -4,11 +4,12 @@
    이 파일이 죽어도 페이지는 그대로 쓸 수 있다.
      · 판은 overflow:auto 라 손가락 · 휠 · 방향키로 움직인다
      · 색이 차오르는 것은 전부 CSS (:hover · :focus-within)
-   여기서 더해 주는 것은 네 가지다.
+   여기서 더해 주는 것은 다섯 가지다.
      1 미니 판 — 그 말이 갈 수 있는 칸
      2 줄 · 칸 이름 (a~h · 1~5)
      3 끌어서 움직이기 · 말로 바로 가기 · 지금 보는 자리
-     4 손가락만 쓰는 기기에서 눌러 색 채우기
+     4 마우스 탐색 — 가장자리로 가면 판이 그쪽으로 흐른다
+     5 손가락만 쓰는 기기에서 눌러 색 채우기
    ══════════════════════════════════════════════════════════════════ */
 (function () {
   'use strict';
@@ -121,6 +122,9 @@
   }
   fitHeight();
 
+  /* 움직임을 줄여 달라고 한 사람에게는 따라 흐르는 것도, 부드러운 이동도 끈다 */
+  var slow = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   /* ── 3 · 끌어서 움직이기 ───────────────────────────────────────
      손가락은 브라우저가 이미 잘 굴려 주니 쥐 · 펜만 받는다. */
   var drag = null;
@@ -154,9 +158,81 @@
   view.addEventListener('pointercancel', endDrag);
   window.addEventListener('blur', endDrag);
 
-  /* ── 말로 바로 가기 ────────────────────────────────────────────── */
-  var slow = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  /* ── 4 · 마우스 탐색 ───────────────────────────────────────────────
+     끌지 않아도 둘러볼 수 있게 한다. 판 안에서 마우스가 가운데를 벗어나면
+     그쪽으로 판이 흐르고, 가장자리에 가까울수록 빨라진다.
 
+     가운데 띠에서는 멈춘다. 사진을 느긋하게 올려 보는 자리다.
+     (칸 위에서도 멈추게 해 봤지만, 가장자리에서는 칸이 쉴 새 없이 흘러들어
+      판이 몇 걸음마다 걸렸다. 가장자리로 간 사람은 둘러보려는 것이니
+      멈추지 않고 흐르게 두고, 멈추고 싶으면 가운데로 끌고 오면 된다.) */
+  var DEAD = .38;        /* 가운데 38% 는 멈춤 띠 */
+  var SPEED = 950;       /* 가장자리에서 초당 950px */
+  /* sl · st 는 우리가 들고 있는 소수점 자리다. scrollLeft 에 0.3px 을 더하고
+     다시 읽으면 0 으로 깎여 돌아와, 느린 속도가 영영 쌓이지 못한다. */
+  var pan = { vx: 0, vy: 0, raf: 0, last: 0, cx: -1, cy: -1, sl: 0, st: 0 };
+
+  /* 가장자리로 갈수록 가파르게 — 멈춤 띠를 막 벗어난 자리에서는 거의 기어간다 */
+  function curve(n) {
+    var a = Math.abs(n);
+    if (a <= DEAD) return 0;
+    var t = (a - DEAD) / (1 - DEAD);
+    if (t > 1) t = 1;
+    return n < 0 ? -t * t : t * t;
+  }
+
+  /* 지금 자리에서 판이 흘러야 하는가 — 흐른다면 속도만 정한다 (장면 사슬은 건드리지 않는다) */
+  function aim() {
+    pan.vx = pan.vy = 0;
+    if (slow || !isCanvas() || drag || pan.cx < 0) return;
+    var r = view.getBoundingClientRect();
+    if (pan.cx < r.left || pan.cx > r.right || pan.cy < r.top || pan.cy > r.bottom) return;
+    pan.vx = curve((pan.cx - r.left) / r.width * 2 - 1) * SPEED;
+    pan.vy = curve((pan.cy - r.top) / r.height * 2 - 1) * SPEED;
+  }
+
+  /* 흐를 일이 생겼는데 사슬이 끊겨 있으면 다시 잇는다 */
+  function kick() {
+    if ((pan.vx || pan.vy) && !pan.raf) {
+      pan.last = 0; pan.sl = view.scrollLeft; pan.st = view.scrollTop;
+      pan.raf = requestAnimationFrame(stepPan);
+    }
+  }
+  function stopPan() {
+    if (pan.raf) cancelAnimationFrame(pan.raf);
+    pan.raf = 0; pan.last = 0; pan.vx = pan.vy = 0;
+  }
+  function stepPan(now) {
+    pan.raf = 0;
+    /* 첫 장면은 걸린 시간을 모른다 — 움직이지 않고 시계만 맞춘다 */
+    var dt = pan.last ? Math.min(.05, (now - pan.last) / 1000) : 0;
+    pan.last = now;
+    if (dt) {
+      /* 휠 · 방향키로 그 사이에 자리가 바뀌었으면 그쪽을 따른다 */
+      if (Math.abs(view.scrollLeft - pan.sl) > 1.5) pan.sl = view.scrollLeft;
+      if (Math.abs(view.scrollTop - pan.st) > 1.5) pan.st = view.scrollTop;
+      pan.sl = Math.max(0, Math.min(view.scrollWidth - view.clientWidth, pan.sl + pan.vx * dt));
+      pan.st = Math.max(0, Math.min(view.scrollHeight - view.clientHeight, pan.st + pan.vy * dt));
+      view.scrollLeft = pan.sl;
+      view.scrollTop = pan.st;
+    }
+    aim();
+    if (pan.vx || pan.vy) pan.raf = requestAnimationFrame(stepPan);
+    else pan.last = 0;
+  }
+
+  view.addEventListener('pointermove', function (e) {
+    if (e.pointerType === 'touch') { pan.cx = -1; stopPan(); return; }
+    pan.cx = e.clientX; pan.cy = e.clientY;
+    aim(); kick();
+  });
+  view.addEventListener('pointerleave', function () { pan.cx = -1; stopPan(); });
+  /* 누르는 동안에는 쉰다 — 끌기 · 단추 누르기와 겹치지 않게 */
+  view.addEventListener('pointerdown', stopPan);
+  window.addEventListener('blur', function () { pan.cx = -1; stopPan(); });
+  document.addEventListener('visibilitychange', function () { if (document.hidden) stopPan(); });
+
+  /* ── 말로 바로 가기 ────────────────────────────────────────────── */
   function goTo(el, smooth) {
     if (!isCanvas()) { el.scrollIntoView({ block: 'start', behavior: smooth && !slow ? 'smooth' : 'auto' }); return; }
     var w = el.offsetWidth * k, h = el.offsetHeight * k;
@@ -242,15 +318,17 @@
   }, { passive: true });
   window.addEventListener('resize', function () { readK(); fitHeight(); paint(); });
 
-  /* ── 4 · 손가락만 쓰는 기기 — 눌러서 색 채우기 ──────────────────── */
+  /* ── 5 · 손가락만 쓰는 기기 — 눌러서 색 채우기 ────────────────────
+     쥐로 올리는 것과 똑같이 칸 하나씩 채운다. */
   if (window.matchMedia && window.matchMedia('(hover: none)').matches) {
     var hint = document.querySelector('.bd-hint');
-    if (hint) hint.textContent = '눌러서 색을 채워 보세요';
-    pieces.forEach(function (p) {
-      p.addEventListener('click', function () {
-        var on = p.classList.contains('is-on');
-        pieces.forEach(function (q) { q.classList.remove('is-on'); });
-        if (!on) p.classList.add('is-on');
+    if (hint) hint.textContent = '사진을 눌러 보세요';
+    var tiles = [].slice.call(canvas.querySelectorAll('.bd-t'));
+    tiles.forEach(function (t) {
+      t.addEventListener('click', function () {
+        var on = t.classList.contains('is-on');
+        tiles.forEach(function (q) { q.classList.remove('is-on'); });
+        if (!on) t.classList.add('is-on');
       });
     });
   }
