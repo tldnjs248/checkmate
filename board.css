@@ -130,10 +130,9 @@ html::-webkit-scrollbar,body::-webkit-scrollbar{width:0;height:0;display:none}
   letter-spacing:-.01em;color:var(--ink-2);
 }
 .bd-name__k i::before{content:"·";margin-right:12px;color:var(--ink-3)}
-.bd-glyph{
-  font-family:"Segoe UI Symbol","Apple Symbols","Noto Sans Symbols 2",serif;
-  font-size:28px;line-height:1;color:var(--ink);
-}
+/* 말 그림은 이름 앞에서 뺐다 (2026-11-25 사용자 지정).
+   말이 어떻게 움직이는지는 왼쪽 작은 판이 이미 보여 준다 — 그림은 겹치는 말이었다.
+   남은 것은 이동 범위 그림과 글자 둘뿐이다. */
 .bd-name__m{
   margin-top:9px;
   font-size:var(--t-small);line-height:1.6;color:var(--ink-3);word-break:keep-all;
