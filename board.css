@@ -1,0 +1,351 @@
+/* ══════════════════════════════════════════════════════════════════════
+   MY BOARD — 체스 말의 이동 범위로 읽는 역량 (2026-11-24)
+
+   원자료
+     피그마 4kYiTuHsZC6c04jtvl23ea · 650:1241 「나의 체스판」
+     세 묶음(ROOK · KNIGHT · BISHOP)의 칸 좌표를 그대로 비율로 옮겼다.
+       ROOK   1995×1687 — 가로 세로 십자
+       KNIGHT 1134×1597 — 꺾어 뛰는 ㄱ자
+       BISHOP 2190×2224 — 대각선
+     사진은 같은 파일에서 2배로 내보내 webp 로 줄였다 (images/board/).
+
+   짜임
+     .bd-view   창만큼만 보이는 구멍. 끌어서(또는 굴려서) 움직인다.
+     .bd-canvas 3600×2250 판. 450px 칸이 8×5 로 깔린다.
+     .bd-piece  말 하나 = [머리말 + 미니 판] + [사진 묶음]
+
+   색이 차오르는 규칙 (사용자 지정)
+     기본은 흑백. 말에 올리면 그 말이 갈 수 있는 칸부터 차례로 색이 찬다.
+     칸마다 흑백 <img> 가 위에, 같은 사진의 컬러 배경이 아래에 깔려 있고,
+     흑백 쪽을 아래에서 위로 잘라 내(clip-path) 색이 차오르는 것처럼 보인다.
+     --d 는 차는 차례다. 가운데(설명 칸)가 0, 멀수록 커진다.
+
+   기준 글자 · 색은 tokens.css 를 그대로 쓴다. 바탕 틀은 detail.css.
+   ══════════════════════════════════════════════════════════════════ */
+
+/* ── 머리말 ──────────────────────────────────────────────────────── */
+/* 판이 주인공이라 머리말은 한 줄 띠로 눌러 둔다 — 그만큼 판이 높아진다 */
+.bd-intro{
+  padding:106px var(--gutter) 24px;
+  background:var(--paper);
+  display:grid;
+  grid-template-columns:minmax(0,auto) minmax(0,1fr) auto;
+  column-gap:clamp(28px,3.4vw,72px);
+  align-items:end;
+}
+.bd-intro__go{display:flex;flex-direction:column;align-items:flex-end;gap:9px;padding-bottom:4px}
+.bd-eyebrow{
+  font-size:var(--t-label);font-weight:600;letter-spacing:.14em;
+  color:var(--ink-3);
+}
+.bd-intro h1{
+  margin-top:10px;
+  font-size:clamp(32px,2.6vw,46px);
+  font-weight:700;line-height:1.05;letter-spacing:-.04em;color:var(--ink);
+}
+.bd-intro__copy{padding-bottom:6px}
+.bd-lead{
+  font-size:var(--t-title);font-weight:600;line-height:1.55;
+  color:var(--ink);word-break:keep-all;
+}
+.bd-note{
+  margin-top:10px;
+  font-size:var(--t-small);line-height:1.7;color:var(--ink-3);word-break:keep-all;
+}
+
+/* ── 판이 놓이는 자리 ────────────────────────────────────────────── */
+.bd-stage{position:relative;padding:0 var(--gutter) 96px}
+
+/* 창만큼만 보이는 구멍. 스크롤은 브라우저가 맡는다 —
+   자바스크립트가 죽어도 손가락 · 휠 · 방향키로 그대로 움직인다. */
+.bd-view{
+  position:relative;
+  /* 판을 줄이는 비율 — 낮은 화면일수록 작게 잡아 말 한 묶음이 통째로 들어가게 한다.
+     글자까지 같이 줄어드니 줄 바꿈이 그대로라 칸이 깨지지 않는다. */
+  --k:1;
+  /* 창 밖으로 넘치지 않는 안전한 높이. board.js 가 머리말을 실제로 재서 더 키운다 */
+  height:clamp(440px,calc(100vh - 300px),940px);
+  overflow:auto;
+  /* 가로는 판 안에서 끝낸다. 세로는 판 끝에서 쪽으로 넘겨 줘야 갇히지 않는다 */
+  overscroll-behavior-x:contain;
+  border:1px solid var(--line);border-radius:4px;
+  background:var(--paper);
+  cursor:grab;
+}
+.bd-view:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.bd-view.is-drag{cursor:grabbing;user-select:none}
+.bd-view.is-drag *{pointer-events:none}
+
+/* 1080 높이에서는 그대로, 낮아지면 한 단씩 줄인다 (판 높이 = 창 − 232) */
+@media (max-height:1000px){ .bd-view{--k:.92} }
+@media (max-height:940px) { .bd-view{--k:.85} }
+@media (max-height:880px) { .bd-view{--k:.80} }
+
+/* 줄인 판이 차지하는 실제 자리 — 스크롤 범위는 이 상자가 정한다 */
+.bd-sizer{
+  position:relative;
+  width:calc(2880px * var(--k));
+  height:calc(1800px * var(--k));
+}
+/* 360px 칸 8×5 = 2880×1800. 칸 색 차이는 사진을 이기지 않게 아주 얕게 둔다 */
+.bd-canvas{
+  position:absolute;left:0;top:0;width:2880px;height:1800px;
+  transform:scale(var(--k));transform-origin:0 0;
+  background:conic-gradient(#F7F7F7 25%,#FDFDFD 0 50%,#F7F7F7 0 75%,#FDFDFD 0) 0 0/720px 720px;
+}
+/* 줄 · 칸 이름 — board.js 가 넣는다 */
+.bd-lab{
+  position:absolute;
+  font-size:var(--t-label);font-weight:600;letter-spacing:.1em;
+  color:#C9C9C9;
+  pointer-events:none;
+}
+
+/* ── 말 하나 ─────────────────────────────────────────────────────── */
+.bd-piece{position:absolute}
+
+.bd-head{display:flex;align-items:center;gap:22px;margin-bottom:26px}
+.bd-name__k{
+  display:flex;align-items:baseline;gap:12px;
+  font-size:var(--t-sub);font-weight:700;letter-spacing:.04em;color:var(--ink);
+}
+.bd-name__k i{
+  font-style:normal;font-size:var(--t-title);font-weight:600;
+  letter-spacing:-.01em;color:var(--ink-2);
+}
+.bd-name__k i::before{content:"·";margin-right:12px;color:var(--ink-3)}
+.bd-glyph{
+  font-family:"Segoe UI Symbol","Apple Symbols","Noto Sans Symbols 2",serif;
+  font-size:28px;line-height:1;color:var(--ink);
+}
+.bd-name__m{
+  margin-top:9px;
+  font-size:var(--t-small);line-height:1.6;color:var(--ink-3);word-break:keep-all;
+}
+
+/* 미니 판 — 그 말이 갈 수 있는 칸을 그대로 보여 준다 */
+.bd-mini{
+  flex:none;width:96px;height:96px;
+  display:grid;grid-template-columns:repeat(8,1fr);grid-template-rows:repeat(8,1fr);
+  border:1px solid var(--line);background:var(--paper);
+}
+.bd-mini i{position:relative;display:block}
+.bd-mini i.dk{background:#F2F2F2}
+/* 갈 수 있는 칸 — 올리면 차례로 찬다 */
+.bd-mini i.mv::after{
+  content:"";position:absolute;inset:0;background:var(--ink);
+  opacity:0;transition:opacity .45s ease;transition-delay:calc(var(--d,0) * 55ms);
+}
+/* 말이 선 칸 */
+.bd-mini i.pc{
+  background:var(--ink);
+  display:grid;place-items:center;
+  color:var(--invert);font-size:13px;line-height:1;
+  font-family:"Segoe UI Symbol","Apple Symbols","Noto Sans Symbols 2",serif;
+}
+
+/* ── 사진 묶음 ───────────────────────────────────────────────────── */
+.bd-comp{position:relative;width:100%}
+
+.bd-t{
+  position:absolute;overflow:hidden;
+  background-color:var(--surface);
+  background-image:var(--src);background-size:cover;background-position:center;
+}
+.bd-t img{
+  position:absolute;inset:0;width:100%;height:100%;
+  display:block;object-fit:cover;object-position:center;
+  filter:grayscale(1) contrast(1.03);
+  clip-path:inset(0 0 0 0);
+  transition:clip-path .62s cubic-bezier(.22,1,.36,1);
+  transition-delay:calc(var(--d,0) * 95ms);
+}
+/* 어떤 날, 어떤 자리인지 — 묶음 아래 한 줄로 둔다.
+   피그마에서는 사진 위에 얹혀 있었지만 칸이 좁아 글이 서너 줄로 접혔다.
+   밝은 사진 위에서는 읽히지도 않아, 자리만 아래로 내리고 글은 그대로 뒀다. */
+.bd-src{
+  margin-top:15px;
+  font-size:var(--t-label);line-height:1.7;color:var(--ink-3);word-break:keep-all;
+}
+
+/* 설명 칸 — 말이 선 자리. 기본 위치는 ROOK 값이다 */
+.bd-card{
+  position:absolute;
+  left:21.955%;top:30.765%;width:38.997%;height:34.617%;
+  display:flex;flex-direction:column;
+  /* 칸 크기가 장표의 3분의 1이라 글 단도 같이 내렸다 — 본문 15 → 14 */
+  padding:16px;
+  background:var(--surface-2);
+  box-shadow:inset 0 0 0 0 var(--ink);
+  transition:box-shadow .5s ease;
+}
+.bd-card--kn{left:52.734%;top:0;width:47.266%;height:30.182%}
+.bd-card--bs{left:33.333%;top:32.824%;width:33.333%;height:33.453%}
+.bd-card__k{
+  display:flex;align-items:center;gap:9px;
+  font-size:var(--t-body);font-weight:700;letter-spacing:-.02em;color:var(--ink);
+}
+.bd-card__k::before{
+  content:"";flex:none;width:6px;height:6px;border-radius:99px;background:var(--ink);
+}
+.bd-card__t{
+  margin-top:auto;
+  font-size:14px;line-height:1.65;color:var(--ink-2);word-break:keep-all;
+}
+.bd-card__s{
+  display:block;margin-top:8px;
+  font-size:12px;line-height:1.55;color:var(--ink-3);
+}
+
+/* ── 올렸을 때 — 갈 수 있는 칸부터 색이 찬다 ───────────────────────── */
+.bd-piece:hover .bd-t img,
+.bd-piece:focus-within .bd-t img,
+.bd-piece.is-on .bd-t img{clip-path:inset(0 0 100% 0)}
+
+.bd-piece:hover .bd-mini i.mv::after,
+.bd-piece:focus-within .bd-mini i.mv::after,
+.bd-piece.is-on .bd-mini i.mv::after{opacity:.2}
+
+.bd-piece:hover .bd-card,
+.bd-piece:focus-within .bd-card,
+.bd-piece.is-on .bd-card{box-shadow:inset 0 0 0 2px var(--ink)}
+
+/* ── 아직 두지 않은 수 ───────────────────────────────────────────── */
+.bd-next{
+  position:absolute;
+  padding:32px 34px 30px;
+  border:1px dashed #D2D2D2;border-radius:4px;
+  background:rgba(255,255,255,.72);
+}
+.bd-next__k{
+  font-size:var(--t-label);font-weight:600;letter-spacing:.14em;color:var(--ink-3);
+}
+.bd-next__t{
+  margin-top:10px;
+  font-size:var(--t-title);font-weight:600;letter-spacing:-.02em;color:var(--ink);
+}
+.bd-next__row{display:flex;gap:14px;margin-top:22px}
+.bd-next__sq{
+  width:104px;height:104px;
+  border:1px dashed #D2D2D2;border-radius:3px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;
+  color:var(--ink-3);
+}
+.bd-next__sq span{
+  font-family:"Segoe UI Symbol","Apple Symbols","Noto Sans Symbols 2",serif;
+  font-size:30px;line-height:1;
+}
+.bd-next__sq b{font-size:11px;font-weight:600;letter-spacing:.1em}
+.bd-next__m{margin-top:18px;font-size:var(--t-small);color:var(--ink-3)}
+
+/* ── 말로 바로 가기 — 머리말 줄 오른쪽 끝 ──────────────────────────
+   판 위에 띄우면 아래쪽 사진과 설명 줄을 가려서 밖으로 뺐다. */
+.bd-jump{
+  display:flex;gap:4px;padding:4px;
+  border:1px solid var(--line);border-radius:4px;
+  background:var(--paper);
+}
+.bd-jump button{
+  display:flex;align-items:center;gap:8px;
+  padding:9px 14px;border:0;border-radius:3px;background:transparent;
+  font-size:var(--t-label);font-weight:600;letter-spacing:.08em;color:var(--ink-3);
+  cursor:pointer;transition:background .18s ease,color .18s ease;
+}
+.bd-jump button span{
+  font-family:"Segoe UI Symbol","Apple Symbols","Noto Sans Symbols 2",serif;
+  font-size:17px;line-height:1;
+}
+.bd-jump button:hover,
+.bd-jump button:focus-visible{background:var(--surface-2);color:var(--ink)}
+.bd-jump button.is-near{color:var(--ink)}
+
+.bd-hint{font-size:var(--t-label);color:var(--ink-3)}
+
+/* 지금 보는 자리 — 눌러서 그 자리로 간다. 판의 빈 귀퉁이에 작게 띄운다 */
+.bd-map{
+  position:absolute;
+  right:calc(var(--gutter) + 18px);
+  bottom:114px;                        /* .bd-stage 아래 여백 96 + 18 */
+  width:180px;height:113px;
+  border:1px solid var(--line);border-radius:3px;
+  background:rgba(255,255,255,.92);
+  backdrop-filter:blur(6px);
+  cursor:pointer;
+}
+.bd-map__p{position:absolute;background:#C4C4C4;border-radius:1px}
+.bd-map__v{
+  position:absolute;border:1.5px solid var(--ink);background:rgba(10,10,10,.05);
+  border-radius:1px;
+}
+
+/* ── 좁은 화면 — 판을 세로로 편다 ─────────────────────────────────── */
+@media (max-width:1100px){
+  .bd-intro{grid-template-columns:minmax(0,1fr) auto;row-gap:22px;padding-top:116px}
+  .bd-intro__copy{grid-column:1;padding-bottom:0}
+  .bd-intro__go{grid-row:1;grid-column:2}
+  .bd-map{display:none}
+}
+@media (max-width:900px){
+  .bd-stage{padding-bottom:72px}
+  .bd-view{--k:1;height:auto;overflow:visible;border:0;border-radius:0;cursor:auto}
+  .bd-sizer{width:auto;height:auto}
+  .bd-canvas{
+    position:static;width:auto;height:auto;background:none;transform:none;
+    display:grid;gap:clamp(48px,8vw,80px);
+  }
+  /* min-width:0 이 빠지면 격자 칸이 '글의 최소 폭' 아래로 못 줄어서
+     360px 화면에서 묶음이 350px 로 버티고 가로로 넘쳤다 */
+  .bd-piece,.bd-next{position:static!important;left:auto!important;top:auto!important;
+    width:100%!important;min-width:0!important}
+  .bd-next{max-width:560px}
+  /* 세로로 편 뒤에도 바로 가기는 쓸모가 있다 — 말 사이를 건너뛰는 길이 된다 */
+  .bd-lab{display:none}
+  .bd-head{gap:18px}
+  .bd-mini{width:96px;height:96px}
+}
+/* 손바닥만 한 화면에서는 설명 칸이 너무 작아져 글이 넘친다 — 글 단을 한 번 더 내린다.
+   (칸을 화면 끝까지 넓히는 방법은 쓰지 않았다. .bd-view 가 세로로 펴지면서
+    overflow:visible 이 되는 탓에 '넓힘 → 문서가 넓어짐 → 다시 넓힘' 으로 되먹임이 돈다.) */
+@media (max-width:760px){
+  .bd-card{padding:10px}
+  .bd-card__k{font-size:13px;gap:7px}
+  .bd-card__k::before{width:5px;height:5px}
+  .bd-card__t{font-size:12px;line-height:1.45}
+  .bd-card__s{font-size:10px;line-height:1.4;margin-top:5px}
+}
+/* 아래 묶음은 반드시 '넓은 것 → 좁은 것' 순으로 둔다.
+   가중치가 같아서, 넓은 조건이 뒤에 오면 좁은 화면에서도 그쪽이 이긴다. */
+@media (max-width:620px){
+  .bd-intro{grid-template-columns:1fr;padding:106px var(--gutter) 28px;row-gap:18px}
+  .bd-intro__go{grid-row:auto;grid-column:1;align-items:flex-start}
+  .bd-jump{flex-wrap:wrap}
+  .bd-jump button{padding:8px 11px;gap:6px}
+  .bd-head{flex-direction:column;align-items:flex-start;gap:14px}
+  .bd-name__k{flex-wrap:wrap;gap:8px}
+  .bd-name__k i::before{margin-right:8px}
+  .bd-next__sq{width:84px;height:84px}
+}
+@media (max-width:480px){
+  .bd-card{padding:8px}
+  .bd-card__k{font-size:12px;gap:6px}
+  .bd-card__t{font-size:11px;line-height:1.4}
+  .bd-card__s{font-size:9.5px;margin-top:4px}
+}
+/* 320px 쯤 되면 설명 칸이 글보다 작아진다. 칸을 아래로 늘려 사진 위에 얹는다 —
+   글을 지우거나 9px 까지 줄이는 것보다 낫다. 자리는 min-height 로 그대로 지킨다. */
+@media (max-width:400px){
+  .bd-card{height:auto;min-height:34.617%;z-index:3}
+  .bd-card--kn{min-height:30.182%}
+  .bd-card--bs{min-height:33.453%}
+}
+
+/* ── 움직임을 줄여 달라고 한 사람에게는 잘라 내기 대신 옅어짐으로 ──── */
+@media (prefers-reduced-motion:reduce){
+  .bd-t img{
+    clip-path:none;transition:opacity .2s ease;transition-delay:0s;
+  }
+  .bd-piece:hover .bd-t img,
+  .bd-piece:focus-within .bd-t img,
+  .bd-piece.is-on .bd-t img{clip-path:none;opacity:0}
+  .bd-mini i.mv::after{transition-delay:0s}
+}

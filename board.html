@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="주시원 MY BOARD — 체스 말의 이동 범위로 읽는 역량">
+  <title>MY BOARD — SIWON JOO</title>
+  <link rel="stylesheet" href="detail.css?v=92">
+  <link rel="stylesheet" href="system.css?v=92">
+  <link rel="stylesheet" href="board.css?v=92">
+  <link rel="stylesheet" href="tokens.css?v=92">
+  <link rel="stylesheet" href="motion.css?v=92">
+  <!-- 자바스크립트가 살아 있을 때만 나타나는 효과를 켠다 (죽으면 글이 그냥 보인다) -->
+  <script>(function(d){d.documentElement.classList.add('js-motion');setTimeout(function(){if(!window.__motion)d.documentElement.classList.remove('js-motion');},3000);})(document);</script>
+</head>
+<body>
+  <a class="skip-link" href="#board-main">본문 바로가기</a>
+  <header class="site-header">
+    <a class="brand-mark" href="index.html" aria-label="메인으로 이동"><b>CHECKMATE</b><span>주시원</span></a>
+    <nav class="gnb" aria-label="주요 메뉴">
+      <a href="projects.html">PROJECTS</a>
+      <a href="about.html">ABOUT</a>
+      <a class="is-current" href="board.html">MY BOARD</a>
+      <a href="주시원_이력서.pdf" download="주시원_이력서.pdf">RESUME ↗</a>
+    </nav>
+  </header>
+
+  <main id="board-main">
+    <!-- 머리말 — 읽는 법을 두 줄로 먼저 준다 -->
+    <section class="bd-intro" aria-labelledby="bd-title">
+      <div class="bd-intro__head">
+        <p class="bd-eyebrow">04 / MY BOARD</p>
+        <h1 id="bd-title">MY BOARD</h1>
+      </div>
+      <div class="bd-intro__copy">
+        <p class="bd-lead">체스 말이 움직이는 모양 그대로 제 역량을 놓았습니다.</p>
+        <p class="bd-note">말에 올리면 그 말이 갈 수 있는 칸에 색이 찹니다. 판은 끌어서 둘러볼 수 있습니다.</p>
+      </div>
+      <!-- 말로 바로 가기 — 판 위에 띄우면 사진과 설명을 가려서 머리말 줄에 둔다 -->
+      <div class="bd-intro__go">
+        <div class="bd-jump" role="group" aria-label="말로 바로 가기">
+          <button type="button" data-go="piece-rook"><span aria-hidden="true">&#9814;</span>ROOK</button>
+          <button type="button" data-go="piece-knight"><span aria-hidden="true">&#9816;</span>KNIGHT</button>
+          <button type="button" data-go="piece-bishop"><span aria-hidden="true">&#9815;</span>BISHOP</button>
+        </div>
+        <p class="bd-hint">끌어서 둘러보세요</p>
+      </div>
+    </section>
+
+    <!-- 판 — 안쪽이 2880×1800 캔버스고, 창만큼만 보인다 -->
+    <section class="bd-stage" aria-label="역량 체스판">
+      <div class="bd-view" id="bd-view" tabindex="0" role="group" aria-label="끌어서 둘러보는 판 (방향키로도 움직입니다)">
+        <!-- 낮은 화면에서는 판 전체를 비율대로 줄인다 — 줄 바꿈이 그대로라 글이 깨지지 않는다 -->
+        <div class="bd-sizer">
+        <div class="bd-canvas" id="bd-canvas">
+
+          <!-- ── ROOK · 실행력 — 가로 세로 십자 ───────────────────────── -->
+          <article class="bd-piece" id="piece-rook" style="left:200px;top:160px;width:700px">
+            <header class="bd-head">
+              <div class="bd-mini" data-piece="rook" aria-hidden="true"></div>
+              <div class="bd-name">
+                <p class="bd-name__k"><span class="bd-glyph" aria-hidden="true">&#9814;</span>ROOK<i>실행력</i></p>
+                <p class="bd-name__m">가로 · 세로 방향으로 원하는 만큼 이동</p>
+              </div>
+            </header>
+            <!-- 칸 자리는 피그마 650:1241 의 좌표를 그대로 비율로 옮긴 것이다 (1995×1687) -->
+            <div class="bd-comp" style="aspect-ratio:1995/1687">
+              <div class="bd-t" style="--d:2;left:21.955%;top:0;width:19.499%;height:30.765%;--src:url(images/board/rook-up-l.webp)">
+                <img src="images/board/rook-up-l.webp" alt="롯데시네마 특별관 사운드 연출 현장" decoding="async">
+              </div>
+              <div class="bd-t" style="--d:2;left:41.454%;top:0;width:19.499%;height:30.765%;--src:url(images/board/rook-up-r.webp)">
+                <img src="images/board/rook-up-r.webp" alt="롯데시네마 특별관 좌석과 조명" decoding="async">
+              </div>
+              <div class="bd-t" style="--d:1;left:0;top:30.765%;width:21.955%;height:34.617%;--src:url(images/board/rook-left.webp)">
+                <img src="images/board/rook-left.webp" alt="SUPER MX4D 특별관 입구 사이니지" decoding="async">
+              </div>
+              <div class="bd-card">
+                <p class="bd-card__k">실행력</p>
+                <p class="bd-card__t">낯선 문제일수록 직접 배우고 부딪힙니다.<br>온라인뿐만 아니라 현장까지 확인합니다.</p>
+              </div>
+              <div class="bd-t" style="--d:1;left:60.952%;top:30.765%;width:39.048%;height:34.617%;--src:url(images/board/rook-right.webp)">
+                <img src="images/board/rook-right.webp" alt="현장에서 관람객을 인터뷰하는 모습" decoding="async">
+              </div>
+              <div class="bd-t" style="--d:1;left:21.955%;top:65.382%;width:38.997%;height:34.617%;--src:url(images/board/rook-down.webp)">
+                <img src="images/board/rook-down.webp" alt="VR 콘서트 특별관 포스터" decoding="async">
+              </div>
+            </div>
+            <p class="bd-src">2026.09.12 롯데시네마 필드리서치 및 현장 인터뷰</p>
+          </article>
+
+          <!-- ── KNIGHT · 확장성 도전 — 뛰어넘는 ㄱ자 ──────────────────── -->
+          <article class="bd-piece" id="piece-knight" style="left:1200px;top:860px;width:400px">
+            <header class="bd-head">
+              <div class="bd-mini" data-piece="knight" aria-hidden="true"></div>
+              <div class="bd-name">
+                <p class="bd-name__k"><span class="bd-glyph" aria-hidden="true">&#9816;</span>KNIGHT<i>확장성 · 도전</i></p>
+                <p class="bd-name__m">가장 가까운 칸으로 꺾어 이동하며, 다른 기물을 뛰어넘음</p>
+              </div>
+            </header>
+            <div class="bd-comp" style="aspect-ratio:1134/1597">
+              <div class="bd-card bd-card--kn">
+                <p class="bd-card__k">확장성 · 도전</p>
+                <p class="bd-card__t">분야의 경계를 넘어 경험을 확장합니다.<span class="bd-card__s">AI 동아리 활동 / 졸업 준비위원회</span></p>
+              </div>
+              <div class="bd-t" style="--d:1;left:0;top:30.182%;width:52.734%;height:32.561%;--src:url(images/board/knight-1.webp)">
+                <img src="images/board/knight-1.webp" alt="AIM 동아리에서 웹사이트를 함께 만드는 모습" decoding="async">
+              </div>
+              <div class="bd-t" style="--d:2;left:0;top:62.743%;width:52.734%;height:19.537%;--src:url(images/board/knight-2.webp)">
+                <img src="images/board/knight-2.webp" alt="졸업준비위원회 조직 편성표" decoding="async">
+              </div>
+              <div class="bd-t" style="--d:3;left:0;top:82.279%;width:52.734%;height:17.721%;--src:url(images/board/knight-3.webp)">
+                <img src="images/board/knight-3.webp" alt="졸업준비위원회 회의 자료를 살펴보는 모습" decoding="async">
+              </div>
+            </div>
+            <p class="bd-src">2026.10.02 AIM 동아리 활동 — 웹사이트 제작<br>2025 졸업전시준비위원회 전시팀 · 2026 브랜딩팀</p>
+          </article>
+
+          <!-- ── BISHOP · 발견 유연함 — 대각선 ─────────────────────────── -->
+          <article class="bd-piece" id="piece-bishop" style="left:1800px;top:250px;width:580px">
+            <header class="bd-head">
+              <div class="bd-mini" data-piece="bishop" aria-hidden="true"></div>
+              <div class="bd-name">
+                <p class="bd-name__k"><span class="bd-glyph" aria-hidden="true">&#9815;</span>BISHOP<i>발견 · 유연함</i></p>
+                <p class="bd-name__m">대각선 방향으로 원하는 만큼 이동</p>
+              </div>
+            </header>
+            <div class="bd-comp" style="aspect-ratio:2190/2224">
+              <div class="bd-t" style="--d:2;left:66.667%;top:0;width:33.333%;height:32.824%;--src:url(images/board/bishop-1.webp)">
+                <img src="images/board/bishop-1.webp" alt="디지털미디어디자인과 전시 부스" decoding="async">
+              </div>
+              <div class="bd-card bd-card--bs">
+                <p class="bd-card__k">발견 · 유연함</p>
+                <p class="bd-card__t">다른 직군들과 소통하며,<br>공동의 작업이 이루어지게 합니다.</p>
+              </div>
+              <div class="bd-t" style="--d:1;left:0;top:66.277%;width:33.333%;height:14.658%;--src:url(images/board/bishop-2.webp)">
+                <img src="images/board/bishop-2.webp" alt="DMD 2025 아카이브 지면" decoding="async">
+              </div>
+              <div class="bd-t" style="--d:1;left:0;top:80.621%;width:33.333%;height:19.380%;--src:url(images/board/bishop-3.webp)">
+                <img src="images/board/bishop-3.webp" alt="졸업전시 아카이브와 전공 설명회 기록" decoding="async">
+              </div>
+            </div>
+          </article>
+
+          <!-- ── 아직 두지 않은 수 — 남은 세 말 자리 ─────────────────────── -->
+          <aside class="bd-next" style="left:310px;top:1160px;width:540px">
+            <p class="bd-next__k">NEXT MOVES</p>
+            <p class="bd-next__t">KING · QUEEN · PAWN — 이어서 둘 수</p>
+            <div class="bd-next__row">
+              <div class="bd-next__sq"><span aria-hidden="true">&#9812;</span><b>KING</b></div>
+              <div class="bd-next__sq"><span aria-hidden="true">&#9813;</span><b>QUEEN</b></div>
+              <div class="bd-next__sq"><span aria-hidden="true">&#9817;</span><b>PAWN</b></div>
+            </div>
+            <p class="bd-next__m">남은 세 말에도 역량을 놓는 중입니다.</p>
+          </aside>
+
+        </div>
+        </div>
+      </div>
+
+      <!-- 지금 보는 자리 — 판의 빈 귀퉁이에 작게 띄운다 -->
+      <div class="bd-map" id="bd-map" aria-hidden="true"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <p class="footer__mark">CHECKMATE</p>
+        <p class="footer__line">판단의 근거를 쌓고 결정적인 수를 두는 기획자</p>
+      </div>
+      <nav class="footer__col" aria-label="푸터 메뉴">
+        <p class="footer__label">MENU</p>
+        <a href="index.html">HOME</a>
+        <a href="projects.html">PROJECTS</a>
+        <a href="about.html">ABOUT</a>
+        <a href="board.html">MY BOARD</a>
+      </nav>
+      <div class="footer__col">
+        <p class="footer__label">CONTACT</p>
+        <a href="mailto:tldnjs248@naver.com">tldnjs248@naver.com</a>
+        <p>서울 · 경기</p>
+      </div>
+      <div class="footer__col">
+        <p class="footer__label">DOCUMENT</p>
+        <a href="주시원_이력서.pdf" download="주시원_이력서.pdf">이력서 PDF ↗</a>
+        <a href="주시원_자기소개서.pdf" download="주시원_자기소개서.pdf">자기소개서 PDF ↗</a>
+      </div>
+    </div>
+    <div class="footer__base">
+      <p>&copy; 2026 SIWON JOO</p>
+      <p>UX/UI &middot; 서비스 기획자</p>
+    </div>
+  </footer>
+
+  <script src="board.js?v=92"></script>
+  <script src="motion.js?v=92"></script>
+</body>
+</html>

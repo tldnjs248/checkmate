@@ -591,3 +591,25 @@ a:focus-visible,button:focus-visible,select:focus-visible{
 /* 자리표시가 300 은 너무 길다 — 아직 그림이 없는 칸이 화면을 길게 비운다.
    detail.css 의 min(300px,20vw) 를 덮는다 */
 .section-visual .placeholder{height:min(200px,13vw);}
+
+/* ── 좁은 화면 머리띠 (2026-11-24) ─────────────────────────────
+   차림표가 MY BOARD 까지 넷이 되면서 360px 에서 상표와 겹쳤다.
+   메뉴를 빼지 않고 상표 · 글자 · 여백만 한 단씩 줄여 네 칸을 다 남긴다.
+   네 쪽이 저마다 바탕 css 를 따로 쓰므로 공용인 이 파일에서 한 번에 덮는다.
+   --gutter 는 머리띠 안에서만 바꾼다. :root 에서 바꾸면 본문 여백까지 좁아져
+   상세 페이지가 가로로 6px 넘쳤다. 변수는 물려받으니 이것으로 충분하다.
+   글자 크기는 tokens.css 가 뒤에서 .gnb a 를 다시 잡으므로
+   .site-header 를 앞에 붙여 가중치를 한 단 올려 둔다. */
+@media (max-width:430px){
+  .site-header{--gutter:18px;}
+  .site-header .brand-mark b{font-size:13px;}
+  .site-header .brand-mark span{display:none;}
+  .site-header .gnb{gap:10px;}
+  .site-header .gnb a{font-size:11px;letter-spacing:.05em;padding:0;}
+}
+@media (max-width:360px){
+  .site-header{--gutter:14px;}
+  .site-header .brand-mark b{font-size:12px;}
+  .site-header .gnb{gap:7px;}
+  .site-header .gnb a{font-size:10px;letter-spacing:.02em;}
+}
