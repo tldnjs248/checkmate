@@ -5,15 +5,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="주시원 MY BOARD — 체스 말의 이동 범위로 읽는 역량">
   <title>MY BOARD — SIWON JOO</title>
-  <link rel="stylesheet" href="detail.css?v=100">
-  <link rel="stylesheet" href="system.css?v=100">
-  <link rel="stylesheet" href="board.css?v=100">
-  <link rel="stylesheet" href="tokens.css?v=100">
-  <link rel="stylesheet" href="motion.css?v=100">
+  <link rel="stylesheet" href="detail.css?v=101">
+  <link rel="stylesheet" href="system.css?v=101">
+  <link rel="stylesheet" href="board.css?v=101">
+  <link rel="stylesheet" href="tokens.css?v=101">
+  <link rel="stylesheet" href="motion.css?v=101">
   <!-- 자바스크립트가 살아 있을 때만 나타나는 효과를 켠다 (죽으면 글이 그냥 보인다) -->
   <script>(function(d){d.documentElement.classList.add('js-motion');setTimeout(function(){if(!window.__motion)d.documentElement.classList.remove('js-motion');},3000);})(document);</script>
 </head>
 <body>
+  <!-- ì²´ì¤ ë§ ê·¸ë¦¼ â ë¯¸ë íê³¼ 'ë§ë¡ ë°ë¡ ê°ê¸°' ê° ê°ì ê·¸ë¦¼ì ê°ì ¸ë¤ ì´ë¤
+       (2026-11-25 ì¬ì©ì ì§ì ). ê¸ê¼´ ê¸°í¸(â â â)ë ê¸°ê¸°ë§ë¤ êµµê¸°ì ë°ì ì´ ë¬ë¼
+       ì¹¸ ììì ì ê°ê° ì´ê¸ë¬ë¤. ì¸ ë§ì 24 ì¹¸ ìë¡ ë¤ì ê·¸ë ¤
+       ê¼­ëê¸° 2.4 Â· ë°ì¹¨ ìì  18.4 Â· ë°ë¥ 21 ì ëê°ì´ ë§ì·ë¤. -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+    <symbol id="pc-rook" viewBox="0 0 24 24">
+      <path d="M4.5 2.4h3.8v2.4h1.8V2.4h3.8v2.4h1.8V2.4h3.8v4.8H17.6l1.4 11.2H5L6.4 7.2H4.5Z"/>
+      <path d="M3 18.4h18v2.6H3z"/>
+    </symbol>
+    <symbol id="pc-knight" viewBox="0 0 24 24">
+      <path d="M15.3 2.4c-1.2 1-2.4 2-3.7 2.9L10.2 3.5 6.6 7.8C5.3 9.3 4.6 10.6 4.6 11.7c0 1 .5 1.7 1.4 1.9.6.2 1.2 0 1.6-.4l2.1-2 1.3 1.4-2.6 3.1c-.8.9-1.2 1.8-1.2 2.7H19.4v-5.6c0-4.4-1.4-8-4.1-10.4Z"/>
+      <path d="M3 18.4h18v2.6H3z"/>
+    </symbol>
+    <symbol id="pc-bishop" viewBox="0 0 24 24">
+      <circle cx="12" cy="4.25" r="1.85"/>
+      <path fill-rule="evenodd" d="M12 5c3.1 2.6 5.1 5.4 5.1 7.8 0 .9-.2 1.7-.7 2.4H7.6c-.5-.7-.7-1.5-.7-2.4C6.9 10.4 8.9 7.6 12 5Zm2.6 3.2-1.3-1.2-3.6 3.9 1.3 1.2 3.6-3.9Z"/>
+      <path d="M6 15.6h12v2.8H6z"/>
+      <path d="M3 18.4h18v2.6H3z"/>
+    </symbol>
+  </defs></svg>
   <a class="skip-link" href="#board-main">본문 바로가기</a>
   <header class="site-header">
     <a class="brand-mark" href="index.html" aria-label="메인으로 이동"><b>CHECKMATE</b><span>주시원</span></a>
@@ -128,27 +148,15 @@
             </div>
           </article>
 
-          <!-- ── 아직 두지 않은 수 — 남은 세 말 자리 ─────────────────────── -->
-          <aside class="bd-next" style="left:310px;top:1160px;width:540px">
-            <p class="bd-next__k">NEXT MOVES</p>
-            <p class="bd-next__t">KING · QUEEN · PAWN — 이어서 둘 수</p>
-            <div class="bd-next__row">
-              <div class="bd-next__sq"><span aria-hidden="true">&#9812;</span><b>KING</b></div>
-              <div class="bd-next__sq"><span aria-hidden="true">&#9813;</span><b>QUEEN</b></div>
-              <div class="bd-next__sq"><span aria-hidden="true">&#9817;</span><b>PAWN</b></div>
-            </div>
-            <p class="bd-next__m">남은 세 말에도 역량을 놓는 중입니다.</p>
-          </aside>
-
         </div>
         </div>
       </div>
 
       <!-- 말로 바로 가기 — 판 아래 가운데에 띄운다 -->
       <div class="bd-jump" role="group" aria-label="말로 바로 가기">
-        <button type="button" data-go="piece-rook"><span aria-hidden="true">&#9814;</span>ROOK</button>
-        <button type="button" data-go="piece-knight"><span aria-hidden="true">&#9816;</span>KNIGHT</button>
-        <button type="button" data-go="piece-bishop"><span aria-hidden="true">&#9815;</span>BISHOP</button>
+        <button type="button" data-go="piece-rook"><svg class="bd-pc" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#pc-rook"></use></svg>ROOK</button>
+        <button type="button" data-go="piece-knight"><svg class="bd-pc" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#pc-knight"></use></svg>KNIGHT</button>
+        <button type="button" data-go="piece-bishop"><svg class="bd-pc" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#pc-bishop"></use></svg>BISHOP</button>
       </div>
 
       <!-- 둘러보는 법 — 쪽 왼쪽 아래에 작게 (2026-11-25 사용자 지정) -->
@@ -196,7 +204,7 @@
     </div>
   </footer>
 
-  <script src="board.js?v=100"></script>
-  <script src="motion.js?v=100"></script>
+  <script src="board.js?v=101"></script>
+  <script src="motion.js?v=101"></script>
 </body>
 </html>

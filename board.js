@@ -26,7 +26,13 @@
      96px 자리를 그대로 둔 채 칸만 12px → 18.8px 로 커진다.
      d 는 차는 차례다 — 가까운 칸부터 켜진다. */
   var N = 5, AT = { c: 2, r: 2 };
-  var GLYPH = { rook: '♜', knight: '♞', bishop: '♝' };
+  /* 말 그림은 board.html 맨 위 숨은 묶음(<symbol id="pc-…">)에서 가져다 쓴다.
+     글꼴 기호(♜ ♞ ♝)는 기기마다 굵기 · 밑선이 달라 칸 안에서 제각각 어긋났다.
+     직접 그린 그림이라 세 말이 같은 꼭대기 · 같은 받침에 선다 (2026-11-25 사용자 지정). */
+  function pcIcon(kind) {
+    return '<svg class="bd-pc" viewBox="0 0 24 24" aria-hidden="true" focusable="false">' +
+           '<use href="#pc-' + kind + '"></use></svg>';
+  }
 
   function movesOf(kind) {
     var out = {}, i, c, r;
@@ -62,7 +68,7 @@
         key = c + ',' + r;
         if (c === AT.c && r === AT.r) {
           cell.className = 'pc';
-          cell.textContent = GLYPH[kind] || '';
+          cell.innerHTML = pcIcon(kind);
         } else if (mv[key] !== undefined) {
           cell.className += (cell.className ? ' ' : '') + 'mv';
           cell.style.setProperty('--d', mv[key]);
@@ -265,9 +271,6 @@
         [].slice.call(p.querySelectorAll('.bd-t')).forEach(function (t) { put(t); });
         var c = p.querySelector('.bd-card');
         if (c) put(c, 'is-pc');                  /* 말이 선 칸 — 하나만 진하게 */
-      });
-      [].slice.call(canvas.querySelectorAll('.bd-next')).forEach(function (n) {
-        put(n, 'is-next');                       /* 아직 두지 않은 수 — 빈 칸으로 */
       });
       box = document.createElement('span');
       box.className = 'bd-map__v';
