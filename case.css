@@ -2084,3 +2084,26 @@ html.rv-js .kc .chk.rv.in > *{opacity:1;translate:0 0;scale:1;
 .kc .str-t{margin-top:auto;padding-top:var(--s-5)}
 .kc .cs .cr-i{display:flex;flex-direction:column}
 .kc .cs .cr-br{margin-top:auto;padding-top:var(--s-2)}
+
+/* ══ 벤치마킹 한 화면에 담기 — 1101px 이상 (2026-11-25 사용자 지정) ══════
+   1920×1080 화면에서 제목 · 머리글 · 목록 · 화면이 한 번에 들어와야 한다.
+   실측 976px 였다(머리띠 78 을 더하면 1054 — 브라우저 창에서는 넘친다).
+   칸을 늘리지 않고 단추 · 안쪽 여백 · 그림 크기만 줄여 780px 로 맞췄다(여덟 칸 다 잼).
+   좁은 화면(≤1100)은 세로로 펴지는 자리라 그대로 둔다. */
+@media (min-width:1101px){
+  /* 목록 칸을 조금 넓혀 둔다 — 설명 글이 덜 접혀서 펼친 칸이 그만큼 낮아진다 */
+  .kc .ab.bq{margin-top:var(--s-5);padding:var(--s-5) var(--s-6);
+    grid-template-columns:36px 400px minmax(0,1fr)}
+  .kc .bq .ab-ls{gap:6px}
+  .kc .bq .ab-b{min-height:40px;padding:4px 20px 4px 10px}
+  .kc .bq .ab-b .pl{width:24px;height:24px}
+  .kc .bq .ab-d{padding:var(--s-4) var(--s-6)}
+  .kc .bq .ab-dh{margin-top:8px}
+  .kc .bq .ab-dl{margin-top:9px}
+  .kc .bq .ab-g{padding:var(--s-5)}
+  /* 그림은 목록 칸 높이 안에 들어오는 크기로 — 680×1244 라 세로가 길다.
+     낮은 창에서는 창 높이에 맞춰 같이 줄어든다(380px 아래로는 안 내려간다). */
+  .kc .bq-im{width:auto}
+  .kc .bq-im img{width:auto;height:auto;max-width:min(288px,100%);
+    max-height:clamp(380px,calc(100vh - 400px),527px)}
+}

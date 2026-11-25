@@ -265,18 +265,42 @@
   if (map) {
     K = 180 / CW;
     map.style.height = Math.round(CH * K) + 'px';
-    pieces.concat([].slice.call(canvas.querySelectorAll('.bd-next'))).forEach(function (p) {
-      var d = document.createElement('span');
-      d.className = 'bd-map__p';
-      d.style.left = (p.offsetLeft * K) + 'px';
-      d.style.top = (p.offsetTop * K) + 'px';
-      d.style.width = Math.max(3, p.offsetWidth * K) + 'px';
-      d.style.height = Math.max(3, p.offsetHeight * K) + 'px';
+    /* 작은 판에도 말이 가는 모양 그대로 그린다 (2026-11-25 사용자 지정).
+       말 묶음을 네모 하나로 치면 넷 다 똑같은 덩어리가 된다. 칸을 하나씩 찍으면
+       십자(ROOK) · ㄱ자(KNIGHT) · 대각선(BISHOP)이 작은 판에서도 바로 읽힌다. */
+    function at(el) {                            /* 판 맨 위 왼쪽을 기준으로 한 자리 */
+      var x = 0, y = 0, p = el;
+      while (p && p !== canvas) { x += p.offsetLeft; y += p.offsetTop; p = p.offsetParent; }
+      return { x: x, y: y, w: el.offsetWidth, h: el.offsetHeight };
+    }
+    function put(el, cls) {
+      var r = at(el), d = document.createElement('span');
+      d.className = 'bd-map__p' + (cls ? ' ' + cls : '');
+      d.style.left = (r.x * K) + 'px';
+      d.style.top = (r.y * K) + 'px';
+      d.style.width = Math.max(2, r.w * K) + 'px';
+      d.style.height = Math.max(2, r.h * K) + 'px';
       map.appendChild(d);
-    });
-    box = document.createElement('span');
-    box.className = 'bd-map__v';
-    map.appendChild(box);
+    }
+    /* 칸 자리는 글꼴이 앉은 뒤에야 제자리를 잡고, 세로로 편 판(≤900px)에서는
+       아예 다른 자리가 나온다. 그래서 한 번 그리고 마는 대신 다시 그릴 수 있게 둔다. */
+    function drawMap() {
+      map.textContent = '';
+      pieces.forEach(function (p) {
+        [].slice.call(p.querySelectorAll('.bd-t')).forEach(function (t) { put(t); });
+        var c = p.querySelector('.bd-card');
+        if (c) put(c, 'is-pc');                  /* 말이 선 칸 — 하나만 진하게 */
+      });
+      [].slice.call(canvas.querySelectorAll('.bd-next')).forEach(function (n) {
+        put(n, 'is-next');                       /* 아직 두지 않은 수 — 빈 칸으로 */
+      });
+      box = document.createElement('span');
+      box.className = 'bd-map__v';
+      map.appendChild(box);
+    }
+    drawMap();
+    map.__draw = drawMap;
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { drawMap(); paint(); });
 
     map.addEventListener('click', function (e) {
       if (!isCanvas()) return;
@@ -316,7 +340,11 @@
     if (tick) return;
     tick = requestAnimationFrame(function () { tick = 0; paint(); });
   }, { passive: true });
-  window.addEventListener('resize', function () { readK(); fitHeight(); paint(); });
+  window.addEventListener('resize', function () {
+    readK(); fitHeight();
+    if (map && map.__draw) map.__draw();        /* 칸 자리가 창 폭을 타므로 다시 그린다 */
+    paint();
+  });
 
   /* ── 5 · 손가락만 쓰는 기기 — 눌러서 색 채우기 ────────────────────
      쥐로 올리는 것과 똑같이 칸 하나씩 채운다. */
