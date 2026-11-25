@@ -349,8 +349,10 @@
   /* ── 5 · 손가락만 쓰는 기기 — 눌러서 색 채우기 ────────────────────
      쥐로 올리는 것과 똑같이 칸 하나씩 채운다. */
   if (window.matchMedia && window.matchMedia('(hover: none)').matches) {
-    var hint = document.querySelector('.bd-hint');
-    if (hint) hint.textContent = '사진을 눌러 보세요';
+    /* 안내 글도 손가락 말로 바꾼다 — '올리기 · 가장자리' 는 쥐가 있어야 되는 말이다 */
+    var hl = document.querySelector('.bd-howto ul');
+    if (hl) hl.innerHTML = '<li><b>누르기</b><span>사진을 누르면 그 칸에 색이 찹니다</span></li>' +
+                           '<li><b>쓸기</b><span>판을 쓸어서 둘러봅니다</span></li>';
     var tiles = [].slice.call(canvas.querySelectorAll('.bd-t'));
     tiles.forEach(function (t) {
       t.addEventListener('click', function () {
@@ -361,7 +363,9 @@
     });
   }
 
-  /* ── 처음 자리 — 첫 말을 가운데 놓고 연다 ───────────────────────── */
-  if (pieces.length) goTo(pieces[0], false);
+  /* ── 처음 자리 — 쪽 제목을 가운데 놓고 연다 (2026-11-25 사용자 지정) ───
+     제목에서 시작해 사방으로 둘러보는 짜임이다. 제목이 없으면 첫 말로 간다. */
+  var title = canvas.querySelector('.bd-title');
+  if (isCanvas() && title) goTo(title, false);     /* 세로로 편 판은 맨 위가 곧 제목이라 그대로 둔다 */
   paint();
 })();

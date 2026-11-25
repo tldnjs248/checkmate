@@ -5,11 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="주시원 MY BOARD — 체스 말의 이동 범위로 읽는 역량">
   <title>MY BOARD — SIWON JOO</title>
-  <link rel="stylesheet" href="detail.css?v=98">
-  <link rel="stylesheet" href="system.css?v=98">
-  <link rel="stylesheet" href="board.css?v=98">
-  <link rel="stylesheet" href="tokens.css?v=98">
-  <link rel="stylesheet" href="motion.css?v=98">
+  <link rel="stylesheet" href="detail.css?v=99">
+  <link rel="stylesheet" href="system.css?v=99">
+  <link rel="stylesheet" href="board.css?v=99">
+  <link rel="stylesheet" href="tokens.css?v=99">
+  <link rel="stylesheet" href="motion.css?v=99">
   <!-- 자바스크립트가 살아 있을 때만 나타나는 효과를 켠다 (죽으면 글이 그냥 보인다) -->
   <script>(function(d){d.documentElement.classList.add('js-motion');setTimeout(function(){if(!window.__motion)d.documentElement.classList.remove('js-motion');},3000);})(document);</script>
 </head>
@@ -26,33 +26,20 @@
   </header>
 
   <main id="board-main">
-    <!-- 머리말 — 읽는 법을 두 줄로 먼저 준다 -->
-    <section class="bd-intro" aria-labelledby="bd-title">
-      <div class="bd-intro__head">
-        <p class="bd-eyebrow">04 / MY BOARD</p>
-        <h1 id="bd-title">MY BOARD</h1>
-      </div>
-      <div class="bd-intro__copy">
-        <p class="bd-lead">체스 말이 움직이는 모양 그대로 제 역량을 놓았습니다.</p>
-        <p class="bd-note">사진에 올리면 그 칸에 색이 찹니다. 마우스를 가장자리로 옮기면 판이 그쪽으로 움직입니다.</p>
-      </div>
-      <!-- 말로 바로 가기 — 판 위에 띄우면 사진과 설명을 가려서 머리말 줄에 둔다 -->
-      <div class="bd-intro__go">
-        <div class="bd-jump" role="group" aria-label="말로 바로 가기">
-          <button type="button" data-go="piece-rook"><span aria-hidden="true">&#9814;</span>ROOK</button>
-          <button type="button" data-go="piece-knight"><span aria-hidden="true">&#9816;</span>KNIGHT</button>
-          <button type="button" data-go="piece-bishop"><span aria-hidden="true">&#9815;</span>BISHOP</button>
-        </div>
-        <p class="bd-hint">마우스를 움직여 둘러보세요</p>
-      </div>
-    </section>
-
-    <!-- 판 — 안쪽이 2880×1800 캔버스고, 창만큼만 보인다 -->
+    <!-- 판 — 화면 전체가 둘러보는 자리다. 안쪽이 2880×1800 캔버스고, 창만큼만 보인다 -->
     <section class="bd-stage" aria-label="역량 체스판">
       <div class="bd-view" id="bd-view" tabindex="0" role="group" aria-label="마우스를 움직여 둘러보는 판 (끌거나 방향키로도 움직입니다)">
         <!-- 낮은 화면에서는 판 전체를 비율대로 줄인다 — 줄 바꿈이 그대로라 글이 깨지지 않는다 -->
         <div class="bd-sizer">
         <div class="bd-canvas" id="bd-canvas">
+
+          <!-- 쪽 제목 — 말과 말 사이 빈 자리(ROOK 오른쪽 · BISHOP 왼쪽 · KNIGHT 위)에
+               배경처럼 놓는다. 판을 움직이면 제목도 같이 흐른다 -->
+          <header class="bd-title" style="left:950px;top:352px;width:800px">
+            <p class="bd-eyebrow">04 / MY BOARD</p>
+            <h1 id="bd-title">MY BOARD</h1>
+            <p class="bd-lead">저의 다양한 역량들을 확인해보세요!</p>
+          </header>
 
           <!-- ── ROOK · 실행력 — 가로 세로 십자 ───────────────────────── -->
           <article class="bd-piece" id="piece-rook" style="left:200px;top:160px;width:700px">
@@ -157,6 +144,23 @@
         </div>
       </div>
 
+      <!-- 말로 바로 가기 — 판 아래 가운데에 띄운다 -->
+      <div class="bd-jump" role="group" aria-label="말로 바로 가기">
+        <button type="button" data-go="piece-rook"><span aria-hidden="true">&#9814;</span>ROOK</button>
+        <button type="button" data-go="piece-knight"><span aria-hidden="true">&#9816;</span>KNIGHT</button>
+        <button type="button" data-go="piece-bishop"><span aria-hidden="true">&#9815;</span>BISHOP</button>
+      </div>
+
+      <!-- 둘러보는 법 — 쪽 왼쪽 아래에 작게 (2026-11-25 사용자 지정) -->
+      <aside class="bd-howto" aria-label="둘러보는 법">
+        <p class="bd-howto__k">둘러보는 법</p>
+        <ul>
+          <li><b>올리기</b><span>사진에 올리면 그 칸에 색이 찹니다</span></li>
+          <li><b>가장자리</b><span>판이 그쪽으로 움직입니다</span></li>
+          <li><b>끌기</b><span>끌거나 방향키로도 움직입니다</span></li>
+        </ul>
+      </aside>
+
       <!-- 지금 보는 자리 — 판의 빈 귀퉁이에 작게 띄운다 -->
       <div class="bd-map" id="bd-map" aria-hidden="true"></div>
     </section>
@@ -192,7 +196,7 @@
     </div>
   </footer>
 
-  <script src="board.js?v=98"></script>
-  <script src="motion.js?v=98"></script>
+  <script src="board.js?v=99"></script>
+  <script src="motion.js?v=99"></script>
 </body>
 </html>
