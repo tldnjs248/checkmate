@@ -4,12 +4,11 @@
    이 파일이 죽어도 페이지는 그대로 쓸 수 있다.
      · 판은 overflow:auto 라 손가락 · 휠 · 방향키로 움직인다
      · 색이 차오르는 것은 전부 CSS (:hover · :focus-within)
-   여기서 더해 주는 것은 다섯 가지다.
+   여기서 더해 주는 것은 네 가지다.
      1 미니 판 — 그 말이 갈 수 있는 칸
-     2 줄 · 칸 이름 (a~h · 1~5)
-     3 끌어서 움직이기 · 말로 바로 가기 · 지금 보는 자리
-     4 마우스 탐색 — 가장자리로 가면 판이 그쪽으로 흐른다
-     5 손가락만 쓰는 기기에서 눌러 색 채우기
+     2 끌어서 움직이기 · 말로 바로 가기 · 지금 보는 자리
+     3 마우스 탐색 — 가장자리로 가면 판이 그쪽으로 흐른다
+     4 손가락만 쓰는 기기에서 눌러 색 채우기
    ══════════════════════════════════════════════════════════════════ */
 (function () {
   'use strict';
@@ -18,29 +17,31 @@
   var canvas = document.getElementById('bd-canvas');
   if (!view || !canvas) return;
 
-  var CW = 2880, CH = 1800, CELL = 360;   /* 판 크기와 칸 크기 — board.css 와 같은 값 */
+  var CW = 2880, CH = 1800;               /* 판 크기 — board.css 와 같은 값 */
   var pieces = [].slice.call(canvas.querySelectorAll('.bd-piece'));
 
   /* ── 1 · 미니 판 ────────────────────────────────────────────────
-     말은 늘 (가로 3, 세로 4) 칸에 세운다. 거기서 갈 수 있는 칸을 센다.
+     2026-11-25 사용자 지정 — 판을 8×8 에서 5×5 로 줄이고 말을 한가운데 세운다.
+     십자(ROOK) · ㄱ자(KNIGHT) · 대각선(BISHOP) 이 모두 다섯 칸 안에 꼭 들어차서,
+     96px 자리를 그대로 둔 채 칸만 12px → 18.8px 로 커진다.
      d 는 차는 차례다 — 가까운 칸부터 켜진다. */
-  var AT = { c: 3, r: 4 };
+  var N = 5, AT = { c: 2, r: 2 };
   var GLYPH = { rook: '♜', knight: '♞', bishop: '♝' };
 
   function movesOf(kind) {
     var out = {}, i, c, r;
     function put(c, r, d) {
-      if (c < 0 || c > 7 || r < 0 || r > 7) return;
+      if (c < 0 || c > N - 1 || r < 0 || r > N - 1) return;
       var k = c + ',' + r;
       if (out[k] === undefined || out[k] > d) out[k] = d;
     }
     if (kind === 'rook') {
-      for (i = 1; i <= 7; i++) {
+      for (i = 1; i < N; i++) {
         put(AT.c + i, AT.r, i); put(AT.c - i, AT.r, i);
         put(AT.c, AT.r + i, i); put(AT.c, AT.r - i, i);
       }
     } else if (kind === 'bishop') {
-      for (i = 1; i <= 7; i++) {
+      for (i = 1; i < N; i++) {
         put(AT.c + i, AT.r + i, i); put(AT.c - i, AT.r - i, i);
         put(AT.c + i, AT.r - i, i); put(AT.c - i, AT.r + i, i);
       }
@@ -54,8 +55,8 @@
   [].slice.call(document.querySelectorAll('.bd-mini')).forEach(function (mini) {
     var kind = mini.getAttribute('data-piece');
     var mv = movesOf(kind), r, c, cell, key;
-    for (r = 0; r < 8; r++) {
-      for (c = 0; c < 8; c++) {
+    for (r = 0; r < N; r++) {
+      for (c = 0; c < N; c++) {
         cell = document.createElement('i');
         if ((r + c) % 2) cell.className = 'dk';
         key = c + ',' + r;
@@ -70,32 +71,6 @@
       }
     }
   });
-
-  /* ── 2 · 줄 · 칸 이름 ──────────────────────────────────────────── */
-  var FILES = 'abcdefgh', ranks = CH / CELL;      /* 가로 8칸 · 세로 5칸 */
-  (function () {
-    var i, el;
-    for (i = 0; i < CW / CELL; i++) {
-      el = document.createElement('span');
-      el.className = 'bd-lab';
-      el.textContent = FILES.charAt(i);
-      el.style.left = (i * CELL) + 'px';
-      el.style.top = '14px';
-      el.style.width = CELL + 'px';
-      el.style.textAlign = 'center';
-      canvas.appendChild(el);
-    }
-    for (i = 0; i < ranks; i++) {
-      el = document.createElement('span');
-      el.className = 'bd-lab';
-      el.textContent = String(ranks - i);            /* 체스처럼 아래가 1 */
-      el.style.left = '16px';
-      el.style.top = (i * CELL) + 'px';
-      el.style.height = CELL + 'px';
-      el.style.lineHeight = CELL + 'px';
-      canvas.appendChild(el);
-    }
-  })();
 
   /* 좁은 화면에서는 판을 세로로 펴기 때문에 아래 기능이 모두 뜻을 잃는다 */
   function isCanvas() {
@@ -125,7 +100,7 @@
   /* 움직임을 줄여 달라고 한 사람에게는 따라 흐르는 것도, 부드러운 이동도 끈다 */
   var slow = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ── 3 · 끌어서 움직이기 ───────────────────────────────────────
+  /* ── 2 · 끌어서 움직이기 ───────────────────────────────────────
      손가락은 브라우저가 이미 잘 굴려 주니 쥐 · 펜만 받는다. */
   var drag = null;
   view.addEventListener('pointerdown', function (e) {
@@ -158,7 +133,7 @@
   view.addEventListener('pointercancel', endDrag);
   window.addEventListener('blur', endDrag);
 
-  /* ── 4 · 마우스 탐색 ───────────────────────────────────────────────
+  /* ── 3 · 마우스 탐색 ───────────────────────────────────────────────
      끌지 않아도 둘러볼 수 있게 한다. 판 안에서 마우스가 가운데를 벗어나면
      그쪽으로 판이 흐르고, 가장자리에 가까울수록 빨라진다.
 
@@ -346,7 +321,7 @@
     paint();
   });
 
-  /* ── 5 · 손가락만 쓰는 기기 — 눌러서 색 채우기 ────────────────────
+  /* ── 4 · 손가락만 쓰는 기기 — 눌러서 색 채우기 ────────────────────
      쥐로 올리는 것과 똑같이 칸 하나씩 채운다. */
   if (window.matchMedia && window.matchMedia('(hover: none)').matches) {
     /* 안내 글도 손가락 말로 바꾼다 — '올리기 · 가장자리' 는 쥐가 있어야 되는 말이다 */
