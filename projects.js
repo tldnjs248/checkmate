@@ -39,7 +39,6 @@ const projects = [
     types: ['ai', 'brand'],
     outputs: ['storyboard'],
     period: '2026.09 — 12',
-    order: 3,
   },
   {
     id: 'dmd-graduation',
@@ -49,7 +48,6 @@ const projects = [
     types: ['brand'],
     outputs: ['plan', 'storyboard'],
     period: '2026.09 — 12',
-    order: 4,
   },
   {
     id: 'mould',
@@ -59,27 +57,24 @@ const projects = [
     types: ['service', 'brand'],
     outputs: ['plan'],
     period: '2026.03 — 07',
-    order: 2,
   },
   {
     id: 'korail-talk',
-    featured: 2,
+    featured: 1,
     name: '코레일톡 | 사용자 검증을 통한 예약 승차권 조회 UX/UI 개선',
     description: '사용성 평가와 아이트래킹을 통해 예약 승차권의 반복 탐색 문제를 검증하고, 조회 구조와 사용자 경로를 개선한 프로젝트입니다.',
     types: ['ux'],
     outputs: ['report', 'storyboard'],
     period: '2026.03 — 07',
-    order: 1,
   },
   {
     id: 'lotte-cinema',
-    featured: 1,
+    featured: 2,
     name: '롯데시네마 | 특별관 탐색 경험 개선',
     description: '결제 단계에서 UX로 풀 수 있는 부분이 없다고 판단해 결제를 범위에서 덜어내고, 사용자가 한 번에 수행하는 탐색과 예매를 하나의 흐름으로 합쳐 다루자고 제안했습니다. 특별관을 같은 기준으로 비교하고 그 자리에서 예매로 이어지도록 탐색 구조를 개선했습니다.',
     types: ['ux'],
     outputs: ['proposal', 'storyboard'],
     period: '2026.09 — 12',
-    order: 5,
   },
 ];
 
