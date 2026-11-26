@@ -2192,3 +2192,28 @@ html.rv-js .kc .chk.rv.in > *{opacity:1;translate:0 0;scale:1;
 .kc .ck-c3{background:#404040}  .kc .ck-c4{background:#737373}
 .kc .ck-c5{background:#E5E5E5}  .kc .ck-c6{background:#EFEFEF}
 .kc .ck-c7{background:#F8F8F8}  .kc .ck-c8{background:#FFFFFF}
+
+/* ── AI 활용 다섯 단계 — 계단 (2026-11-27 사용자 지정) ──────────────
+   "얼마나 잘 쓰는지가 바로 이해되게". 단계마다 막대가 한 칸씩 길어져 계단으로 읽힌다.
+   막대 길이는 --n(단계) × 20%. 직접 해낸 단계(.on)만 검게 칠한다.          */
+.kc .ck-ld{margin:var(--s-6) 0 0;padding:0;list-style:none;display:grid;gap:var(--s-2)}
+.kc .ck-ld li{display:grid;grid-template-columns:180px minmax(0,1fr) minmax(0,1fr);gap:var(--s-5);
+  align-items:center;padding:var(--s-4) var(--s-5);border-radius:var(--r-card);background:var(--kcard)}
+.kc .ck-ld-s{position:relative;display:block;height:26px}
+.kc .ck-ld-s i{position:absolute;left:0;bottom:0;height:100%;width:calc(var(--n) * 20%);
+  border-radius:2px;background:var(--kbar-2)}
+.kc .ck-ld li.on .ck-ld-s i{background:var(--label)}
+.kc .ck-ld-n{font:var(--kt-headline);letter-spacing:var(--kls-headline)}
+.kc .ck-ld-n small{margin-right:8px;font:var(--kt-caption);letter-spacing:var(--kls-caption);color:var(--label-3)}
+.kc .ck-ld-d{margin-top:2px;font:var(--kt-subhead);letter-spacing:var(--kls-subhead);color:var(--label-2)}
+.kc .ck-ld-e{font:var(--kt-subhead);letter-spacing:var(--kls-subhead);color:var(--label-2)}
+.kc .ck-ld-e b{font-weight:600;color:var(--label)}
+.kc .ck-ld li:not(.on) .ck-ld-n,.kc .ck-ld li:not(.on) .ck-ld-e{color:var(--label-3)}
+.kc .ck-ld-tag{display:inline-block;padding:2px 8px;border-radius:var(--r-inner);background:var(--bg-3);
+  font:var(--kt-caption);letter-spacing:var(--kls-caption);color:var(--label-2)}
+@media (max-width:900px){
+  .kc .ck-ld li{grid-template-columns:minmax(0,1fr);gap:var(--s-2)}
+  .kc .ck-ld-s{max-width:180px}
+}
+/* 장치 네 칸 바로 아래 맺음 문장이 칸에 붙어 보였다 — 한 단 띄운다 */
+.kc .maps + .bl{margin-top:var(--s-5)}
