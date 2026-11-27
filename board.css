@@ -88,9 +88,15 @@ html::-webkit-scrollbar,body::-webkit-scrollbar{width:0;height:0;display:none}
 /* 1080 높이에서는 그대로, 낮아지면 한 단씩 줄인다.
    머리말 띠를 걷어 판이 116px 높아졌으므로 줄이기 시작하는 길목도 그만큼 내렸다.
    가장 높은 말(ROOK 751px)이 아래 떠 있는 조작 줄(약 100px)에 가리지 않게 잡은 값이다. */
-@media (max-height:940px){ .bd-view{--k:.92} }
-@media (max-height:860px){ .bd-view{--k:.85} }
-@media (max-height:780px){ .bd-view{--k:.80} }
+/* 2026-11-27 사진 묶음을 1.25배로 키웠다(사용자 지정) — ROOK 가 751 → 899px.
+   단마다 「창 높이 − 머리띠 80 − 조작 줄 67 − 위아래 틈 32」 안에 ROOK 가 통째로 들어가는 값이다.
+   1920×1080 에서는 줄이지 않는다. */
+@media (max-height:1077px){ .bd-view{--k:.93} }
+@media (max-height:1014px){ .bd-view{--k:.86} }
+@media (max-height:951px){ .bd-view{--k:.79} }
+@media (max-height:888px){ .bd-view{--k:.72} }
+@media (max-height:825px){ .bd-view{--k:.65} }
+@media (max-height:762px){ .bd-view{--k:.60} }
 
 /* 줄인 판이 차지하는 실제 자리 — 스크롤 범위는 이 상자가 정한다 */
 .bd-sizer{

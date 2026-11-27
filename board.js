@@ -218,9 +218,13 @@
     if (!isCanvas()) { el.scrollIntoView({ block: 'start', behavior: smooth && !slow ? 'smooth' : 'auto' }); return; }
     var w = el.offsetWidth * k, h = el.offsetHeight * k;
     var left = el.offsetLeft * k - (view.clientWidth - w) / 2;
-    var top = h > view.clientHeight - 48
+    /* 아래 떠 있는 조작 줄 위까지만 보이는 자리로 친다 — 말이 줄에 가리지 않게 */
+    var bar = document.querySelector('.bd-jump');
+    var room = bar ? bar.getBoundingClientRect().top - view.getBoundingClientRect().top : view.clientHeight;
+    if (!(room > 0) || room > view.clientHeight) room = view.clientHeight;
+    var top = h > room - 48
       ? el.offsetTop * k - 24                              /* 머리말이 잘리지 않게 위를 맞춘다 */
-      : el.offsetTop * k - (view.clientHeight - h) / 2;
+      : el.offsetTop * k - (room - h) / 2;
     view.scrollTo({ left: left, top: top, behavior: smooth && !slow ? 'smooth' : 'auto' });
   }
 
