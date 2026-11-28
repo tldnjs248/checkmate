@@ -1044,23 +1044,26 @@ helper 도 직접 만든다. 그리고 전체가 하나의 `try` 안이라
 네 상세 페이지의 어긋난 18곳이 이 규칙 하나로 0곳이 됐다.
 검사는 `scratchpad/align.js` (형제 카드의 「글 끝 → 바닥」 거리를 잰다).
 
-## §42 문제 → 해결 세로 세 칸 — `ps` (2026-11-28 사용자 지정)
+## §42 문제 → 해결 — `pz` · `sv` (2026-11-28 사용자 지정, 3차)
 
-칸마다 위가 문제, 아래가 그 해결이다. 처음 쓴 곳은 MOULD 배경조사.
-가로 한 줄(`mp`)로 「문제 → 해결」을 읽게 하면 한 줄이 길어져 짝이 잘 안 보였다.
+MOULD 배경조사. MOULD 웹쇼잉(framer) 구성을 따른다 — 문제 카드 셋을 높이 어긋나게 늘어놓고,
+아래로 내려가며 해결을 사진과 함께 하나씩 만난다. 1차(가로 한 줄 `mp`) → 2차(세로 세 칸 `ps`)를 거쳐 바뀌었다.
 
 ```html
-<div class="ps">
-  <div class="ps-c rv">
-    <div class="ps-p"><p class="ps-h">제목(명사형)</p><p class="ps-t">설명</p></div>
-    <span class="ps-ln" aria-hidden="true"></span>
-    <div class="ps-s"><p class="ps-h">해결 이름</p><p class="ps-t">설명</p></div>
-  </div>
-  … 세 칸
+<div class="pz">
+  <div class="pz-c rv"><p class="pz-n">문제 1</p><p class="pz-h">제목(명사형)</p><p class="pz-t">설명</p></div> … 셋
+</div>
+<p class="sv-k rv">MOULD 의 해결</p>
+<div class="sv">
+  <div class="sv-r">            <!-- 둘째 줄은 sv-r rev — 사진이 오른쪽 -->
+    <div class="sv-f rv"><img …></div>          <!-- 여러 장을 번갈아: sv-f rv mix + img 넷 -->
+    <div class="sv-t rv" style="--k:2"><p class="sv-n">해결 1<span>문제 이름</span></p><p class="sv-h">해결 이름</p><p class="sv-p">설명</p></div>
+  </div> … 셋
 </div>
 ```
 
-- 2차(같은 날, 사용자가 준 장표 모양) — 글 가운데 정렬 · 라벨 없음 · 두 칸 모두 얇은 테두리, 문제는 흰 바탕 · 해결은 `--surface-2` 로 채움. 선은 문제 칸에서 내려와 점에서 멈추고 해결 칸과 16px 떨어진다.
-- 세 칸의 문제끼리 · 해결끼리 높이를 subgrid 로 맞춘다. 그래서 잇는 선이 한 줄에 선다.
-- 900px 아래에서는 한 줄로 쌓아 「문제 1 → 해결 1 → 문제 2 …」 순서로 읽힌다.
-- 문제 제목 셋은 끝을 맞춘다(모두 명사형).
+- 문제 카드: 둘째가 가장 높고 셋째가 가장 낮다(margin-top 110 / 0 / 220). 넘쳤다 돌아오는 곡선(`--bounce`)으로 튀어 오른다.
+- 해결 사진: 아래에서 열리며(clip-path) 커졌던 그림이 제자리로 줄어든다. 글은 반 박자 늦게.
+- `mix`: 네 장이 4초씩 번갈아 바뀐다. 첫 장을 1초 당겨 빈틈이 없다. 움직임 줄이기 설정이면 첫 장만.
+- 바탕은 흰색 그대로 — 웹쇼잉의 검정 바탕은 따르지 않는다. 900px 아래는 카드 한 줄 · 사진 → 글 순서.
+- 사진: `images/mould/sol_wall.webp` · `sol_table.webp` (웹쇼잉 원본, 사용자 제공).
