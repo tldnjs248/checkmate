@@ -2362,3 +2362,31 @@ html.rv-js .kc .dq-c.rv:not(.in) .dq-bt i{transform:scaleY(.04)}
   .kc .dq-bn{font-size:12px}
   .kc .dq-bn small{font-size:11px}
 }
+
+/* ── §44 영상 셋 — fm (2026-11-28 사용자 지정, MOULD 벤치마킹) ───────────────────
+   장표(피그마 585:12086)처럼 한 줄 세 칸. 칸마다 큰 장면 하나 + 작은 장면 셋, 그 아래 이름 ·
+   장점 한 줄 · 가져올 것. 카드 바탕 · 모서리는 §42 pz 와 같은 단. 가져올 것만 굵게 세운다. */
+.kc .fm{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s-5);margin-top:var(--s-6)}
+/* 세 칸의 큰 장면 · 작은 장면 · 이름 · 설명 줄을 subgrid 로 맞춘다 — 이름이 두 줄로 접혀도 아래 줄이 같은 높이에 선다 */
+.kc .fm{grid-template-rows:auto auto auto auto}
+.kc .fm-c{display:grid;grid-template-rows:subgrid;grid-row:span 4;row-gap:var(--s-3);align-content:start;padding:var(--s-4) var(--s-4) var(--s-5);background:var(--kcard);border-radius:calc(var(--r-card) * 1.6)}
+.kc .fm-m,.kc .fm-s button{display:block;width:100%;padding:0;border:0;background:var(--bg-2,#eee);overflow:hidden;cursor:zoom-in;border-radius:var(--r-card)}
+.kc .fm-m{aspect-ratio:510/284}
+.kc .fm-s{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.kc .fm-s button{aspect-ratio:160/89;border-radius:calc(var(--r-card) * .6)}
+.kc .fm-m img,.kc .fm-s img{display:block;width:100%;height:100%;object-fit:cover}
+@media (hover:hover){
+  .kc .fm-m img,.kc .fm-s img{transition:scale 700ms var(--spring)}
+  .kc .fm-m:hover img,.kc .fm-s button:hover img{scale:1.05}
+}
+.kc .fm-t{display:flex;align-items:flex-start;gap:var(--s-2);margin-top:var(--s-3);padding:0 var(--s-1);
+  font:var(--kt-headline);letter-spacing:var(--kls-headline);word-break:keep-all}
+.kc .fm-t .no{flex:none;margin-top:3px}
+.kc .fm-d{display:grid;gap:var(--s-3);margin:0;padding:var(--s-3) var(--s-1) 0;border-top:1px solid var(--line)}
+.kc .fm-d div{display:grid;grid-template-columns:64px minmax(0,1fr);gap:var(--s-2)}
+.kc .fm-d dt{font:var(--kt-caption);color:var(--label-3);padding-top:2px}
+.kc .fm-d dd{margin:0;font:var(--kt-subhead);letter-spacing:var(--kls-subhead);color:var(--label-2);word-break:keep-all;text-wrap:pretty}
+.kc .fm-d .on dt{color:var(--label)}
+.kc .fm-d .on dd{color:var(--label);font-weight:600}
+@media (max-width:1100px){ .kc .fm{gap:var(--s-4)} .kc .fm-d div{grid-template-columns:minmax(0,1fr);gap:2px} }
+@media (max-width:900px){ .kc .fm{grid-template-columns:minmax(0,1fr);grid-template-rows:none} .kc .fm-c{grid-row:auto;grid-template-rows:none} .kc .fm-d div{grid-template-columns:72px minmax(0,1fr);gap:var(--s-2)} }
