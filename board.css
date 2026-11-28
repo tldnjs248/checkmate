@@ -30,6 +30,16 @@
 html{scrollbar-width:none;-ms-overflow-style:none}
 html::-webkit-scrollbar,body::-webkit-scrollbar{width:0;height:0;display:none}
 
+/* 막대를 숨긴 만큼 화면이 넓어져 오른쪽 차림표가 다른 쪽보다 막대 폭만큼 밀린다.
+   board.js 가 잰 막대 폭(--sbw)만큼 들여 다섯 쪽이 같은 자리에 서게 한다 (2026-11-28 사용자 지정).
+   값은 tokens.css 맨 뒤 머리띠 규칙과 같은 식에 --sbw 만 더한 것이다. */
+@media (min-width:721px){
+  html body .site-header .gnb{right:calc(max(var(--gutter),calc((100vw - 1920px) / 2 + 60px)) + var(--sbw,0px))}
+}
+@media (max-width:760px){
+  html body .site-header .gnb{right:calc(var(--gutter) + var(--sbw,0px))!important}
+}
+
 /* ── 쪽 제목 — 판 위에 배경처럼 ──────────────────────────────────
    2026-11-25 사용자 지정 — 화면 전체가 둘러보는 자리가 되도록 머리말 띠를 걷고,
    제목과 한 줄 소개를 판 한가운데 빈 자리(말 사이)에 글로만 놓았다. 판을

@@ -13,6 +13,20 @@
 (function () {
   'use strict';
 
+  /* ── 0 · 머리띠 자리 맞추기 (2026-11-28 사용자 지정) ───────────────
+     이 쪽만 쪽 옆 스크롤 막대를 숨겨서, 막대가 있는 다른 네 쪽보다 화면이 막대 폭만큼 넓다.
+     그대로 두면 쪽을 옮길 때 오른쪽 차림표가 그만큼 밀려 "머리띠가 움직이는" 느낌이 난다.
+     다른 쪽에서 막대가 차지하는 폭을 재어 --sbw 로 넘기고, board.css 가 그만큼 들인다.
+     겹쳐 뜨는 막대(맥 · 휴대폰)는 폭이 0 이라 아무 일도 없다. */
+  (function () {
+    var p = document.createElement('div');
+    p.style.cssText = 'position:absolute;top:-999px;width:100px;height:100px;overflow:scroll';
+    document.body.appendChild(p);
+    var w = p.offsetWidth - p.clientWidth;
+    document.body.removeChild(p);
+    document.documentElement.style.setProperty('--sbw', (w > 0 ? w : 0) + 'px');
+  })();
+
   var view = document.getElementById('bd-view');
   var canvas = document.getElementById('bd-canvas');
   if (!view || !canvas) return;
