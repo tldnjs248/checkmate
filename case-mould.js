@@ -205,7 +205,7 @@ window.CASE_PAGE = [
   "        <div class=\"sv-t rv\" style=\"--k:2\"><p class=\"sv-n\">해결 2<span>공간을 바꾸는 번거로움</span></p><p class=\"sv-h\">즉각적인 공간 변모</p><p class=\"sv-p\">상황과 필요에 따라 색과 질감을 바로 전환</p></div>",
   "      </div>",
   "      <div class=\"sv-r\">",
-  "        <div class=\"sv-f rv mix\"><img src=\"images/mould/room_sky.webp\" alt=\"하늘 테마로 바뀐 방\" loading=\"lazy\" decoding=\"async\"><img src=\"images/mould/room_nature.webp\" alt=\"자연 테마로 바뀐 방\" loading=\"lazy\" decoding=\"async\"><img src=\"images/mould/room_aqua.webp\" alt=\"아쿠아 테마로 바뀐 방\" loading=\"lazy\" decoding=\"async\"><img src=\"images/mould/room_fire.webp\" alt=\"불과 어둠 테마로 바뀐 방\" loading=\"lazy\" decoding=\"async\"></div>",
+  "        <div class=\"sv-f rv mix\"><img src=\"images/mould/sol_mix1.webp\" alt=\"아무것도 띄우지 않은 기본 상태의 거실\" loading=\"lazy\" decoding=\"async\"><img src=\"images/mould/sol_mix2.webp\" alt=\"천장에 하늘이 펼쳐진 거실\" loading=\"lazy\" decoding=\"async\"><img src=\"images/mould/sol_mix3.webp\" alt=\"벽면 가득 구름이 펼쳐진 거실\" loading=\"lazy\" decoding=\"async\"><img src=\"images/mould/sol_mix4.webp\" alt=\"벽면이 수족관으로 바뀐 거실\" loading=\"lazy\" decoding=\"async\"><img src=\"images/mould/sol_mix5.webp\" alt=\"흑백 입체 패턴이 흐르는 화면\" loading=\"lazy\" decoding=\"async\"></div>",
   "        <div class=\"sv-t rv\" style=\"--k:2\"><p class=\"sv-n\">해결 3<span>제한된 공간 활용</span></p><p class=\"sv-h\">계속 새로워지는 공간</p><p class=\"sv-p\">휴식 · 업무 · 취미에 맞춰 환경을 바꿉니다</p></div>",
   "      </div>",
   "    </div>",

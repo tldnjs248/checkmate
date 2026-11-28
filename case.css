@@ -2260,14 +2260,16 @@ html.rv-js .kc .chk.rv.in > *{opacity:1;translate:0 0;scale:1;
 .kc .sv-h{margin-top:var(--s-4);font-size:clamp(28px,2.5vw,42px);font-weight:700;line-height:1.22;letter-spacing:-.035em;word-break:keep-all}
 .kc .sv-p{margin-top:var(--s-4);max-width:24em;font:var(--kt-body);letter-spacing:var(--kls-body);color:var(--label-2);word-break:keep-all;text-wrap:pretty}
 
-/* 해결 3 — 테마 방 넷이 번갈아 바뀐다(한 장 4초). 계속 새로워지는 공간을 그대로 보여 준다 */
-.kc .sv-f.mix img{opacity:0;animation:sv-mix 16s infinite}
-/* 한 장이 보이는 구간은 제 시작에서 1~5초. 첫 장을 1초 당겨 놓아 빈틈 없이 이어진다 */
+/* 해결 3 — 웹쇼잉 장면 다섯이 번갈아 바뀐다(한 장 4초, 한 바퀴 20초). 계속 새로워지는 공간을 그대로 보여 준다.
+   기본 상태(빈 거실)에서 시작해 하늘 · 구름 · 수족관 · 패턴으로 바뀐다 (2026-11-28 사용자 제공 사진).
+   한 장이 보이는 구간은 제 시작에서 1~5초. 첫 장을 1초 당겨 놓아 빈틈 없이 이어진다 */
+.kc .sv-f.mix img{opacity:0;animation:sv-mix 20s infinite}
 .kc .sv-f.mix img:nth-child(1){opacity:1;animation-delay:-1s}
 .kc .sv-f.mix img:nth-child(2){animation-delay:3s}
 .kc .sv-f.mix img:nth-child(3){animation-delay:7s}
 .kc .sv-f.mix img:nth-child(4){animation-delay:11s}
-@keyframes sv-mix{0%{opacity:0}6%{opacity:1}25%{opacity:1}31%{opacity:0}100%{opacity:0}}
+.kc .sv-f.mix img:nth-child(5){animation-delay:15s}
+@keyframes sv-mix{0%{opacity:0}5%{opacity:1}20%{opacity:1}25%{opacity:0}100%{opacity:0}}
 
 /* 쫀득한 등장 — 기본 나타나기(흐림 · 8px)에 얹는다 */
 html.rv-js .kc .pz-c.rv:not(.in){translate:0 56px;scale:.94}
