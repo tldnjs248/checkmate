@@ -1052,15 +1052,15 @@ helper 도 직접 만든다. 그리고 전체가 하나의 `try` 안이라
 ```html
 <div class="ps">
   <div class="ps-c rv">
-    <div class="ps-p"><p class="ps-l">문제 1</p><p class="ps-h">제목(명사형)</p><p class="ps-t">설명</p></div>
+    <div class="ps-p"><p class="ps-h">제목(명사형)</p><p class="ps-t">설명</p></div>
     <span class="ps-ln" aria-hidden="true"></span>
-    <div class="ps-s"><p class="ps-l">해결 1</p><p class="ps-h">해결 이름</p><p class="ps-t">설명</p></div>
+    <div class="ps-s"><p class="ps-h">해결 이름</p><p class="ps-t">설명</p></div>
   </div>
   … 세 칸
 </div>
 ```
 
-- 문제는 옅은 회색(`--kcard`), 해결은 검정 — 위에서 아래로 풀리는 느낌을 색으로 준다.
+- 2차(같은 날, 사용자가 준 장표 모양) — 글 가운데 정렬 · 라벨 없음 · 두 칸 모두 얇은 테두리, 문제는 흰 바탕 · 해결은 `--surface-2` 로 채움. 선은 문제 칸에서 내려와 점에서 멈추고 해결 칸과 16px 떨어진다.
 - 세 칸의 문제끼리 · 해결끼리 높이를 subgrid 로 맞춘다. 그래서 잇는 선이 한 줄에 선다.
 - 900px 아래에서는 한 줄로 쌓아 「문제 1 → 해결 1 → 문제 2 …」 순서로 읽힌다.
 - 문제 제목 셋은 끝을 맞춘다(모두 명사형).
