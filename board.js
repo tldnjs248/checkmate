@@ -17,7 +17,7 @@
   var canvas = document.getElementById('bd-canvas');
   if (!view || !canvas) return;
 
-  var CW = 2880, CH = 1800;               /* 판 크기 — board.css 와 같은 값 */
+  var CW = 3000, CH = 1800;               /* 판 크기 — board.css 와 같은 값 */
   var pieces = [].slice.call(canvas.querySelectorAll('.bd-piece'));
 
   /* ── 1 · 미니 판 ────────────────────────────────────────────────
@@ -83,7 +83,7 @@
     return view.scrollWidth - view.clientWidth > 4;
   }
 
-  /* 말 하나하나의 offset 값은 줄이기 전(2880×1800) 자리다.
+  /* 말 하나하나의 offset 값은 줄이기 전(3000×1800) 자리다.
      스크롤 값은 줄인 뒤 자리라서, 둘을 섞어 쓸 때는 늘 k 를 곱해 준다. */
   var k = 1;
   function readK() {
@@ -328,14 +328,14 @@
     paint();
   });
 
-  /* ── 4 · 손가락만 쓰는 기기 — 눌러서 색 채우기 ────────────────────
-     쥐로 올리는 것과 똑같이 칸 하나씩 채운다. */
+  /* ── 4 · 손가락만 쓰는 기기 — 눌러서 사진 설명 보기 ────────────────
+     쥐로 올리는 것과 똑같이 설명 하나씩 띄운다. */
   if (window.matchMedia && window.matchMedia('(hover: none)').matches) {
     /* 안내 글도 손가락 말로 바꾼다 — '올리기 · 가장자리' 는 쥐가 있어야 되는 말이다 */
     var hl = document.querySelector('.bd-howto ul');
-    if (hl) hl.innerHTML = '<li><b>누르기</b><span>사진을 누르면 그 칸에 색이 찹니다</span></li>' +
+    if (hl) hl.innerHTML = '<li><b>누르기</b><span>사진을 누르면 설명이 나옵니다</span></li>' +
                            '<li><b>쓸기</b><span>판을 쓸어서 둘러봅니다</span></li>';
-    var tiles = [].slice.call(canvas.querySelectorAll('.bd-t'));
+    var tiles = [].slice.call(canvas.querySelectorAll('.bd-cap'));
     tiles.forEach(function (t) {
       t.addEventListener('click', function () {
         var on = t.classList.contains('is-on');
@@ -344,6 +344,27 @@
       });
     });
   }
+
+  /* ── 좁은 화면용 사진 설명 목록 — 설명 층을 그대로 옮겨 묶음 아래에 둔다 ──
+     900px 아래에서만 css 가 보여 준다. 글은 html 한 곳에만 둔다. */
+  [].slice.call(canvas.querySelectorAll('.bd-comp')).forEach(function (comp) {
+    var caps = [].slice.call(comp.querySelectorAll('.bd-cap'));
+    if (!caps.length) return;
+    var ul = document.createElement('ul');
+    ul.className = 'bd-notes';
+    caps.forEach(function (c) {
+      var li = document.createElement('li');
+      var b = document.createElement('b');
+      var s = document.createElement('small');
+      s.textContent = c.getAttribute('data-pos');
+      b.appendChild(s);
+      b.appendChild(document.createTextNode(c.querySelector('.bd-cap__k').textContent));
+      li.appendChild(b);
+      li.appendChild(document.createTextNode(c.querySelector('.bd-cap__t').textContent));
+      ul.appendChild(li);
+    });
+    comp.parentNode.insertBefore(ul, comp.nextSibling);
+  });
 
   /* ── 처음 자리 — 쪽 제목을 가운데 놓고 연다 (2026-11-25 사용자 지정) ───
      제목에서 시작해 사방으로 둘러보는 짜임이다. 제목이 없으면 첫 말로 간다. */

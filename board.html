@@ -5,11 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="주시원 MY BOARD — 체스 말의 이동 범위로 읽는 역량">
   <title>MY BOARD — SIWON JOO</title>
-  <link rel="stylesheet" href="detail.css?v=109">
-  <link rel="stylesheet" href="system.css?v=109">
-  <link rel="stylesheet" href="board.css?v=109">
-  <link rel="stylesheet" href="tokens.css?v=109">
-  <link rel="stylesheet" href="motion.css?v=109">
+  <link rel="stylesheet" href="detail.css?v=110">
+  <link rel="stylesheet" href="system.css?v=110">
+  <link rel="stylesheet" href="board.css?v=110">
+  <link rel="stylesheet" href="tokens.css?v=110">
+  <link rel="stylesheet" href="motion.css?v=110">
   <!-- 자바스크립트가 살아 있을 때만 나타나는 효과를 켠다 (죽으면 글이 그냥 보인다) -->
   <script>(function(d){d.documentElement.classList.add('js-motion');setTimeout(function(){if(!window.__motion)d.documentElement.classList.remove('js-motion');},3000);})(document);</script>
 </head>
@@ -55,14 +55,14 @@
 
           <!-- 쪽 제목 — 말과 말 사이 빈 자리(ROOK 오른쪽 · BISHOP 왼쪽 · KNIGHT 위)에
                배경처럼 놓는다. 판을 움직이면 제목도 같이 흐른다 -->
-          <header class="bd-title" style="left:1038px;top:352px;width:800px">
+          <header class="bd-title" style="left:1165px;top:352px;width:800px">
             <p class="bd-eyebrow">04 / MY BOARD</p>
             <h1 id="bd-title">MY BOARD</h1>
             <p class="bd-lead">저의 다양한 역량들을 확인해보세요!</p>
           </header>
 
           <!-- ── ROOK · 실행력 — 가로 세로 십자 ───────────────────────── -->
-          <article class="bd-piece" id="piece-rook" style="left:200px;top:160px;width:875px">
+          <article class="bd-piece" id="piece-rook" style="left:200px;top:160px;width:920px">
             <header class="bd-head">
               <div class="bd-mini" data-piece="rook" aria-hidden="true"></div>
               <div class="bd-name">
@@ -83,7 +83,7 @@
               </div>
               <div class="bd-card">
                 <p class="bd-card__k">실행력</p>
-                <p class="bd-card__t">낯선 문제일수록 직접 배우고 부딪힙니다.<br>온라인뿐만 아니라 현장까지 확인합니다.</p>
+                <p class="bd-card__t">낯선 문제일수록 직접 부딪힙니다.<br>화면 밖 현장까지 확인합니다.</p>
               </div>
               <div class="bd-t" style="--d:1;left:60.952%;top:30.765%;width:39.048%;height:34.617%;--src:url(images/board/rook-right.webp)">
                 <img src="images/board/rook-right.webp" alt="현장에서 관람객을 인터뷰하는 모습" decoding="async">
@@ -91,12 +91,29 @@
               <div class="bd-t" style="--d:1;left:21.955%;top:65.382%;width:38.997%;height:34.617%;--src:url(images/board/rook-down.webp)">
                 <img src="images/board/rook-down.webp" alt="VR 콘서트 특별관 포스터" decoding="async">
               </div>
+              <!-- 사진 설명 — 올리면 사진이 어두워지고 설명이 뜬다 (2026-11-28 사용자 지정). 한 장면인 칸은 하나로 묶었다 -->
+              <div class="bd-cap" tabindex="0" data-pos="왼쪽" style="left:0%;top:30.765%;width:21.955%;height:34.617%">
+                <p class="bd-cap__k">현장 조사</p>
+                <p class="bd-cap__t">책상 위 조사에서 멈추지 않고, 필드 리서치와 인터뷰를 위해 롯데시네마 잠실점을 직접 찾았습니다.</p>
+              </div>
+              <div class="bd-cap" tabindex="0" data-pos="위" style="left:21.955%;top:0%;width:38.998%;height:30.765%">
+                <p class="bd-cap__k">직접 경험</p>
+                <p class="bd-cap__t">특별관을 이해하려고 광음시네마에서 직접 영화를 관람했습니다. 사용자가 겪을 경험을 먼저 겪어 봤습니다.</p>
+              </div>
+              <div class="bd-cap" tabindex="0" data-pos="오른쪽" style="left:60.952%;top:30.765%;width:39.048%;height:34.617%">
+                <p class="bd-cap__k">사용자 인터뷰</p>
+                <p class="bd-cap__t">앱으로 예매한 관람객 다섯 분을 만나 인터뷰했습니다. 세운 가설을 실제 사용자의 말로 확인했습니다.</p>
+              </div>
+              <div class="bd-cap" tabindex="0" data-pos="아래" style="left:21.955%;top:65.382%;width:38.997%;height:34.618%">
+                <p class="bd-cap__k">현장 확인</p>
+                <p class="bd-cap__t">영화관이 특별관과 관람 경험을 얼마나 알리고 있는지, 현장 홍보물로 확인했습니다.</p>
+              </div>
             </div>
             <p class="bd-src">2026.09.12 롯데시네마 필드리서치 및 현장 인터뷰</p>
           </article>
 
           <!-- ── KNIGHT · 확장성 도전 — 뛰어넘는 ㄱ자 ──────────────────── -->
-          <article class="bd-piece" id="piece-knight" style="left:1200px;top:780px;width:500px">
+          <article class="bd-piece" id="piece-knight" style="left:1302px;top:720px;width:526px">
             <header class="bd-head">
               <div class="bd-mini" data-piece="knight" aria-hidden="true"></div>
               <div class="bd-name">
@@ -107,7 +124,7 @@
             <div class="bd-comp" style="aspect-ratio:1134/1597">
               <div class="bd-card bd-card--kn">
                 <p class="bd-card__k">확장성 · 도전</p>
-                <p class="bd-card__t">분야의 경계를 넘어 경험을 확장합니다.<span class="bd-card__s">AI 동아리 활동 / 졸업 준비위원회</span></p>
+                <p class="bd-card__t">새로운 경험에 도전하고,<br>함께 협업하며 배우는 일을 좋아합니다.</p>
               </div>
               <div class="bd-t" style="--d:1;left:0;top:30.182%;width:52.734%;height:32.561%;--src:url(images/board/knight-1.webp)">
                 <img src="images/board/knight-1.webp" alt="AIM 동아리에서 웹사이트를 함께 만드는 모습" decoding="async">
@@ -118,12 +135,21 @@
               <div class="bd-t" style="--d:3;left:0;top:82.279%;width:52.734%;height:17.721%;--src:url(images/board/knight-3.webp)">
                 <img src="images/board/knight-3.webp" alt="졸업준비위원회 회의 자료를 살펴보는 모습" decoding="async">
               </div>
+              <!-- 사진 설명 — 올리면 사진이 어두워지고 설명이 뜬다 (2026-11-28 사용자 지정). 한 장면인 칸은 하나로 묶었다 -->
+              <div class="bd-cap" tabindex="0" data-pos="위" style="left:0%;top:30.182%;width:52.734%;height:32.561%">
+                <p class="bd-cap__k">AI 동아리 AIM</p>
+                <p class="bd-cap__t">여러 사람과 협업해 AI로 웹사이트를 만들었습니다. Claude와 ChatGPT로 빠르게 익히고, 배운 것을 1학년 후배들에게 다시 가르쳤습니다.</p>
+              </div>
+              <div class="bd-cap" tabindex="0" data-pos="아래" style="left:0%;top:62.743%;width:52.734%;height:37.257%">
+                <p class="bd-cap__k">졸업전시 준비위원회</p>
+                <p class="bd-cap__t">2025년에는 전시팀, 2026년에는 브랜딩팀으로 참여했습니다. 해마다 다른 역할에 도전하며 일의 폭을 넓혔습니다.</p>
+              </div>
             </div>
             <p class="bd-src">2026.10.02 AIM 동아리 활동 — 웹사이트 제작<br>2025 졸업전시준비위원회 전시팀 · 2026 브랜딩팀</p>
           </article>
 
           <!-- ── BISHOP · 발견 유연함 — 대각선 ─────────────────────────── -->
-          <article class="bd-piece" id="piece-bishop" style="left:1800px;top:250px;width:725px">
+          <article class="bd-piece" id="piece-bishop" style="left:2010px;top:250px;width:762px">
             <header class="bd-head">
               <div class="bd-mini" data-piece="bishop" aria-hidden="true"></div>
               <div class="bd-name">
@@ -137,13 +163,22 @@
               </div>
               <div class="bd-card bd-card--bs">
                 <p class="bd-card__k">발견 · 유연함</p>
-                <p class="bd-card__t">다른 직군들과 소통하며,<br>공동의 작업이 이루어지게 합니다.</p>
+                <p class="bd-card__t">다른 직군과 함께하며, 유연하게<br>소통하고 협업하는 법을 길렀습니다.</p>
               </div>
               <div class="bd-t" style="--d:1;left:0;top:66.277%;width:33.333%;height:14.658%;--src:url(images/board/bishop-2.webp)">
                 <img src="images/board/bishop-2.webp" alt="DMD 2025 아카이브 지면" decoding="async">
               </div>
               <div class="bd-t" style="--d:1;left:0;top:80.621%;width:33.333%;height:19.380%;--src:url(images/board/bishop-3.webp)">
                 <img src="images/board/bishop-3.webp" alt="졸업전시 아카이브와 전공 설명회 기록" decoding="async">
+              </div>
+              <!-- 사진 설명 — 올리면 사진이 어두워지고 설명이 뜬다 (2026-11-28 사용자 지정). 한 장면인 칸은 하나로 묶었다 -->
+              <div class="bd-cap" tabindex="0" data-pos="오른쪽 위" style="left:66.667%;top:0%;width:33.333%;height:32.824%">
+                <p class="bd-cap__k">ESG 동아리 RE;ACT</p>
+                <p class="bd-cap__t">방학 활동으로 ESG 주제를 조사해 카드뉴스로 만들었습니다. 낯선 주제도 쉽게 풀어 전하는 연습이었습니다.</p>
+              </div>
+              <div class="bd-cap" tabindex="0" data-pos="왼쪽 아래" style="left:0%;top:66.277%;width:33.333%;height:33.723%">
+                <p class="bd-cap__k">기획 동아리 「초안」</p>
+                <p class="bd-cap__t">디지털미디어디자인과 기획 동아리에서 카드뉴스 팀으로 활동했습니다. 다른 역할의 팀원들과 의견을 맞추며 결과물을 함께 완성했습니다.</p>
               </div>
             </div>
           </article>
@@ -163,7 +198,7 @@
       <aside class="bd-howto" aria-label="둘러보는 법">
         <p class="bd-howto__k">둘러보는 법</p>
         <ul>
-          <li><b>올리기</b><span>사진에 올리면 그 칸에 색이 찹니다</span></li>
+          <li><b>올리기</b><span>사진에 올리면 설명이 나옵니다</span></li>
           <li><b>가장자리</b><span>판이 그쪽으로 움직입니다</span></li>
           <li><b>끌기</b><span>끌거나 방향키로도 움직입니다</span></li>
         </ul>
@@ -205,7 +240,7 @@
     </div>
   </footer>
 
-  <script src="board.js?v=109"></script>
-  <script src="motion.js?v=109"></script>
+  <script src="board.js?v=110"></script>
+  <script src="motion.js?v=110"></script>
 </body>
 </html>
