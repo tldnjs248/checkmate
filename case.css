@@ -2217,3 +2217,24 @@ html.rv-js .kc .chk.rv.in > *{opacity:1;translate:0 0;scale:1;
 }
 /* 장치 네 칸 바로 아래 맺음 문장이 칸에 붙어 보였다 — 한 단 띄운다 */
 .kc .maps + .bl{margin-top:var(--s-5)}
+
+/* ── §42 문제 → 해결 세로 세 칸 — ps (2026-11-28 사용자 지정, MOULD 배경조사) ──
+   칸마다 위가 문제, 아래가 그 해결이다. 가운데 짧은 선과 점이 둘을 잇는다.
+   문제는 옅은 회색, 해결은 검정 — 읽는 눈이 위에서 아래로 「풀린다」.
+   세 칸의 문제끼리 · 해결끼리 높이를 subgrid 로 맞춰 선이 한 줄에 선다. */
+.kc .ps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:auto 48px auto;column-gap:var(--s-4)}
+.kc .ps-c{display:grid;grid-template-rows:subgrid;grid-row:span 3;min-width:0}
+.kc .ps-p,.kc .ps-s{display:flex;flex-direction:column;gap:var(--s-2);padding:var(--s-5);border-radius:var(--r-card)}
+.kc .ps-p{background:var(--kcard)}
+.kc .ps-s{background:var(--label);color:#fff}
+.kc .ps-l{font:var(--kt-caption);letter-spacing:.04em;color:var(--label-3)}
+.kc .ps-s .ps-l{color:rgba(255,255,255,.55)}
+.kc .ps-h{font:var(--kt-title3);letter-spacing:var(--kls-title3);word-break:keep-all}
+.kc .ps-t{font:var(--kt-subhead);letter-spacing:var(--kls-subhead);color:var(--label-2);word-break:keep-all;text-wrap:pretty}
+.kc .ps-s .ps-t{color:rgba(255,255,255,.8)}
+.kc .ps-ln{position:relative;justify-self:center;width:1.5px;background:var(--label)}
+.kc .ps-ln::after{content:"";position:absolute;left:50%;bottom:-4px;width:8px;height:8px;margin-left:-4px;border-radius:50%;background:var(--label)}
+@media (max-width:900px){
+  .kc .ps{grid-template-columns:minmax(0,1fr);grid-template-rows:none;row-gap:var(--s-6)}
+  .kc .ps-c{grid-row:auto;grid-template-rows:auto 36px auto}
+}
