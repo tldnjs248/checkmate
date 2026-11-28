@@ -1067,3 +1067,21 @@ MOULD 배경조사. MOULD 웹쇼잉(framer) 구성을 따른다 — 문제 카�
 - `mix`: 빈 거실(sol_mix1) ↔ 하늘 천장(sol_mix2) 두 장이 4초씩 번갈아 바뀐다. 첫 장을 1초 당겨 빈틈이 없다. 움직임 줄이기 설정이면 첫 장만.
 - 바탕은 흰색 그대로 — 웹쇼잉의 검정 바탕은 따르지 않는다. 900px 아래는 카드 한 줄 · 사진 → 글 순서.
 - 사진: `images/mould/sol_wall.webp` · `sol_table.webp` (웹쇼잉 원본, 사용자 제공).
+
+## §43 설문 두 개 — `dq` (2026-11-28 사용자 지정, MOULD 영상 방향성 도출)
+
+장표(피그마 공부방 585:12477)처럼 왼쪽 원형 도표 · 오른쪽 세로 막대. 카드는 §42 `pz` 와 같은 회색 · 모서리.
+
+```html
+<div class="dq">
+  <figure class="dq-c rv"><figcaption class="dq-q">Q. 질문</figcaption>
+    <div class="dq-dn" style="--n:61.2"><svg viewBox="0 0 120 120"><circle class="tr" cx="60" cy="60" r="44" pathLength="100"/><circle class="vl" … pathLength="100"/></svg>
+      <p class="dq-dv"><b>61.2%</b><span>설명</span></p></div></figure>
+  <figure class="dq-c rv" style="--k:1"><figcaption class="dq-q">Q. 질문 <small>단서</small></figcaption>
+    <div class="dq-vb"><div class="dq-b on" style="--h:96.7;--i:1"><p class="dq-bt"><i><span>29%</span></i></p><p class="dq-bn"><small>위 줄</small>이름</p></div> …</div></figure>
+</div>
+```
+
+- `--n` 은 원의 몫(0~100), `--h` 는 가장 큰 값을 100 으로 둔 막대 높이, `--i` 는 자라는 차례.
+- 강조할 막대만 `on`(검정). 나머지는 `--kbar`.
+- `.dq-vb` 는 `align-items:start` — 이름이 두 줄로 접혀도 막대 바닥이 한 줄에 선다.

@@ -2302,3 +2302,63 @@ html.rv-js .kc .sv-t.rv.in{transition:opacity 600ms var(--ease-out),filter 600ms
   .kc .sv-f.mix img{animation:none}
   .kc .sv-f.mix img:nth-child(n+2){display:none}
 }
+
+/* ── §43 설문 두 개 — dq (2026-11-28 사용자 지정, MOULD 영상 방향성 도출) ──────────
+   장표(피그마 585:12477)처럼 왼쪽 원형 도표 · 오른쪽 세로 막대. 카드 바탕 · 모서리는
+   배경조사 카드(pz)와 같은 단을 쓴다. 강조할 값만 검정(--kfill), 나머지는 회색 막대(--kbar).
+   나타날 때 원은 0 에서 61.2 까지 그려지고, 막대는 왼쪽부터 차례로 바닥에서 자란다. */
+.kc .dq{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.55fr);gap:var(--s-5);margin-top:var(--s-6)}
+.kc .dq-c{
+  display:flex;flex-direction:column;align-items:center;gap:var(--s-6);margin:0;
+  padding:var(--s-6) var(--s-6) var(--s-7);
+  background:var(--kcard);border-radius:calc(var(--r-card) * 1.6);
+}
+.kc .dq-q{
+  align-self:stretch;padding:12px 18px;border-radius:var(--r-card);
+  background:var(--paper);text-align:center;
+  font:var(--kt-label);letter-spacing:var(--kls-label);color:var(--label);word-break:keep-all;
+}
+.kc .dq-q small{font-weight:400;color:var(--label-3);font-size:inherit}
+
+/* 원형 도표 */
+.kc .dq-dn{position:relative;width:min(100%,300px);aspect-ratio:1;margin:auto 0}
+.kc .dq-dn svg{display:block;width:100%;height:100%;transform:rotate(-90deg)}
+.kc .dq-dn circle{fill:none;stroke-width:22}
+.kc .dq-dn .tr{stroke:var(--line)}
+.kc .dq-dn .vl{stroke:var(--kfill);stroke-dasharray:var(--n) 100;transition:stroke-dasharray 1300ms var(--spring) 200ms}
+html.rv-js .kc .dq-c.rv:not(.in) .dq-dn .vl{stroke-dasharray:0 100}
+.kc .dq-dv{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center}
+.kc .dq-dv b{font-size:clamp(34px,3vw,46px);font-weight:700;line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.kc .dq-dv span{font:var(--kt-subhead);letter-spacing:var(--kls-subhead);color:var(--label-2)}
+
+/* 세로 막대 */
+.kc .dq-vb{align-self:stretch;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:var(--s-4);align-items:start;margin-top:auto}
+.kc .dq-b{display:flex;flex-direction:column;align-items:center;gap:var(--s-3);min-width:0}
+.kc .dq-bt{display:flex;align-items:flex-end;justify-content:center;width:100%;height:250px}
+.kc .dq-bt i{
+  display:flex;justify-content:center;width:min(100%,76px);height:calc(var(--h) * 1%);
+  padding-top:12px;border-radius:12px 12px 4px 4px;background:var(--kbar);
+  transform-origin:50% 100%;transition:transform 900ms var(--bounce,cubic-bezier(.34,1.45,.64,1));transition-delay:calc(var(--i,0) * 90ms + 250ms);
+}
+html.rv-js .kc .dq-c.rv:not(.in) .dq-bt i{transform:scaleY(.04)}
+.kc .dq-bt span{font:var(--kt-headline);letter-spacing:var(--kls-headline);font-weight:700;color:var(--label);font-variant-numeric:tabular-nums}
+.kc .dq-b.on .dq-bt i{background:var(--kfill)}
+.kc .dq-b.on .dq-bt span{color:var(--kon-fill,#fff)}
+.kc .dq-bn{display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center;word-break:keep-all;
+  font:var(--kt-label);letter-spacing:var(--kls-label);color:var(--label-2)}
+.kc .dq-bn small{font:var(--kt-caption);font-weight:400;color:var(--label-3)}
+.kc .dq-b.on .dq-bn{color:var(--label)}
+
+@media (max-width:1100px){
+  .kc .dq{grid-template-columns:minmax(0,1fr)}
+  .kc .dq-dn{width:min(100%,260px)}
+}
+@media (max-width:620px){
+  .kc .dq-c{padding:var(--s-5) var(--s-4) var(--s-6)}
+  .kc .dq-vb{gap:var(--s-2)}
+  .kc .dq-bt{height:200px}
+  .kc .dq-bt i{border-radius:8px 8px 3px 3px}
+  .kc .dq-bt span{font-size:13px}
+  .kc .dq-bn{font-size:12px}
+  .kc .dq-bn small{font-size:11px}
+}
