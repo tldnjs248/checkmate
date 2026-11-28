@@ -353,7 +353,7 @@ window.CASE_PAGE = [
   "    <h3 class=\"bh rv\">모든 서비스를 하나의 디스플레이로 제어</h3>",
   "    <p class=\"bl rv\">태블릿 한 대에서 <b>바뀔 룸의 상태를 먼저 보고, 원하는 색이나 테마를 고르고, 슬라이더로 채도 · 밝기 · 웜과 쿨을 조절합니다.</b> 조명 · 화면 · 소리를 따로 켜지 않습니다.</p>",
   "    <figure class=\"shot rv\">",
-  "      <button class=\"shot-b\" type=\"button\" data-lb aria-label=\"MOULD 제어 화면 태블릿 목업 크게 보기\"><img src=\"images/mould/svc_pad.webp\" width=\"1300\" height=\"977\" alt=\"MOULD 제어 화면 — 거실 뷰 · 룸 · 색과 테마 · 조명을 한 화면에서\" loading=\"lazy\" decoding=\"async\" draggable=\"false\"></button>",
+  "      <button class=\"shot-b\" type=\"button\" data-lb aria-label=\"MOULD 제어 화면 태블릿 목업 크게 보기\"><img src=\"images/mould/svc_pad_hd.webp\" width=\"1300\" height=\"977\" alt=\"MOULD 제어 화면 — 거실 뷰 · 룸 · 색과 테마 · 조명을 한 화면에서\" loading=\"lazy\" decoding=\"async\" draggable=\"false\"></button>",
   "    </figure>",
   "    <div class=\"sub rv\">화면을 여섯 영역으로 나눴습니다</div>",
   "    <div class=\"box tiles t3\">",
