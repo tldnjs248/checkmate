@@ -17,7 +17,7 @@
   var canvas = document.getElementById('bd-canvas');
   if (!view || !canvas) return;
 
-  var CW = 3000, CH = 1800;               /* 판 크기 — board.css 와 같은 값 */
+  var CW = 3620, CH = 2100;               /* 판 크기 — board.css 와 같은 값 */
   var pieces = [].slice.call(canvas.querySelectorAll('.bd-piece'));
 
   /* ── 1 · 미니 판 ────────────────────────────────────────────────
@@ -83,7 +83,7 @@
     return view.scrollWidth - view.clientWidth > 4;
   }
 
-  /* 말 하나하나의 offset 값은 줄이기 전(3000×1800) 자리다.
+  /* 말 하나하나의 offset 값은 줄이기 전(3620×2100) 자리다.
      스크롤 값은 줄인 뒤 자리라서, 둘을 섞어 쓸 때는 늘 k 를 곱해 준다. */
   var k = 1;
   function readK() {
